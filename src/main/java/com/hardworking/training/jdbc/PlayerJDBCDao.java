@@ -4,13 +4,12 @@ import com.hardworking.training.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerJDBCDAO {
-    private static Logger logger = LoggerFactory.getLogger(PlayerJDBCDAO.class);
+public class PlayerJDBCDao {
+    private static Logger logger = LoggerFactory.getLogger(PlayerJDBCDao.class);
     static final String DBURL = "jdbc:postgresql://localhost:5430/nba";
     static final String USER = "admin";
     static final String PASS = "password";

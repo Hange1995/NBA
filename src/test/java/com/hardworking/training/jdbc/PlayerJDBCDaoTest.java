@@ -5,10 +5,10 @@ import org.junit.*;
 
 import java.util.List;
 
-public class PlayerJDBCDAOTest {
-    private PlayerJDBCDAO playerJDBCDAO;
+public class PlayerJDBCDaoTest {
+    private PlayerJDBCDao playerJDBCDAO;
     @Before
-    public void init(){ playerJDBCDAO = new PlayerJDBCDAO();}
+    public void init(){ playerJDBCDAO = new PlayerJDBCDao();}
     @Test
     public void getPlayersTest(){
         List<Player> players = playerJDBCDAO.getPlayers();
