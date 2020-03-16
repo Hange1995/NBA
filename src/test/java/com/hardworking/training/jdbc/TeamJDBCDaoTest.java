@@ -7,10 +7,10 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class TeamJDBCDAOTest {
-    private TeamJDBCDAO teamJDBCDAO;
+public class TeamJDBCDaoTest {
+    private TeamJDBCDao teamJDBCDAO;
     @Before
-    public void init(){teamJDBCDAO= new TeamJDBCDAO();}
+    public void init(){teamJDBCDAO= new TeamJDBCDao();}
     @Test
     public void getTeams(){
         List<Team> teams = teamJDBCDAO.getTeams();

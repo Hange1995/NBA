@@ -6,15 +6,15 @@ import org.junit.*;
 
 import java.util.List;
 
-class PositionJDBCTest {
-    private PositionJDBCDAO positionJDBCDAO;
+class PositionJDBCDaoTest {
+    private PositionJDBCDao positionJDBCDAO;
     @Before
-    public void init(){ positionJDBCDAO = new PositionJDBCDAO();}
+    public void init(){ positionJDBCDAO = new PositionJDBCDao();}
     @Test
     public void getPlayersTest(){
         List<Position> positions = positionJDBCDAO.getPositions();
         int expectedNumofPlayer = 3;
-        Assert.assertTrue(expectedNumofPlayer==positions.size())
+        Assert.assertTrue(expectedNumofPlayer==positions.size());
 
     }
 

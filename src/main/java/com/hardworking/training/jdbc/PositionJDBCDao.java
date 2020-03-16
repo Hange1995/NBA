@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PositionJDBCDAO {
+public class PositionJDBCDao {
     static final String DBURL = "jdbc:postgresql://localhost:5430/nba";
     static final String USER = "admin";
     static final String PASS = "password";
