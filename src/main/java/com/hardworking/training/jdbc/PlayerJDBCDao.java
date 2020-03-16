@@ -13,10 +13,9 @@ public class PlayerJDBCDao {
     static final String DBURL = "jdbc:postgresql://localhost:5430/nba";
     static final String USER = "admin";
     static final String PASS = "password";
-
+    List<Player> pLayers = new ArrayList();
 
     public List<Player> getPlayers() {
-        List<Player> pLayers = new ArrayList();
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -80,6 +79,13 @@ public class PlayerJDBCDao {
 //        logger.warn("WARNING");
 //    }
 
+    public void save(Player p){
+        pLayers.add(p);
+    }
+
+    public void delete(){
+        pLayers=new ArrayList<>();
+    }
 
 }
 
