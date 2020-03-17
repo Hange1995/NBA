@@ -1,8 +1,12 @@
 package com.hardworking.training.model;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "player")
 public class Player {
-    public Player() {
-    }
+    public Player() {}
 
     public Player(long id,String name, String firstName, String lastName, double weight, double hight, String team, long positionId,  long teamId) {
         this.id = id;
@@ -15,15 +19,27 @@ public class Player {
         this.positionId = positionId;
         this.teamId = teamId;
     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
+    @Column(name = "weight")
     private double weight;
+    @Column(name = "hight")
     private double hight;
+    @Column(name = "team")
     private String team;
-    private long positionId;
+    @Column(name = "positionid")
+    private long  positionId;
+    @Column(name = "teamid")
     private long teamId;
+
 
     public long getId() {
         return id;
