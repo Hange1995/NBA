@@ -3,7 +3,6 @@ package com.hardworking.training.jdbc;
 import com.hardworking.training.model.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,7 @@ public class PlayerJDBCDao {
                 //Retrieve by column name
                 long id = rs.getLong("id");
                 String name = rs.getString("name");
-                String first_name = rs.getString("first_name");
+                String firstName = rs.getString("first_name");
                 String last_name = rs.getString("last_name");
                 double weight = rs.getDouble("weight");
                 double hight = rs.getDouble("hight");
@@ -45,13 +44,13 @@ public class PlayerJDBCDao {
                 Player player = new Player();
                 player.setId(id);
                 player.setName(name);
-                player.setFirst_name(first_name);
-                player.setLast_name(last_name);
+                player.setFirstName(firstName);
+                player.setLastName(last_name);
                 player.setWeight(weight);
                 player.setHight(hight);
                 player.setTeam(team);
-                player.setPosition_id(position_id);
-                player.setTeam_id(team_id);
+                player.setPositionId(position_id);
+                player.setTeamId(team_id);
 
                 pLayers.add(player);
             }
@@ -72,7 +71,7 @@ public class PlayerJDBCDao {
     }
 
 //    public static void main(String[] args) {
-//        PlayerJDBCDAO playerJDBCDAO = new PlayerJDBCDAO();
+//        PlayerJDBCDao playerJDBCDAO = new PlayerJDBCDao();
 //        System.out.println(playerJDBCDAO.getPlayers());
 //        logger.info("infomation");
 //        logger.debug("debug");
@@ -80,12 +79,62 @@ public class PlayerJDBCDao {
 //    }
 
     public void save(Player p){
-        pLayers.add(p);
+        Connection conn = null;
+        Statement stmt = null;
+
+        String add = "VALUES('"+p.getName()+"','"+p.getFirstName()+"','"+p.getLastName()+
+                "',"+Double.toString(p.getWeight())+","+Double.toString(p.getHight())+","+Long.toString(p.getPositionId())+",'"+p.getTeam()+"',"
+                +Long.toString(p.getTeamId())+")";
+        try {
+            //STEP 2: Open a connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DBURL, USER, PASS);
+            //STEP 3: Execute a query to add player
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+            String sql;
+            sql =  "INSERT INTO Player (name, first_name, last_name, weight, hight, position_id,team,team_id) " +add;
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            //STEP 6: finally block used to close resources
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
     }
 
-    public void delete(){
-        pLayers=new ArrayList<>();
+    public void delete(Player p){
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            //STEP 2: Open a connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DBURL, USER, PASS);
+            //STEP 3: Execute a query to delete player
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+            String sql1;
+            sql1 =  "DELETE FROM player WHERE name='"+p.getName()+"'";
+            stmt.executeUpdate(sql1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            //STEP 4: finally block used to close resources
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
     }
+
 
 }
 

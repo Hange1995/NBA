@@ -1,4 +1,7 @@
-/Users/Hange/IdeaProjects/untitled/hange/src/main/java/com/hardworking/training/debug/FirstClass.java
-/Users/Hange/IdeaProjects/untitled/hange/src/main/java/com/hardworking/training/model/Player.java
-/Users/Hange/IdeaProjects/untitled/hange/src/main/java/com/hardworking/training/merge/Test123.java
-/Users/Hange/IdeaProjects/untitled/hange/src/main/java/com/hardworking/training/jdbc/PlayerJDBCDAO.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/Main.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/TeamJDBCDao.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/PlayerJDBCDao.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/model/Team.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/PositionJDBCDao.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/model/Player.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/model/Position.java

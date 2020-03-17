@@ -4,26 +4,26 @@ public class Player {
     public Player() {
     }
 
-    public Player(long id,String name, String first_name, String last_name, double weight, double hight, String team, long position_id,  long team_id) {
+    public Player(long id,String name, String firstName, String lastName, double weight, double hight, String team, long positionId,  long teamId) {
         this.id = id;
         this.name = name;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.weight = weight;
         this.hight = hight;
         this.team = team;
-        this.position_id = position_id;
-        this.team_id = team_id;
+        this.positionId = positionId;
+        this.teamId = teamId;
     }
     private long id;
     private String name;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private double weight;
     private double hight;
     private String team;
-    private long position_id;
-    private long team_id;
+    private long positionId;
+    private long teamId;
 
     public long getId() {
         return id;
@@ -41,20 +41,20 @@ public class Player {
         this.name = name;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public double getWeight() {
@@ -81,15 +81,15 @@ public class Player {
         this.team = team;
     }
 
-    public long getPosition_id() {
-        return position_id;
+    public long getPositionId() {
+        return positionId;
     }
 
-    public void setPosition_id(long position_id) {
-        this.position_id = position_id;
+    public void setPositionId(long positionId) {
+        this.positionId = positionId;
     }
 
-    public long getTeam_id(){ return team_id; }
+    public long getTeamId(){ return teamId; }
 
-    public void setTeam_id(long team_id){ this.team_id = team_id;}
+    public void setTeamId(long teamId){ this.teamId = teamId;}
 }

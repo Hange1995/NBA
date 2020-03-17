@@ -1,6 +1,8 @@
 package com.hardworking.training.jdbc;
 
+import com.hardworking.training.model.Position;
 import com.hardworking.training.model.Team;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,14 +10,30 @@ import org.junit.Test;
 import java.util.List;
 
 public class TeamJDBCDaoTest {
-    private TeamJDBCDao teamJDBCDAO;
+    private TeamJDBCDao teamJDBCDao;
     @Before
-    public void init(){teamJDBCDAO= new TeamJDBCDao();}
+    public void init() {
+        teamJDBCDao = new TeamJDBCDao();
+        Team team = new Team();
+        team.setId(6);
+        team.setLocation("JB");
+        team.setTeamname("Jimmy");
+        teamJDBCDao.add(team);
+    }
+    @After
+    public void delete(){
+        teamJDBCDao = new TeamJDBCDao();
+        Team team = new Team();
+        team.setId(6);
+        team.setLocation("JB");
+        team.setTeamname("Jimmy");
+        teamJDBCDao.delete(team);
+    }
     @Test
     public void getTeams(){
-        List<Team> teams = teamJDBCDAO.getTeams();
-        int expectedNumofPlayer = 3;
-        Assert.assertEquals(expectedNumofPlayer, teams.size());
+        List<Team> teams = teamJDBCDao.getTeams();
+        int expectedNumoTeam = 3;
+        Assert.assertEquals(expectedNumoTeam, teams.size());
 
     }
 

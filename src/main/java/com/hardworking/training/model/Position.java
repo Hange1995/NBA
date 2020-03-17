@@ -4,11 +4,11 @@ public class Position {
     public Position (){
     }
     private long id;
-    private String positionname;
+    private String positionName;
     private String description;
-    public Position (long id, String positionname, String description){
+    public Position (long id, String positionName, String description){
         this.id = id;
-        this.positionname = positionname;
+        this.positionName = positionName;
         this.description = description;
     }
 
@@ -16,9 +16,9 @@ public class Position {
 
     public void setId(long id) { this.id = id; }
 
-    public String getPositionname() { return positionname; }
+    public String getPositionName() { return positionName; }
 
-    public void setPositionname(String positionname) { this.positionname = positionname; }
+    public void setPositionName(String positionName) { this.positionName = positionName; }
 
     public String getDescription() { return description; }
 
