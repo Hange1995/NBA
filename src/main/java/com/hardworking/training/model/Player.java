@@ -8,13 +8,14 @@ import javax.persistence.*;
 public class Player {
     public Player() {}
 
-    public Player(long id,String name, String firstName, String lastName, double weight, double hight, String team, long positionId,  long teamId) {
+    public Player(long id, String name, String firstName, String lastName,
+                  double weight, double height, String team, long positionId, long teamId) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.weight = weight;
-        this.hight = hight;
+        this.height = height;
         this.team = team;
         this.positionId = positionId;
         this.teamId = teamId;
@@ -22,26 +23,25 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "firstname")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "lastname")
+    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "weight")
-    private double weight;
-    @Column(name = "hight")
-    private double hight;
     @Column(name = "team")
     private String team;
-    @Column(name = "positionid")
+    @Column(name = "position_id")
     private long  positionId;
-    @Column(name = "teamid")
+    @Column(name = "team_id")
     private long teamId;
+    @Column(name = "weight")
+    private double weight;
+    @Column(name = "height")
+    private double height;
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -81,12 +81,12 @@ public class Player {
         this.weight = weight;
     }
 
-    public double getHight() {
-        return hight;
+    public double getHeight() {
+        return height;
     }
 
-    public void setHight(double hight) {
-        this.hight = hight;
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     public String getTeam() {

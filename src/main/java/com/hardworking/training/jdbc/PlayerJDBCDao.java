@@ -36,7 +36,7 @@ public class PlayerJDBCDao {
                 String firstName = rs.getString("first_name");
                 String last_name = rs.getString("last_name");
                 double weight = rs.getDouble("weight");
-                double hight = rs.getDouble("hight");
+                double height = rs.getDouble("height");
                 String team = rs.getString("team");
                 long position_id = rs.getLong("position_id");
                 long team_id = rs.getLong("team_id");
@@ -47,7 +47,7 @@ public class PlayerJDBCDao {
                 player.setFirstName(firstName);
                 player.setLastName(last_name);
                 player.setWeight(weight);
-                player.setHight(hight);
+                player.setHeight(height);
                 player.setTeam(team);
                 player.setPositionId(position_id);
                 player.setTeamId(team_id);
@@ -83,7 +83,7 @@ public class PlayerJDBCDao {
         Statement stmt = null;
 
         String add = "VALUES('"+p.getName()+"','"+p.getFirstName()+"','"+p.getLastName()+
-                "',"+Double.toString(p.getWeight())+","+Double.toString(p.getHight())+","+Long.toString(p.getPositionId())+",'"+p.getTeam()+"',"
+                "',"+Double.toString(p.getWeight())+","+Double.toString(p.getHeight())+","+Long.toString(p.getPositionId())+",'"+p.getTeam()+"',"
                 +Long.toString(p.getTeamId())+")";
         try {
             //STEP 2: Open a connection

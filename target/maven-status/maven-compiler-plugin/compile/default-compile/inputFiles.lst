@@ -1,7 +1,10 @@
 /Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/Main.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/repository/PlayerDao.java
 /Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/TeamJDBCDao.java
 /Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/PlayerJDBCDao.java
 /Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/model/Team.java
 /Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/jdbc/PositionJDBCDao.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/util/HibernateUtil.java
 /Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/model/Player.java
+/Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/repository/PlayerDaoImpl.java
 /Users/Hange/Documents/NBA/src/main/java/com/hardworking/training/model/Position.java

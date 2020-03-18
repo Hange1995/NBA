@@ -15,7 +15,7 @@ public class PlayerJDBCDaoTest {
         p.setFirstName("Jimmy");
         p.setLastName("Butler");
         p.setWeight(104);
-        p.setHight(201);
+        p.setHeight(201);
         p.setTeam("Heats");
         p.setPositionId(2);
         p.setTeamId(1);
@@ -29,7 +29,7 @@ public class PlayerJDBCDaoTest {
         p.setFirstName("Jimmy");
         p.setLastName("Butler");
         p.setWeight(104);
-        p.setHight(201);
+        p.setHeight(201);
         p.setTeam("Heats");
         p.setPositionId(2);
         p.setTeamId(1);
