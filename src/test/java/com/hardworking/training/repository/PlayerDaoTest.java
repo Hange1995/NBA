@@ -11,12 +11,10 @@ import java.util.List;
 
 public class PlayerDaoTest {
     private PlayerDaoImpl playerDaoImpl;
-    private Player p;
+    private Player p= new Player();
     @Before
     public void init() {
         playerDaoImpl = new PlayerDaoImpl();
-        Player p = new Player();
-        p.setId(5);
         p.setName("JB");
         p.setFirstName("Jimmy");
         p.setLastName("Butler");
@@ -36,7 +34,7 @@ public class PlayerDaoTest {
     @Test
     public void getPlayersTest(){
         List<Player> players = playerDaoImpl.getPlayers();
-        int expectedNumofPlayer = 5;
+        int expectedNumofPlayer = 3;
         Assert.assertEquals(expectedNumofPlayer,players.size());
     }
 }

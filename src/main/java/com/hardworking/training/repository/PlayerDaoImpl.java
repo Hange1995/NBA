@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDaoImpl implements PlayerDao {
-    private Logger logger = LoggerFactory.getLogger(PlayerJDBCDao.class);
+    private Logger logger = LoggerFactory.getLogger(PlayerDaoImpl.class);
 
     @Override
     public Player save(Player player) {
@@ -38,7 +38,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public List<Player> getPlayers() {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM player";
+        String hql = "FROM Player";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Query<Player> query = session.createQuery(hql);
@@ -53,14 +53,14 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public boolean delete(Player player) {
-        String hql = "DELETE player as player where player.id = :Id";
+        String hql = "DELETE Player as player where player.name = :name";
         int deletedCount = 0;
         Transaction transaction = null;
         Session session= HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("Id",player.getId());
+            query.setParameter("name",player.getName());
             deletedCount = query.executeUpdate();
             transaction.commit();
             session.close();
