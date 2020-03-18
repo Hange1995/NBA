@@ -1,6 +1,6 @@
 package com.hardworking.training.repository;
 
-import com.hardworking.training.jdbc.PlayerJDBCDao;
+//import com.hardworking.training.jdbc.PlayerJDBCDao;
 import com.hardworking.training.model.Player;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;

@@ -17,7 +17,7 @@ public class TeamJDBCDaoTest {
         Team team = new Team();
         team.setId(6);
         team.setLocation("JB");
-        team.setTeamname("Jimmy");
+        team.setName("Jimmy");
         teamJDBCDao.add(team);
     }
     @After
@@ -26,7 +26,7 @@ public class TeamJDBCDaoTest {
         Team team = new Team();
         team.setId(6);
         team.setLocation("JB");
-        team.setTeamname("Jimmy");
+        team.setName("Jimmy");
         teamJDBCDao.delete(team);
     }
     @Test

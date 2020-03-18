@@ -48,9 +48,9 @@ public class PlayerJDBCDao {
                 player.setLastName(last_name);
                 player.setWeight(weight);
                 player.setHeight(height);
-                player.setTeam(team);
-                player.setPositionId(position_id);
-                player.setTeamId(team_id);
+//                player.setTeam(team);
+//                player.setPositionId(position_id);
+//                player.setTeamId(team_id);
 
                 pLayers.add(player);
             }
@@ -81,10 +81,10 @@ public class PlayerJDBCDao {
     public void save(Player p){
         Connection conn = null;
         Statement stmt = null;
-
-        String add = "VALUES('"+p.getName()+"','"+p.getFirstName()+"','"+p.getLastName()+
-                "',"+Double.toString(p.getWeight())+","+Double.toString(p.getHeight())+","+Long.toString(p.getPositionId())+",'"+p.getTeam()+"',"
-                +Long.toString(p.getTeamId())+")";
+//
+//        String add = "VALUES('"+p.getName()+"','"+p.getFirstName()+"','"+p.getLastName()+
+//                "',"+Double.toString(p.getWeight())+","+Double.toString(p.getHeight())+","+Long.toString(p.getPositionId())+",'"+p.getTeam()+"',"
+//                +Long.toString(p.getTeamId())+")";
         try {
             //STEP 2: Open a connection
             System.out.println("Connecting to database...");
@@ -93,8 +93,8 @@ public class PlayerJDBCDao {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql;
-            sql =  "INSERT INTO Player (name, first_name, last_name, weight, hight, position_id,team,team_id) " +add;
-            stmt.executeUpdate(sql);
+//            sql =  "INSERT INTO Player (name, first_name, last_name, weight, hight, position_id,team,team_id) " +add;
+//            stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

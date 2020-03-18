@@ -37,7 +37,7 @@ public class TeamJDBCDao {
                 //Fill the object
                 Team team = new Team();
                 team.setId(id);
-                team.setTeamname(teamname);
+                team.setName(teamname);
                 team.setLocation(location);
 
                 teams.add(team);
@@ -61,7 +61,7 @@ public class TeamJDBCDao {
         Connection conn = null;
         Statement stmt = null;
 
-        String add = "VALUES('"+team.getLocation()+"','"+team.getTeamname()+"')";
+        String add = "VALUES('"+team.getLocation()+"','"+team.getName()+"')";
         try {
             //STEP 2: Open a connection
             System.out.println("Connecting to database...");
@@ -95,7 +95,7 @@ public class TeamJDBCDao {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql1;
-            sql1 =  "DELETE FROM team WHERE teamname='"+team.getTeamname()+"'";
+            sql1 =  "DELETE FROM team WHERE teamname='"+team.getName()+"'";
             stmt.executeUpdate(sql1);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
-ALTER TABLE player
+ALTER TABLE players
     ADD CONSTRAINT player_position_fk FOREIGN KEY ( position_id )
-        REFERENCES position ( id );
+        REFERENCES positions ( id );
 
-ALTER TABLE player
+ALTER TABLE players
     ADD CONSTRAINT player_team_fk FOREIGN KEY ( team_id )
-        REFERENCES team ( id );
+        REFERENCES teams ( id );

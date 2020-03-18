@@ -2,7 +2,6 @@ com/hardworking/training/model/Player.class
 com/hardworking/training/repository/PositionDao.class
 com/hardworking/training/repository/PlayerDao.class
 com/hardworking/training/jdbc/TeamJDBCDao.class
-com/hardworking/training/jdbc/Main.class
 com/hardworking/training/repository/PlayerDaoImpl.class
 com/hardworking/training/util/HibernateUtil.class
 com/hardworking/training/jdbc/PositionJDBCDao.class

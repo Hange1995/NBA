@@ -4,7 +4,7 @@ package com.hardworking.training.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "player")
+@Table(name = "players")
 public class Player {
     public Player() {}
 
@@ -16,9 +16,9 @@ public class Player {
         this.lastName = lastName;
         this.weight = weight;
         this.height = height;
-        this.team = team;
-        this.positionId = positionId;
-        this.teamId = teamId;
+//        this.team = team;
+//        this.positionId = positionId;
+//        this.teamId = teamId;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +30,17 @@ public class Player {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "team")
-    private String team;
-    @Column(name = "position_id")
-    private long  positionId;
-    @Column(name = "team_id")
-    private long teamId;
+//    @Column(name = "team")
+//    private String team;
+//    @Column(name="position_id")
+//    private long positionId;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "position_id")
+//    private Position position;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
     @Column(name = "weight")
     private double weight;
     @Column(name = "height")
@@ -89,23 +94,24 @@ public class Player {
         this.height = height;
     }
 
-    public String getTeam() {
-        return team;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public void setTeam(String team) {
-        this.team = team;
-    }
+    public Team getTeam() { return team; }
 
-    public long getPositionId() {
-        return positionId;
-    }
+    public void setTeam(Team team) { this.team = team; }
 
-    public void setPositionId(long positionId) {
-        this.positionId = positionId;
-    }
+//    public Position getPosition() { return position; }
+//
+//    public void setPosition(Position position) { this.position = position; }
+//    public long getPositionId() {
+//        return positionId;
+//    }
+//
+//    public void setPositionId(long positionId) {
+//        this.positionId = positionId;
+//    }
 
-    public long getTeamId(){ return teamId; }
-
-    public void setTeamId(long teamId){ this.teamId = teamId;}
+//    public long getTeamId(){ return teamId; }
+//
+//    public void setTeamId(long teamId){ this.teamId = teamId;}
 }
