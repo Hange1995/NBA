@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.util.List;
 
 public class PlayerDaoTest {
-    private PlayerDaoImpl playerDaoImpl;
+    private PlayerDao playerDaoImpl;
     private Player p= new Player();
     @Before
     public void init() {

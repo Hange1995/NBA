@@ -10,12 +10,15 @@ public class Position {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @OneToMany(mappedBy = "team",fetch = FetchType.LAZY)
-//    private List<Player> players;
     @Column(name="id")
     private long id;
+
+    @OneToMany(mappedBy = "position",fetch = FetchType.LAZY)
+    private List<Player> player;
+
     @Column(name="position_name")
     private String positionName;
+
     @Column(name = "description")
     private String description;
     public Position (long id, String positionName, String description){
@@ -39,4 +42,8 @@ public class Position {
     public String getDescription() { return description; }
 
     public void setDescription(String description) { this.description = description; }
+
+    public List<Player> getPlayer() { return player; }
+
+    public void setPlayer(List<Player> player) { this.player = player; }
 }

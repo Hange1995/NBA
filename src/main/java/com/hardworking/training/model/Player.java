@@ -24,10 +24,13 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
 //    @Column(name = "team")
@@ -35,14 +38,17 @@ public class Player {
 //    @Column(name="position_id")
 //    private long positionId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "position_id")
-//    private Position position;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_id")
+    private Position position;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
     @Column(name = "weight")
     private double weight;
+
     @Column(name = "height")
     private double height;
 
@@ -100,9 +106,9 @@ public class Player {
 
     public void setTeam(Team team) { this.team = team; }
 
-//    public Position getPosition() { return position; }
-//
-//    public void setPosition(Position position) { this.position = position; }
+    public Position getPosition() { return position; }
+
+    public void setPosition(Position position) { this.position = position; }
 //    public long getPositionId() {
 //        return positionId;
 //    }
