@@ -7,8 +7,6 @@ import java.util.List;
 public interface PlayerDao {
     Player save(Player player);
     List<Player> getPlayers();
-
-//    Player update (Player player);
     boolean delete(Player player );
 
 }

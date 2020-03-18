@@ -53,14 +53,14 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public boolean delete(Player player) {
-        String hql = "DELETE player as player where player.id = :id";
+        String hql = "DELETE player as player where player.id = :Id";
         int deletedCount = 0;
         Transaction transaction = null;
         Session session= HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("id",player.getId());
+            query.setParameter("Id",player.getId());
             deletedCount = query.executeUpdate();
             transaction.commit();
             session.close();
