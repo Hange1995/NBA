@@ -11,7 +11,9 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PositionDaoImpl implements PositionDao {
     private Logger logger = LoggerFactory.getLogger(PositionDao.class);
 
