@@ -1,5 +1,7 @@
 package com.hardworking.training.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private long id;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "position",fetch = FetchType.LAZY)
     private List<Player> player;
 

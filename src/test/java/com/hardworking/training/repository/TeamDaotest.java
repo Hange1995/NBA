@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AppBootstrap.class)
 public class TeamDaotest {
@@ -53,6 +55,25 @@ public class TeamDaotest {
         Assert.assertNotNull(team);
         Assert.assertEquals(team.getName(),t1.getName());
         Assert.assertTrue(team.getPlayer().size()>1);
+    }
+    @Test
+    public void getTeamBy(){
+        Team team = teamDao.getTeamBy(t1.getId());
+        Assert.assertNotNull(team);
+        Assert.assertEquals(team.getName(),t1.getName());
+        Assert.assertTrue(team.getPlayer().size()>1);
+    }
+    @Test
+    public void getTeamAndPlayers(){
+        String teamname="Heat";
+        List<Object[]> playerList = teamDao.getTeamNameAndPlayers(teamname);
+        Assert.assertEquals(1,playerList.size());
+    }
+    @Test
+    public void getTeamAndPlayerAndPosition(){
+        String teamname="Heat";
+        List<Object[]> playerList = teamDao.getTeamNameAndPlayersAndPosition(teamname);
+        Assert.assertEquals(1,playerList.size());
     }
 
 

@@ -5,6 +5,8 @@ import com.hardworking.training.repository.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeamService {
     @Autowired
@@ -20,5 +22,14 @@ public class TeamService {
     }
     public Team getTeamBy(Long id){
         return teamDao.getTeamBy(id);
+    }
+    public Team update(Team team){
+        return teamDao.update(team);
+    }
+    public List<Object[]> getTeamNameAndPlayers(String teamName){
+        return teamDao.getTeamNameAndPlayers(teamName);
+    }
+    public List<Object[]> getTeamNameAndPlayersAndPosition(String teamName){
+        return teamDao.getTeamNameAndPlayersAndPosition(teamName);
     }
 }

@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class TeamDaoImpl implements TeamDao {
@@ -31,6 +30,25 @@ public class TeamDaoImpl implements TeamDao {
         catch (Throwable throwable){
             if (transaction != null)transaction.rollback();
             logger.error("failure to insert record",throwable);
+            session.close();
+            return null;
+        }
+    }
+
+    @Override
+    public Team update(Team team) {
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(team);
+            transaction.commit();
+            session.close();
+            return team;
+        }
+        catch (Exception e){
+            if (transaction != null)transaction.rollback();
+            logger.error("failure to update record",e);
             session.close();
             return null;
         }
@@ -85,6 +103,43 @@ public class TeamDaoImpl implements TeamDao {
             return result;
         } catch (HibernateException e) {
             logger.error("failure to retrieve data record", e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Object[]> getTeamNameAndPlayers(String teamName) {
+        if (teamName==null) return null;
+        String hql = "FROM Team as team left join team.player where lower(team.name)=:name";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query query = session.createQuery(hql);
+            query.setParameter("name",teamName.toLowerCase());
+            List<Object[]> result = query.list();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            logger.error("failure to get the team name and players",e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Object[]> getTeamNameAndPlayersAndPosition(String teamName) {
+        if (teamName==null)return null;
+        String hql = "FROM Team as team "+
+                "left join team.player as pla "+
+                "left join pla.position as pos "+
+                "where lower(team.name)=:name";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query query = session.createQuery(hql);
+            query.setParameter("name",teamName.toLowerCase());
+            List<Object[]> result = query.list();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            logger.error("can not get both",e);
             return null;
         }
     }

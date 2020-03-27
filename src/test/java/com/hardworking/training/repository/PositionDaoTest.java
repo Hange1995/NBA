@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AppBootstrap.class)
 public class PositionDaoTest {
@@ -55,4 +57,17 @@ public class PositionDaoTest {
         Assert.assertTrue(position.getPlayer().size()>1);
     }
 
+    @Test
+    public void getPositionBy(){
+        Position position = positionDao.getPositionBy(po1.getId());
+        Assert.assertNotNull(position);
+        Assert.assertEquals(position.getPositionName(),po1.getPositionName());
+        Assert.assertTrue(position.getPlayer().size()>1);
+    }
+    @Test
+    public void getPositionAndPlayers(){
+        String posName="PG";
+        List<Object[]> playerList = positionDao.getPositionAndPlayers(posName);
+        Assert.assertEquals(1,playerList.size());
+    }
 }

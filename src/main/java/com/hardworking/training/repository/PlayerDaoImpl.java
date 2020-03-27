@@ -1,6 +1,5 @@
 package com.hardworking.training.repository;
 
-//import com.hardworking.training.jdbc.PlayerJDBCDao;
 import com.hardworking.training.model.Player;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -72,5 +71,46 @@ public class PlayerDaoImpl implements PlayerDao {
             session.close();
             logger.error("unable to delete record",e);
         }return false;
+    }
+
+    @Override
+    public Player update(Player player) {
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(player);
+            transaction.commit();
+            session.close();
+            return player;
+        }
+        catch (Exception e){
+            if (transaction != null)transaction.rollback();
+            logger.error("failure to update record",e);
+            session.close();
+            return null;
+        }
+    }
+
+    @Override
+    public Player getPlayerByName(String name) {
+        Player player = new Player();
+        Transaction transaction = null;
+        String hql = "FROM Player p LEFT JOIN FETCH p.team where p.name = :name";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Query<Player> query = session.createQuery(hql);
+            query.setParameter("name", name);
+            player = query.uniqueResult();
+            transaction.commit();
+            session.close();
+            return player;
+        } catch (Exception e) {
+            if (transaction != null)transaction.rollback();
+            logger.error("failure to get player by name",e);
+            session.close();
+            return null;
+        }
     }
 }

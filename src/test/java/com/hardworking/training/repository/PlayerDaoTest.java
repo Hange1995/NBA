@@ -35,7 +35,7 @@ public class PlayerDaoTest {
     }
     @After
     public void tearDown(){
-//        playerDaoImpl = new PlayerDaoImpl();
+//        playerDaoImpl = new PlayerDaoImpl()
         playerDao.delete(p);
     }
 
@@ -44,6 +44,13 @@ public class PlayerDaoTest {
         List<Player> players = playerDao.getPlayers();
         int expectedNumofPlayer = 5;
         Assert.assertEquals(expectedNumofPlayer,players.size());
+    }
+    @Test
+    public void getPlayerByName(){
+        String name = "Kobe";
+        Player player1 = playerDao.getPlayerByName(name);
+        Assert.assertEquals(player1.getName(),name);
+
     }
 
 }

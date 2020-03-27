@@ -5,6 +5,8 @@ import com.hardworking.training.repository.PositionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PositionService {
     @Autowired
@@ -15,10 +17,14 @@ public class PositionService {
     public boolean delete(Position position){
         return positionDao.delete(position);
     }
-    public Position getPositionEagerBy(Long id){
-        return positionDao.getPositionEagerBy(id);
-    }
+    public Position getPositionEagerBy(Long id){ return positionDao.getPositionEagerBy(id); }
     public Position getPositionBy(Long id){
         return positionDao.getPositionBy(id);
+    }
+    public List<Object[]> getPositionAndPlayers(String positionName){
+        return positionDao.getPositionAndPlayers(positionName);
+    }
+    public Position update(Position position) {
+        return positionDao.update(position);
     }
 }
