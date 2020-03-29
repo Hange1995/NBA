@@ -15,7 +15,7 @@ public class Team {
     @Column(name = "id")
     private long id;
 
-    @OneToMany(mappedBy = "team",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "team",fetch = FetchType.EAGER)
     private List<Player> player;
 
     @Column(name = "name")

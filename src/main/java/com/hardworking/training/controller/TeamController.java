@@ -41,7 +41,7 @@ public class TeamController {
 
     //get a team by name and the player in the team
     @RequestMapping(value = {"/players"},method = RequestMethod.GET)
-    public List<Object[]> getTeamNameAndPlayers(@RequestParam(value = "players") String teamName){
+    public List<Object[]> getTeamNameAndPlayers(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayers(teamName);
     }
 

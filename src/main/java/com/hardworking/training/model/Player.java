@@ -2,6 +2,8 @@ package com.hardworking.training.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
 
 import javax.persistence.*;
 
@@ -11,14 +13,14 @@ public class Player {
     public Player() {}
 
     public Player(long id, String name, String firstName, String lastName,
-                  double weight, double height, String team, long positionId, long teamId) {
+                  double weight, double height, String teamName, long positionId, long teamId) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.weight = weight;
         this.height = height;
-//        this.team = team;
+        this.teamName = this.teamName;
 //        this.positionId = positionId;
 //        this.teamId = teamId;
     }
@@ -35,11 +37,13 @@ public class Player {
 
     @Column(name = "last_name")
     private String lastName;
-//    @Column(name = "team")
-//    private String team;
+//
+    @Column(name = "team")
+    private String teamName;
+
 //    @Column(name="position_id")
 //    private long positionId;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
     private Position position;
@@ -112,7 +116,15 @@ public class Player {
     public Position getPosition() { return position; }
 
     public void setPosition(Position position) { this.position = position; }
-//    public long getPositionId() {
+
+    public String getTeamName() { return teamName; }
+
+    public void setTeamName(String teamName) { this.teamName = teamName; }
+    //    public String getTeam() { return teamName; }
+//
+//    public void setTeam(String team) { this.teamName = team; }
+
+    //    public long getPositionId() {
 //        return positionId;
 //    }
 //

@@ -1,6 +1,8 @@
 package com.hardworking.training.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,15 +17,15 @@ public class Position {
     @Column(name="id")
     private long id;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "position",fetch = FetchType.LAZY)
-    private List<Player> player;
-
     @Column(name="position_name")
     private String positionName;
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "position",fetch = FetchType.EAGER)
+    private List<Player> player;
+
     public Position (long id, String positionName, String description){
         this.id = id;
         this.positionName = positionName;

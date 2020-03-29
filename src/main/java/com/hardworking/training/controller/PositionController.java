@@ -1,5 +1,7 @@
 package com.hardworking.training.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hardworking.training.model.Position;
 import com.hardworking.training.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
