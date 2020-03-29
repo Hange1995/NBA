@@ -14,13 +14,19 @@ public class PositionService {
     public Position save(Position position){
         return positionDao.save(position);
     }
+
     public boolean delete(Position position){
         return positionDao.delete(position);
     }
-    public Position getPositionEagerBy(Long id){ return positionDao.getPositionEagerBy(id); }
+
+    public Position getPositionEagerBy(Long id){
+        return positionDao.getPositionEagerBy(id);
+    }
+
     public Position getPositionBy(Long id){
         return positionDao.getPositionBy(id);
     }
+
     public List<Object[]> getPositionAndPlayers(String positionName){
         return positionDao.getPositionAndPlayers(positionName);
     }

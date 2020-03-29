@@ -12,31 +12,30 @@ import java.util.List;
 public class PositionController {
     @Autowired
     private PositionService positionService;
-    // /positions GET
+    // http://localhost:8080={prefix}
+    // {prefix}/positions{position_id} GET
     @RequestMapping(value = "/{position_id}", method = RequestMethod.GET)
     public Position findPosition(@PathVariable("position_id") Long positionId){
         return positionService.getPositionEagerBy(positionId);
     }
-
-    //save a position
+    //{prefix}/positions POST
     @RequestMapping(value = "",method = RequestMethod.POST)
     public Position save (Position position){
         return positionService.save(position);
     }
-    //delete a position
+    //{prefix}/positions DELETE
     @RequestMapping(value = "",method = RequestMethod.DELETE)
     public boolean delete(Position position ){
         return positionService.delete(position);
     }
-    //update a position info
+    //{prefix}/positions PUT
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Position update(Position position) {
         return positionService.update(position);
     }
-
-    //get position and the player in the position
+    //{prefix}/positions/players?key=value GET
     @RequestMapping(value = "/players",method = RequestMethod.GET)
-    public List<Object[]> getPositionAndPlayers(@RequestParam(value = "players") String positionName){
+    public List<Object[]> getPositionAndPlayers(@RequestParam( value = "position_name") String positionName){
         return positionService.getPositionAndPlayers(positionName);
     }
 
