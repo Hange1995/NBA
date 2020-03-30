@@ -22,13 +22,15 @@ public class PositionController {
     }
     //{prefix}/positions POST
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public Position save (Position position){
-        return positionService.save(position);
+    public Position save (@RequestBody Position position){
+         Position pos = positionService.save(position);
+         if (pos==null) System.out.println("Position is noe created");
+         return pos;
     }
     //{prefix}/positions DELETE
-    @RequestMapping(value = "",method = RequestMethod.DELETE)
-    public boolean delete(Position position ){
-        return positionService.delete(position);
+    @RequestMapping(value = "/{position_name}",method = RequestMethod.DELETE)
+    public boolean delete(@PathVariable("position_name") String positionName ){
+        return positionService.delete(positionName);
     }
     //{prefix}/positions PUT
     @RequestMapping(value = "", method = RequestMethod.PUT)

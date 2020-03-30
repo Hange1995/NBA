@@ -47,7 +47,7 @@ public class PositionDaoTest {
     public void deardown(){
         playerDao.delete(p1);
         playerDao.delete(p2);
-        positionDao.delete(po1);
+        positionDao.delete(po1.getPositionName());
     }
     @Test
     public void getPositionEagerBy(){
@@ -69,5 +69,11 @@ public class PositionDaoTest {
         String posName="PG";
         List<Object[]> playerList = positionDao.getPositionAndPlayers(posName);
         Assert.assertEquals(1,playerList.size());
+    }
+    @Test
+    public void getPositionByName(){
+        String posName="PG";
+        Position position = positionDao.getPositionByName(posName);
+        Assert.assertEquals(posName,position.getPositionName());
     }
 }

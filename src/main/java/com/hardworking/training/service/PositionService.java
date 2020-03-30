@@ -15,8 +15,8 @@ public class PositionService {
         return positionDao.save(position);
     }
 
-    public boolean delete(Position position){
-        return positionDao.delete(position);
+    public boolean delete(String positionName){
+        return positionDao.delete(positionName);
     }
 
     public Position getPositionEagerBy(Long id){

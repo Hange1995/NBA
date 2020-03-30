@@ -36,19 +36,21 @@ public class PositionDaoImpl implements PositionDao {
 
 
     @Override
-    public boolean delete(Position position) {
-        String hql = "DELETE Position as position where position.positionName = :position_name";
-        int deletedCount=0;
+    public boolean delete(String positionName) {
+        String hql = "DELETE Position as pos where pos.positionName = :name";
+        int deletedCount = 0;
         Transaction transaction =null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
-            Query<Player> query= session.createQuery(hql);
-            query.setParameter("position_name",position.getPositionName());
-            deletedCount=query.executeUpdate();
+            Query<Position> query= session.createQuery(hql);
+            query.setParameter("name",positionName);
+            deletedCount = query.executeUpdate();
+//            Position pos=getPositionByName(positionName);
+//            session.delete(pos);
             transaction.commit();
             session.close();
-            return deletedCount>1 ?true :false;
+            return deletedCount >=1 ? true: false;
         }catch (HibernateException e){
             if (transaction != null) transaction.rollback();
             session.close();
@@ -123,4 +125,25 @@ public class PositionDaoImpl implements PositionDao {
         } return position;
     }
 
+    @Override
+    public Position getPositionByName(String positionName) {
+        Position position = new Position();
+        Transaction transaction = null;
+        String hql = "FROM Position pos LEFT JOIN FETCH pos.player where pos.positionName = :name";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Query<Position> query = session.createQuery(hql);
+            query.setParameter("name", positionName);
+            position = query.uniqueResult();
+            transaction.commit();
+            session.close();
+            return position;
+        } catch (Exception e) {
+            if (transaction != null)transaction.rollback();
+            logger.error("failure to get position by name",e);
+            session.close();
+            return null;
+        }
+    }
 }
