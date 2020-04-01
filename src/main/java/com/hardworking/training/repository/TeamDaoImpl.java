@@ -11,7 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Repository
 public class TeamDaoImpl implements TeamDao {
     private Logger logger = LoggerFactory.getLogger(TeamDao.class);
@@ -108,14 +113,14 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Object[]> getTeamNameAndPlayers(String teamName) {
+    public Team getTeamNameAndPlayers(String teamName) {
         if (teamName==null) return null;
-        String hql = "FROM Team as team left join team.player where lower(team.name)=:name";
+        String hql = "FROM Team as team join fetch team.player where team.name=:name";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            Query query = session.createQuery(hql);
-            query.setParameter("name",teamName.toLowerCase());
-            List<Object[]> result = query.list();
+            Query<Team> query = session.createQuery(hql);
+            query.setParameter("name",teamName);
+            Team result = query.uniqueResult();
             session.close();
             return result;
         }catch (HibernateException e){
@@ -125,19 +130,23 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Object[]> getTeamNameAndPlayersAndPosition(String teamName) {
+    public Set<Team> getTeamNameAndPlayersAndPosition(String teamName) {
         if (teamName==null)return null;
         String hql = "FROM Team as team "+
-                "left join team.player as pla "+
-                "left join pla.position as pos "+
-                "where lower(team.name)=:name";
+                "left join fetch team.player as pla "+
+                "join pla.position as pos "+
+//                "where team.id = pla.team.id"+
+                "Where lower(team.name)=:name";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Query query = session.createQuery(hql);
             query.setParameter("name",teamName.toLowerCase());
-            List<Object[]> result = query.list();
+//            HashSet<Team> result = query.getResultList();
+//            Set<Team> listResult = new ArrayList<>();
+            List<Team> result = query.getResultList();
+            Set<Team> setResult = result.stream().collect(Collectors.toSet());
             session.close();
-            return result;
+            return setResult;
         }catch (HibernateException e){
             logger.error("can not get both",e);
             return null;

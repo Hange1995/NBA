@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TeamService {
@@ -26,10 +27,10 @@ public class TeamService {
     public Team update(Team team){
         return teamDao.update(team);
     }
-    public List<Object[]> getTeamNameAndPlayers(String teamName){
+    public Team getTeamNameAndPlayers(String teamName){
         return teamDao.getTeamNameAndPlayers(teamName);
     }
-    public List<Object[]> getTeamNameAndPlayersAndPosition(String teamName){
+    public Set<Team> getTeamNameAndPlayersAndPosition(String teamName){
         return teamDao.getTeamNameAndPlayersAndPosition(teamName);
     }
 }

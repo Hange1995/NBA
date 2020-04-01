@@ -19,8 +19,8 @@ public class PlayerService {
         return playerDao.getPlayers();
     }
 
-    public boolean delete(Player player) {
-        return playerDao.delete(player);
+    public boolean delete(String name) {
+        return playerDao.delete(name);
     }
 
     public Player update(Player player) {
@@ -30,5 +30,7 @@ public class PlayerService {
     public Player getPlayerByName(String name) {
         return playerDao.getPlayerByName(name);
     }
+
+    public Player getPlayerById(Long id){ return playerDao.getPlayerById(id);}
 }
 

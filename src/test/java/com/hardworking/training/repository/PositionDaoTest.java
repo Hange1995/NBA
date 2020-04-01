@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AppBootstrap.class)
@@ -45,8 +46,8 @@ public class PositionDaoTest {
     }
     @After
     public void deardown(){
-        playerDao.delete(p1);
-        playerDao.delete(p2);
+        playerDao.delete(p1.getName());
+        playerDao.delete(p2.getName());
         positionDao.delete(po1.getPositionName());
     }
     @Test
@@ -67,7 +68,7 @@ public class PositionDaoTest {
     @Test
     public void getPositionAndPlayers(){
         String posName="PG";
-        List<Object[]> playerList = positionDao.getPositionAndPlayers(posName);
+        Set<Position> playerList = positionDao.getPositionAndPlayers(posName);
         Assert.assertEquals(1,playerList.size());
     }
     @Test

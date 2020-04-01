@@ -14,18 +14,22 @@ public class PlayerController {
     private PlayerService playerService;
     // Player save
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public Player save(Player player) {
-        return playerService.save(player);
+    public Player save(@RequestBody Player player) {
+        Player pla=playerService.save(player);
+        if (pla==null) System.out.println("Player is not created yet");
+        return pla;
     }
     //delete player
     @RequestMapping(value = "",method = RequestMethod.DELETE)
-    public boolean delete(Player player) {
-        return playerService.delete(player);
+    public boolean delete(@RequestParam(value = "name") String name) {
+        return playerService.delete(name);
     }
     //update player
     @RequestMapping(value = "",method = RequestMethod.PUT)
-    public Player update(Player player) {
-        return playerService.update(player);
+    public Player update(@RequestBody Player player) {
+        Player updatepla = playerService.update(player);
+        if (updatepla==null) System.out.println("The update is failed");
+        return updatepla;
     }
     // Get player
     @RequestMapping(value = "",method = RequestMethod.GET)
@@ -37,5 +41,11 @@ public class PlayerController {
     public Player getPlayerByName(@RequestParam(value = "name") String name) {
         return playerService.getPlayerByName(name);
     }
-
+    @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
+    public Player update(@PathVariable("id") Long Id, @RequestParam("teamName") String teamName) {
+        Player player = playerService.getPlayerById(Id);
+//        player.setTeamName(teamName);
+        player = playerService.update(player);
+        return player;
+    }
 }

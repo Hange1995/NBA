@@ -15,16 +15,15 @@ CREATE TABLE players (
     last_name       VARCHAR(30),
     weight           VARCHAR(30),
     hight         VARCHAR(30),
-	team		  VARCHAR(30),
     position_id   BIGINT,
     team_id        BIGINT
 );
 ALTER TABLE players ADD CONSTRAINT player_pk PRIMARY KEY ( id );
-insert into players (name, first_name, last_name, weight, hight, position_id,team,team_id) values
-('LBJ', 'James', 'LeBorn', '112', '206', 1,'Lakers',2),
-('Kobe', 'Kobe', 'Bryant', '96', '198', 4,'Lakers',2),
-('Duncan', 'Duncan', 'Tim', '113', '211', 2,'Spurs',5),
-('Ginobili', 'Ginobili', 'Manu', '93', '198', 5,'Spurs',5)
+insert into players (name, first_name, last_name, weight, hight, position_id,team_id) values
+('LBJ', 'James', 'LeBorn', '112', '206', 1,2),
+('Kobe', 'Kobe', 'Bryant', '96', '198', 4,2),
+('Duncan', 'Duncan', 'Tim', '113', '211', 2,5),
+('Ginobili', 'Ginobili', 'Manu', '93', '198', 5,5)
 ;
 
 CREATE TABLE teams (

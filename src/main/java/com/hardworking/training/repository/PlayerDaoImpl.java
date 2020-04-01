@@ -1,6 +1,7 @@
 package com.hardworking.training.repository;
 
 import com.hardworking.training.model.Player;
+import com.hardworking.training.model.Position;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -53,7 +54,7 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public boolean delete(Player player) {
+    public boolean delete(String name) {
         String hql = "DELETE Player as player where player.name = :name";
         int deletedCount = 0;
         Transaction transaction = null;
@@ -61,7 +62,7 @@ public class PlayerDaoImpl implements PlayerDao {
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("name",player.getName());
+            query.setParameter("name",name);
             deletedCount = query.executeUpdate();
             transaction.commit();
             session.close();
@@ -110,6 +111,22 @@ public class PlayerDaoImpl implements PlayerDao {
             if (transaction != null)transaction.rollback();
             logger.error("failure to get player by name",e);
             session.close();
+            return null;
+        }
+    }
+
+    @Override
+    public Player getPlayerById(Long id) {
+        String hql = "FROM Player pla where pla.id = :Id";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query<Player> query = session.createQuery(hql);
+            query.setParameter("Id", id);
+            Player result = query.uniqueResult();
+            session.close();
+            return result;
+        } catch (HibernateException e) {
+            logger.error("failure to retrieve data record", e);
             return null;
         }
     }

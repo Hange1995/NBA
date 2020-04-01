@@ -36,7 +36,7 @@ public class PlayerDaoTest {
     @After
     public void tearDown(){
 //        playerDaoImpl = new PlayerDaoImpl()
-        playerDao.delete(p);
+        playerDao.delete(p.getName());
     }
 
     @Test

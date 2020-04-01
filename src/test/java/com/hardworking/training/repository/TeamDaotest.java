@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AppBootstrap.class)
@@ -44,8 +45,8 @@ public class TeamDaotest {
     }
     @After
     public void teardown(){
-        playerDao.delete(p1);
-        playerDao.delete(p2);
+        playerDao.delete(p1.getName());
+        playerDao.delete(p2.getName());
         teamDao.delete(t1);
     }
 
@@ -66,13 +67,14 @@ public class TeamDaotest {
     @Test
     public void getTeamAndPlayers(){
         String teamname="Heat";
-        List<Object[]> playerList = teamDao.getTeamNameAndPlayers(teamname);
-        Assert.assertEquals(1,playerList.size());
+        Team team = teamDao.getTeamNameAndPlayers(teamname);
+        Assert.assertEquals(teamname,team.getName());
     }
     @Test
     public void getTeamAndPlayerAndPosition(){
         String teamname="Heat";
-        List<Object[]> playerList = teamDao.getTeamNameAndPlayersAndPosition(teamname);
+//        long id = 1;
+        Set<Team> playerList = teamDao.getTeamNameAndPlayersAndPosition(teamname);
         Assert.assertEquals(1,playerList.size());
     }
 

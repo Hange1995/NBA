@@ -7,9 +7,10 @@ import java.util.List;
 public interface PlayerDao {
     Player save(Player player);
     List<Player> getPlayers();
-    boolean delete(Player player );
+    boolean delete(String name );
     Player update(Player player);
     Player getPlayerByName(String name);
+    Player getPlayerById(Long id);
 
 
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PositionService {
@@ -27,7 +28,7 @@ public class PositionService {
         return positionDao.getPositionBy(id);
     }
 
-    public List<Object[]> getPositionAndPlayers(String positionName){
+    public Set<Position> getPositionAndPlayers(String positionName){
         return positionDao.getPositionAndPlayers(positionName);
     }
     public Position update(Position position) {

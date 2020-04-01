@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class PositionDaoImpl implements PositionDao {
@@ -92,16 +94,17 @@ public class PositionDaoImpl implements PositionDao {
     }
 
     @Override
-    public List<Object[]> getPositionAndPlayers(String positionName) {
+    public Set<Position> getPositionAndPlayers(String positionName) {
         if (positionName==null) return null;
-        String hql = "FROM Position as position left join position.player where lower(position.positionName)=:name";
+        String hql = "FROM Position as position left join fetch position.player where lower(position.positionName)=:name";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Query query = session.createQuery(hql);
             query.setParameter("name",positionName.toLowerCase());
-            List<Object[]> result= query.list();
+            List<Position> result= query.list();
+            Set<Position> setresult= result.stream().collect(Collectors.toSet());
             session.close();
-            return result;
+            return setresult;
         }catch (HibernateException e){
             logger.error("Can not get position and players",e);
             return null;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -15,23 +16,25 @@ public class Team {
     @Column(name = "id")
     private long id;
 
-    @OneToMany(mappedBy = "team",fetch = FetchType.EAGER)
-    private List<Player> player;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "location")
     private String location;
+
+    @OneToMany(mappedBy = "team",fetch = FetchType.EAGER)
+    private Set<Player> player;
+
     public Team(long id, String name, String location) {
         this.id = id;
         this.name = name;
         this.location = location;
     }
 
-    public List<Player> getPlayer() { return player; }
+    public Set<Player> getPlayer() { return player; }
 
-    public void setPlayer(List<Player> player) { this.player = player; }
+    public void setPlayer(Set<Player> player) { this.player = player; }
 
     public long getId() { return id; }
 

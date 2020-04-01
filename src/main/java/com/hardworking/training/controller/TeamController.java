@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = {"/teams","/team","/tm"})
@@ -41,13 +42,13 @@ public class TeamController {
 
     //get a team by name and the player in the team
     @RequestMapping(value = {"/players"},method = RequestMethod.GET)
-    public List<Object[]> getTeamNameAndPlayers(@RequestParam(value = "name") String teamName){
+    public Team getTeamNameAndPlayers(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayers(teamName);
     }
 
     //get a team by name and the player in the team and the position detail of the players
-    @RequestMapping(value = {"/players_position"},method = RequestMethod.GET)
-    public List<Object[]> getTeamNameAndPlayersAndPosition(@RequestParam(value = "name") String teamName){
+    @RequestMapping(value = {"/positions"},method = RequestMethod.GET)
+    public Set<Team> getTeamNameAndPlayersAndPosition(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayersAndPosition(teamName);
     }
 }

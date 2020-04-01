@@ -26,7 +26,7 @@ public class PlayerServiceTest {
     }
     @After
     public void teardown(){
-        playerService.delete(player);
+        playerService.delete(player.getName());
     }
     @Test
     public void getPlayers(){

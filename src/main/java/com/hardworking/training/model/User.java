@@ -1,0 +1,37 @@
+package com.hardworking.training.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    //@SequenceGenerator(name = "user_id_generator", sequenceName = "user_id_seq", allocationSize = 1)
+    //@GeneratedValue(strategy = SEQUENCE, generator = "user_id_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "secret_key")
+    private String secretKey;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "email")
+    private String email;
+
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name ="role_id")}
+
+    )
+    @JsonIgnore
+    private List<Role> roles;
+}

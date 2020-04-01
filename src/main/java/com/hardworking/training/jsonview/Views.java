@@ -7,4 +7,6 @@ public class Views {
     }
     public static class Team{
     }
+    public static class PositionwithPlayer extends Player{
+    }
 }
