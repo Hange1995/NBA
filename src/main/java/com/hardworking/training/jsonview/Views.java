@@ -1,17 +1,16 @@
 package com.hardworking.training.jsonview;
 
 public class Views {
-    public static class Player{
+    public static class PlayerView{
     }
-    public static class Position{
+    public static class PositionView{
     }
-    public static class Team{
+    public static class TeamView {
     }
-//    public static class PositionwithPlayer extends Player{
-//    }
-//    public static class TeamwithPlayer extends Player{
-//    }
-//    public static class TeamwithPositionWithPlayer extends PositionwithPlayer{
-//    }
-
+    public static class PositionView2 extends PositionView {
+    }
+    public static class TeamView2 extends TeamView {
+    }
+    public static class TeamView3 extends TeamView2{
+    }
 }

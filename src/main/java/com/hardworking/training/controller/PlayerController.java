@@ -34,11 +34,13 @@ public class PlayerController {
         return updatepla;
     }
     // Get player
+    @JsonView(Views.PlayerView.class)
     @RequestMapping(value = "",method = RequestMethod.GET)
     public List<Player> getPlayer() {
         return playerService.getPlayer();
     }
     //get the player by specific name
+    @JsonView(Views.PlayerView.class)
     @RequestMapping(value = "/name",method = RequestMethod.GET)
     public Player getPlayerByName(@RequestParam(value = "name") String name) {
         return playerService.getPlayerByName(name);

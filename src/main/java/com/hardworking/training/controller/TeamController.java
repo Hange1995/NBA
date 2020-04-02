@@ -1,11 +1,12 @@
 package com.hardworking.training.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Team;
 import com.hardworking.training.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -26,6 +27,7 @@ public class TeamController {
         return teamService.delete(name);
     }
     //{prefix}/teams/{id} GET
+    @JsonView(Views.TeamView.class)
     @RequestMapping(value = {"/{id}"},method = RequestMethod.GET)
     public Team getTeamEagerBy(@PathVariable(value = "id") Long id){
         return teamService.getTeamEagerBy(id);
@@ -45,12 +47,14 @@ public class TeamController {
     }
 
     //{prefix}/teams/players?value = key GET
+    @JsonView(Views.TeamView2.class)
     @RequestMapping(value = {"/players"},method = RequestMethod.GET)
     public Team getTeamNameAndPlayers(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayers(teamName);
     }
 
     //g{prefix}/teams/positions?key = value GET
+    @JsonView(Views.TeamView3.class)
     @RequestMapping(value = {"/positions"},method = RequestMethod.GET)
     public Set<Team> getTeamNameAndPlayersAndPosition(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayersAndPosition(teamName);

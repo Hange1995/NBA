@@ -1,6 +1,5 @@
 package com.hardworking.training.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 
@@ -15,19 +14,19 @@ public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
+    @JsonView({Views.PositionView.class})
     private long id;
 
     @Column(name="position_name")
-//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private String positionName;
 
     @Column(name = "description")
-//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private String description;
 
     @OneToMany(mappedBy = "position",fetch = FetchType.EAGER)
-//    @JsonView({Views.Position.class})
+    @JsonView({Views.PositionView2.class})
     private List<Player> player;
 
     public Position (long id, String positionName, String description){

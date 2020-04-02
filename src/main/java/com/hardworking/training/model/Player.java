@@ -1,7 +1,6 @@
 package com.hardworking.training.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 
@@ -13,60 +12,59 @@ public class Player {
     public Player() {}
 
     public Player(long id, String name, String firstName, String lastName,
-                  double weight, double height, long positionId, long teamId) {
+                  double weight, double height ,long positionId, long teamId) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.weight = weight;
         this.height = height;
-//        this.teamName = this.teamName;
+//        this.teamName = teamName;
 //        this.positionId = positionId;
 //        this.teamId = teamId;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private Long id;
 
     @Column(name = "name")
-//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private String name;
 
     @Column(name = "first_name")
-//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private String firstName;
 
     @Column(name = "last_name")
-//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private String lastName;
-//    @JsonView({Views.Player.class,Views.Position.class})
+
+    @Column(name = "weight")
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    private double weight;
+
+    @Column(name = "height")
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    private double height;
+//    @JsonView({Views.PlayerView.class})
 //    @Column(name = "team")
 //    private String teamName;
 
 //    @Column(name="position_id")
 //    private long positionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "position_id")
-//    @JsonView({Views.Player.class})
-    @JsonIgnore
+    @JsonView({Views.PlayerView.class,Views.TeamView3.class})
     private Position position;
 
-//    @JsonView({Views.Player.class})
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonView({Views.PlayerView.class})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @Column(name = "weight")
-    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
-    private double weight;
-
-    @Column(name = "height")
-    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
-    private double height;
 
     public Long getId() {
         return id;
