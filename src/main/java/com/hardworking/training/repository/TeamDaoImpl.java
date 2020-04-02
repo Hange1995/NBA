@@ -60,7 +60,7 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public boolean delete(Team team) {
+    public boolean delete(String name) {
         String hql = "DELETE Team as team where team.name = :name";
         int deletedCount = 0;
         Transaction transaction = null;
@@ -68,7 +68,7 @@ public class TeamDaoImpl implements TeamDao {
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("name",team.getName());
+            query.setParameter("name",name);
             deletedCount = query.executeUpdate();
             transaction.commit();
             session.close();
@@ -115,7 +115,7 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public Team getTeamNameAndPlayers(String teamName) {
         if (teamName==null) return null;
-        String hql = "FROM Team as team join fetch team.player where team.name=:name";
+        String hql = "FROM Team as team left join fetch team.player where team.name=:name";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Query<Team> query = session.createQuery(hql);

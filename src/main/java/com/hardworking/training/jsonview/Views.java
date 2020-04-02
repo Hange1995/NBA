@@ -7,6 +7,11 @@ public class Views {
     }
     public static class Team{
     }
-    public static class PositionwithPlayer extends Player{
-    }
+//    public static class PositionwithPlayer extends Player{
+//    }
+//    public static class TeamwithPlayer extends Player{
+//    }
+//    public static class TeamwithPositionWithPlayer extends PositionwithPlayer{
+//    }
+
 }

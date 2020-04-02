@@ -13,17 +13,19 @@ import java.util.Set;
 public class TeamController {
     @Autowired
     private TeamService teamService;
-    //save a team to the list
+    //{prefix}/teams POST
     @RequestMapping(value = {""},method = RequestMethod.POST)
-    public Team save(Team team){
-        return teamService.save(team);
+    public Team save(@RequestBody Team team){
+        Team team1= teamService.save(team);
+        if (team1==null) System.out.println("Create failed");
+        return team1;
     }
-    //delete a team from the list
+    //{prefix}/teams DELETE
     @RequestMapping(value = {""},method = RequestMethod.DELETE)
-    public boolean delete(Team team){
-        return teamService.delete(team);
+    public boolean delete(@RequestParam String name){
+        return teamService.delete(name);
     }
-    //get team eager by
+    //{prefix}/teams/{id} GET
     @RequestMapping(value = {"/{id}"},method = RequestMethod.GET)
     public Team getTeamEagerBy(@PathVariable(value = "id") Long id){
         return teamService.getTeamEagerBy(id);
@@ -33,20 +35,22 @@ public class TeamController {
 //    public Team getTeamBy(Long id){
 //    return teamService.getTeamBy(id);
 //    }
-    //update a team in the list
 
+    //{prefix}/teams PUT
     @RequestMapping(value = {""},method = RequestMethod.PUT)
-    public Team update(Team team){
-        return teamService.update(team);
+    public Team update(@RequestBody Team team){
+        Team teamup=teamService.update(team);
+        if (teamup==null) System.out.println("The update is failed");
+        return teamup;
     }
 
-    //get a team by name and the player in the team
+    //{prefix}/teams/players?value = key GET
     @RequestMapping(value = {"/players"},method = RequestMethod.GET)
     public Team getTeamNameAndPlayers(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayers(teamName);
     }
 
-    //get a team by name and the player in the team and the position detail of the players
+    //g{prefix}/teams/positions?key = value GET
     @RequestMapping(value = {"/positions"},method = RequestMethod.GET)
     public Set<Team> getTeamNameAndPlayersAndPosition(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayersAndPosition(teamName);

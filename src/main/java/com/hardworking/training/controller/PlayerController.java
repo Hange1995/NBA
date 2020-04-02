@@ -1,5 +1,7 @@
 package com.hardworking.training.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Player;
 import com.hardworking.training.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;

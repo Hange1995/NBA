@@ -15,8 +15,8 @@ public class TeamService {
     public Team save(Team team){
         return teamDao.save(team);
     }
-    public boolean delete(Team team){
-        return teamDao.delete(team);
+    public boolean delete(String name){
+        return teamDao.delete(name);
     }
     public Team getTeamEagerBy(Long id){
         return teamDao.getTeamEagerBy(id);

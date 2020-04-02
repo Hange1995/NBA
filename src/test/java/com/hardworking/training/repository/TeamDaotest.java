@@ -47,7 +47,7 @@ public class TeamDaotest {
     public void teardown(){
         playerDao.delete(p1.getName());
         playerDao.delete(p2.getName());
-        teamDao.delete(t1);
+        teamDao.delete(t1.getName());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class TeamDaotest {
     public void getTeamAndPlayers(){
         String teamname="Heat";
         Team team = teamDao.getTeamNameAndPlayers(teamname);
-        Assert.assertEquals(teamname,team.getName());
+        Assert.assertTrue(teamname.equals(team.getName()));
     }
     @Test
     public void getTeamAndPlayerAndPosition(){

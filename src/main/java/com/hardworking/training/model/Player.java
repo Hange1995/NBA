@@ -27,36 +27,45 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private Long id;
 
     @Column(name = "name")
+//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private String name;
 
     @Column(name = "first_name")
+//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private String firstName;
 
     @Column(name = "last_name")
+//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private String lastName;
-//
+//    @JsonView({Views.Player.class,Views.Position.class})
 //    @Column(name = "team")
 //    private String teamName;
 
 //    @Column(name="position_id")
 //    private long positionId;
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
+//    @JsonView({Views.Player.class})
+    @JsonIgnore
     private Position position;
 
+//    @JsonView({Views.Player.class})
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
     @Column(name = "weight")
+    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private double weight;
 
     @Column(name = "height")
+    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private double height;
 
     public Long getId() {
@@ -120,9 +129,7 @@ public class Player {
 //    public String getTeamName() { return teamName; }
 //
 //    public void setTeamName(String teamName) { this.teamName = teamName; }
-    //    public String getTeam() { return teamName; }
-//
-//    public void setTeam(String team) { this.teamName = team; }
+
 
     //    public long getPositionId() {
 //        return positionId;

@@ -15,15 +15,19 @@ public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
+//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private long id;
 
     @Column(name="position_name")
+//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private String positionName;
 
     @Column(name = "description")
+//    @JsonView({Views.Position.class,Views.Team.class,Views.Player.class})
     private String description;
 
     @OneToMany(mappedBy = "position",fetch = FetchType.EAGER)
+//    @JsonView({Views.Position.class})
     private List<Player> player;
 
     public Position (long id, String positionName, String description){
