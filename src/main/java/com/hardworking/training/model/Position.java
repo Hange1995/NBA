@@ -25,7 +25,7 @@ public class Position {
     @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private String description;
 
-    @OneToMany(mappedBy = "position",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "position",fetch = FetchType.LAZY)
     @JsonView({Views.PositionView2.class})
     private List<Player> player;
 

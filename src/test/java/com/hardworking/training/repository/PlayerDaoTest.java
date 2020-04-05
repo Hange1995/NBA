@@ -52,5 +52,11 @@ public class PlayerDaoTest {
         Assert.assertEquals(player1.getName(),name);
 
     }
+    @Test
+    public void getPlayerById(){
+        Player newPlayer =  playerDao.getPlayerById(2L);
+        Assert.assertEquals(newPlayer.getName(),"Kobe");
+    }
+
 
 }

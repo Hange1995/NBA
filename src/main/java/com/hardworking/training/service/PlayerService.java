@@ -2,6 +2,7 @@ package com.hardworking.training.service;
 
 import com.hardworking.training.model.Player;
 import com.hardworking.training.repository.PlayerDao;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,13 @@ public class PlayerService {
 
     public Player update(Player player) {
         return playerDao.update(player);
+    }
+
+    //TODO: Unit Test
+    public Player update(Long id, Player newPlayer) {
+        Player oldPlayer=playerDao.getPlayerById(id);
+        BeanUtils.copyProperties(newPlayer, oldPlayer, "id","team", "position");
+        return playerDao.update(oldPlayer);
     }
 
     public Player getPlayerByName(String name) {

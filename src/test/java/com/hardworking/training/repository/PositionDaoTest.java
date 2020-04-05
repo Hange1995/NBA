@@ -77,4 +77,11 @@ public class PositionDaoTest {
         Position position = positionDao.getPositionByName(posName);
         Assert.assertEquals(posName,position.getPositionName());
     }
+    @Test
+    public void updateTest(){
+        po1.setDescription("abcdefg");
+        positionDao.update(po1);
+        Assert.assertEquals("abcdefg",po1.getDescription());
+    }
+
 }

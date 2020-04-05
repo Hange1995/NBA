@@ -54,14 +54,14 @@ public class Player {
 
 //    @Column(name="position_id")
 //    private long positionId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
+//TODO EAGER-> LAZY
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
     @JsonView({Views.PlayerView.class,Views.TeamView3.class})
     private Position position;
 
     @JsonView({Views.PlayerView.class})
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 

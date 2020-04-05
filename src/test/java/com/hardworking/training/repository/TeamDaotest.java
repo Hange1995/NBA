@@ -77,6 +77,12 @@ public class TeamDaotest {
         Set<Team> playerList = teamDao.getTeamNameAndPlayersAndPosition(teamname);
         Assert.assertEquals(1,playerList.size());
     }
+    @Test
+    public void updateTest(){
+        t1.setLocation("XXX");
+        teamDao.update(t1);
+        Assert.assertEquals("XXX",t1.getLocation());
+    }
 
 
 

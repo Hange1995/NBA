@@ -46,7 +46,7 @@ public class TeamDaoImpl implements TeamDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(team);
+            session.update(team);
             transaction.commit();
             session.close();
             return team;
@@ -132,12 +132,11 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public Set<Team> getTeamNameAndPlayersAndPosition(String teamName) {
         if (teamName==null)return null;
-        String hql = "FROM Team as team left join fetch team.player where lower(team.name)=:name";
-//                "FROM Team as team "+
-//                "left join fetch team.player as pla "+
-//                "join pla.position as pos "+
-////                "where team.id = pla.team.id"+
-//                "Where lower(team.name)=:name";
+        String hql =
+                "FROM Team as team "+
+                "left join fetch team.player as pla "+
+                "join pla.position as pos "+
+                "Where lower(team.name)=:name";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Query query = session.createQuery(hql);

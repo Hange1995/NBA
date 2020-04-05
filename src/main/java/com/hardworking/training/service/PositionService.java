@@ -2,6 +2,7 @@ package com.hardworking.training.service;
 
 import com.hardworking.training.model.Position;
 import com.hardworking.training.repository.PositionDao;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,11 @@ public class PositionService {
     public Position update(Position position) {
         return positionDao.update(position);
     }
+
+    public Position update(Long id,Position newPosition) {
+        Position oldPosition = positionDao.getPositionEagerBy(id);
+        BeanUtils.copyProperties(newPosition,oldPosition,"id","player");
+        return positionDao.update(oldPosition);
+    }
+
 }

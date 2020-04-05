@@ -16,7 +16,7 @@ import java.util.Date;
 public class JWTService {
     private final String SECRET_KEY = "hangechen-ascending";
     private final String ISSUER = "com.hardworking";
-    private final long  EXPIRATION_TIME=86400*1000;
+    private final long  EXPIRATION_TIME=86400*2000;
     public String generateToken(User user){
         //JWT signature algorithm using to sign the token
         SignatureAlgorithm  signatureAlgorithm = SignatureAlgorithm.HS256;

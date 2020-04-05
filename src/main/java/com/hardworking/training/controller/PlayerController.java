@@ -5,6 +5,7 @@ import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Player;
 import com.hardworking.training.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,37 +15,51 @@ import java.util.List;
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
-    // Player save
+
+    //{prefix}/players POST create a new player.
     @RequestMapping(value = "",method = RequestMethod.POST)
     public Player save(@RequestBody Player player) {
         Player pla=playerService.save(player);
         if (pla==null) System.out.println("Player is not created yet");
         return pla;
     }
-    //delete player
+
+    //{prefix}/players?key=value DELETE player by name.
     @RequestMapping(value = "",method = RequestMethod.DELETE)
     public boolean delete(@RequestParam(value = "name") String name) {
         return playerService.delete(name);
     }
-    //update player
+
+    //update the player's name by it's id. update player
     @RequestMapping(value = "",method = RequestMethod.PUT)
     public Player update(@RequestBody Player player) {
         Player updatepla = playerService.update(player);
         if (updatepla==null) System.out.println("The update is failed");
         return updatepla;
     }
-    // Get player
-    @JsonView(Views.PlayerView.class)
+
+    //{prefix}/players/{id} PUT, update the whole player by it's id.
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Player newPlayer) {
+        Player updatePla = playerService.update(id,newPlayer);
+        if (updatePla==null) System.out.println("The update is failed");
+        return ResponseEntity.ok(updatePla);
+    }
+    // {prefix}/players GET, get the list of the player.
+    @JsonView(Views.PositionView.class)
     @RequestMapping(value = "",method = RequestMethod.GET)
     public List<Player> getPlayer() {
         return playerService.getPlayer();
     }
-    //get the player by specific name
+
+    //{prefix}/players/name?key=value GET get the player by specific name
     @JsonView(Views.PlayerView.class)
     @RequestMapping(value = "/name",method = RequestMethod.GET)
     public Player getPlayerByName(@RequestParam(value = "name") String name) {
         return playerService.getPlayerByName(name);
     }
+
+    //{prefix}/players/{id}?key=value PATCH, update the player's name by it's id.
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
     public Player update(@PathVariable("id") Long Id, @RequestParam("teamName") String teamName) {
         Player player = playerService.getPlayerById(Id);

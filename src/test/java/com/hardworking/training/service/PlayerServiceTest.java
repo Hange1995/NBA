@@ -31,6 +31,25 @@ public class PlayerServiceTest {
     @Test
     public void getPlayers(){
         List<Player> playerList=  playerService.getPlayer();
-        Assert.assertEquals(5,playerList.size());
+        Assert.assertTrue(playerList.size()>=5);
+    }
+    @Test
+    public void getPlayerById(){
+        Player playerTest = playerService.getPlayerById(2L);
+        Assert.assertEquals("Kobe",playerTest.getName());
+    }
+    @Test
+    public void updateRequestBodyTest(){
+        double a =123;
+        player.setWeight(a);
+        playerService.update(player);
+        Assert.assertTrue(a-player.getWeight()==0);
+    }
+
+    @Test
+    public void updatePathAndRequestBodyTest(){
+        player.setWeight(123);
+        playerService.update(player.getId(),player);
+        Assert.assertTrue(123-player.getWeight()==0);
     }
 }

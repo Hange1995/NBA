@@ -80,7 +80,7 @@ public class PlayerDaoImpl implements PlayerDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(player);
+            session.update(player);
             transaction.commit();
             session.close();
             return player;
@@ -97,12 +97,12 @@ public class PlayerDaoImpl implements PlayerDao {
     public Player getPlayerByName(String name) {
         Player player = new Player();
         Transaction transaction = null;
-        String hql = "FROM Player p LEFT JOIN FETCH p.team where p.name = :name";
+        String hql = "FROM Player p left join fetch p.team left join fetch p.position where p.name=:name";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("name", name);
+            query.setParameter("name",name);
             player = query.uniqueResult();
             transaction.commit();
             session.close();

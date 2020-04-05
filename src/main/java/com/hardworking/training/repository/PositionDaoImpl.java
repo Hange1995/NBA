@@ -39,14 +39,14 @@ public class PositionDaoImpl implements PositionDao {
 
     @Override
     public boolean delete(String positionName) {
-        String hql = "DELETE Position as pos where pos.positionName = :name";
+        String hql = "DELETE Position as pos where lower(pos.positionName) = :name";
         int deletedCount = 0;
         Transaction transaction =null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
             Query<Position> query= session.createQuery(hql);
-            query.setParameter("name",positionName);
+            query.setParameter("name",positionName.toLowerCase());
             deletedCount = query.executeUpdate();
 //            Position pos=getPositionByName(positionName);
 //            session.delete(pos);
@@ -117,7 +117,7 @@ public class PositionDaoImpl implements PositionDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(position);
+            session.update(position);
             transaction.commit();
             session.close();
             return position;

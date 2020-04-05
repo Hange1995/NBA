@@ -26,7 +26,7 @@ public class Team {
     @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
     private String location;
 
-    @OneToMany(mappedBy = "team",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team",fetch = FetchType.LAZY)
     @JsonView({Views.TeamView2.class})
     private Set<Player> player;
 
