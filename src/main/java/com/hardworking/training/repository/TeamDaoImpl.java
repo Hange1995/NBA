@@ -134,9 +134,9 @@ public class TeamDaoImpl implements TeamDao {
         if (teamName==null)return null;
         String hql =
                 "FROM Team as team "+
-                "left join fetch team.player as pla "+
-                "join pla.position as pos "+
-                "Where lower(team.name)=:name";
+                        "left join fetch team.player as pla "+
+                        "left join fetch pla.position as pos "+
+                        "Where lower(team.name)=:name";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Query query = session.createQuery(hql);

@@ -10,7 +10,9 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import sun.misc.Queue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -145,6 +147,27 @@ public class PositionDaoImpl implements PositionDao {
         } catch (Exception e) {
             if (transaction != null)transaction.rollback();
             logger.error("failure to get position by name",e);
+            session.close();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Position> getPositionList() {
+        List<Position> positionList = new ArrayList<>();
+        Transaction transaction = null;
+        String hql ="From Position";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction=session.beginTransaction();
+            Query<Position> query = session.createQuery(hql);
+            positionList=query.list();
+            transaction.commit();
+            session.close();
+            return positionList;
+        }catch (Exception e){
+            if (transaction!=null)transaction.rollback();
+            logger.error("failure to get position list",e);
             session.close();
             return null;
         }

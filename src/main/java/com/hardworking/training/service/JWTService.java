@@ -16,17 +16,16 @@ import java.util.Date;
 public class JWTService {
     private final String SECRET_KEY = "hangechen-ascending";
     private final String ISSUER = "com.hardworking";
-    private final long  EXPIRATION_TIME=86400*2000;
+    private final long  EXPIRATION_TIME=86400*3000;
     public String generateToken(User user){
         //JWT signature algorithm using to sign the token
         SignatureAlgorithm  signatureAlgorithm = SignatureAlgorithm.HS256;
 
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes,signatureAlgorithm.getJcaName());
-
         Claims claims = Jwts.claims();
         claims.setId(String.valueOf(user.getId()));
-        claims.setSubject(user.getName());
+//        claims.setSubject(user.getName());
         claims.setIssuedAt(new Date(System.currentTimeMillis()));
         claims.setIssuer(ISSUER);
         claims.setExpiration(new Date(System.currentTimeMillis()+EXPIRATION_TIME));

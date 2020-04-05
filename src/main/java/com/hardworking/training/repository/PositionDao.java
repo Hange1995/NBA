@@ -14,5 +14,6 @@ public interface PositionDao {
     Set<Position> getPositionAndPlayers(String positionName);
     Position update(Position position);
     Position getPositionByName(String positionName);
+    List<Position> getPositionList();
 
 }

@@ -25,6 +25,8 @@ public class PositionService {
         return positionDao.getPositionEagerBy(id);
     }
 
+    public List<Position> getPositionList(){ return positionDao.getPositionList();}
+
     public Position getPositionBy(Long id){
         return positionDao.getPositionBy(id);
     }
