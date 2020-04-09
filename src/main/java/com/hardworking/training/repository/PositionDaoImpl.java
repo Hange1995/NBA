@@ -10,7 +10,7 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import sun.misc.Queue;
+
 
 import java.util.ArrayList;
 import java.util.List;

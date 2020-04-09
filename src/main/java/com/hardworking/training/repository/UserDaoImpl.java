@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-    private Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    private Logger logger = LoggerFactory.getLogger(UserDao.class);
     @Override
     public User save(User user) {
         Transaction transaction = null;
@@ -103,6 +103,31 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUserById(Long id) {
-        return null;
+        String hql ="FROM User user where user.id=:Id";
+        logger.debug("User Id"+id);
+        try (Session session=HibernateUtil.getSessionFactory().openSession()){
+            Query<User> query=  session.createQuery(hql);
+            query.setParameter("Id",id);
+//            User user=query.uniqueResult();
+            return query.uniqueResult();
+        }catch (Exception e){
+            logger.info("can't get by id");
+            return null;
+        }
+    }
+    @Override
+    public User getUserByCredentials(String email, String password) throws Exception {
+        String hql = "FROM User as u where (lower(u.email) = :email or lower(u.name) =:email) and u.password = :password";
+        logger.debug(String.format("User email: %s, password: %s", email, password));
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("email", email.toLowerCase().trim());
+            query.setParameter("password", password);
+            User user=query.uniqueResult();
+            return user;
+        }
+        catch (Exception e){
+            throw new Exception("can't find user record or session");
+        }
     }
 }

@@ -4,8 +4,6 @@ package com.hardworking.training.repository;
 
 import com.hardworking.training.model.Player;
 import com.hardworking.training.model.Team;
-
-import javax.xml.ws.Service;
 import java.util.List;
 import java.util.Set;
 

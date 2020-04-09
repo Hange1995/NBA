@@ -12,4 +12,5 @@ public interface UserDao {
     User update(User user);
     User getUserByName(String name);
     User getUserById(Long id);
+    User getUserByCredentials(String email, String password) throws Exception;
 }
