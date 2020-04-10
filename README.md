@@ -9,6 +9,7 @@ This is a sample project for [NBA database](https://github.com/Hange1995/NBA)
 git clone https://github.com/Hange1995/NBA.git
 ```
 2.Install docker if needed.
+
 ###Compile
 ###Test
 ###Run Migration
