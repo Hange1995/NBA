@@ -19,4 +19,8 @@ public class UserService {
 
     public User saveUser(User user){return userDao.save(user);}
 
+    public User update(User user){return userDao.update(user);}
+
+    public boolean deleteUser(String name){return userDao.delete(name);}
+
 }

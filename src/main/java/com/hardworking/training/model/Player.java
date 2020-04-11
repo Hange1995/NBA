@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "players")
@@ -54,6 +55,9 @@ public class Player {
 
 //    @Column(name="position_id")
 //    private long positionId;
+//    @Column(name = "team_id")
+//    private long teamId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
     @JsonView({Views.PlayerView.class,Views.TeamView3.class})
@@ -63,6 +67,10 @@ public class Player {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
+    private Set<PlayerData> playerData;
+
 
 
     public Long getId() {
@@ -123,7 +131,30 @@ public class Player {
 
     public void setPosition(Position position) { this.position = position; }
 
-//    public String getTeamName() { return teamName; }
+//    public long getPositionId() {
+//        return positionId;
+//    }
+//
+//    public void setPositionId(long positionId) {
+//        this.positionId = positionId;
+//    }
+//
+//    public long getTeamId() {
+//        return teamId;
+//    }
+//
+//    public void setTeamId(long teamId) {
+//        this.teamId = teamId;
+//    }
+
+    public Set<PlayerData> getPlayerData() {
+        return playerData;
+    }
+
+    public void setPlayerData(Set<PlayerData> playerData) {
+        this.playerData = playerData;
+    }
+    //    public String getTeamName() { return teamName; }
 //
 //    public void setTeamName(String teamName) { this.teamName = teamName; }
 

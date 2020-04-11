@@ -35,7 +35,7 @@ public class PositionDaoImpl implements PositionDao {
             if (transaction!= null) transaction.rollback();
             logger.error("failure to save the data",e);
             session.close();
-        } return position;
+        } return null;
     }
 
 

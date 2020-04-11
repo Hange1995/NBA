@@ -5,7 +5,8 @@ CREATE TABLE users (
     email           VARCHAR(50) not null unique,
     secret_key      varchar(512),
     first_name      VARCHAR(30),
-    last_name       VARCHAR(30)
+    last_name       VARCHAR(30),
+    active_status   BOOLEAN not null default TRUE
 );
 ALTER TABLE users ADD CONSTRAINT users_pk PRIMARY KEY ( id );
 

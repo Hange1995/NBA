@@ -43,7 +43,9 @@ public class JWTService {
         String allowedCreateResources = "";
         String allowedUpdateResources = "";
         String allowedDeleteResources = "";
+
         String allowedResource = roles.stream().map(role -> role.getAllowedResource()).collect(Collectors.joining(","));
+
         claims.put("allowedResource", allowedResource);
         for (Role role : roles) {
             if (role.isAllowedRead()) allowedReadResources = String.join(role.getAllowedResource(), allowedReadResources, ",");

@@ -36,4 +36,6 @@ public class AuthController {
             e.printStackTrace();
         }return ResponseEntity.notFound().build();
     }
+
+
 }

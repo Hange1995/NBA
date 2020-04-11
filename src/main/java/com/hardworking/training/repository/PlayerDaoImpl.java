@@ -1,5 +1,6 @@
 package com.hardworking.training.repository;
 
+import com.github.fluent.hibernate.H;
 import com.hardworking.training.model.Player;
 import com.hardworking.training.model.Position;
 import com.hardworking.training.util.HibernateUtil;
@@ -129,5 +130,25 @@ public class PlayerDaoImpl implements PlayerDao {
             logger.error("failure to retrieve data record", e);
             return null;
         }
+    }
+
+    @Override
+    public Player getPlayerData(String name) {
+        String hql ="FROM Player as p left join fetch p.playerData where p.name=:name";
+        Transaction transaction=null;
+        Session session= HibernateUtil.getSessionFactory().openSession();
+        try{
+            transaction=session.beginTransaction();
+            Query<Player> query = session.createQuery(hql);
+            query.setParameter("name",name);
+            Player result= query.uniqueResult();
+            transaction.commit();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            if (transaction!=null) transaction.rollback();
+            logger.error("can't find the player and the data by player's name",e);
+            session.close();
+        }return null;
     }
 }

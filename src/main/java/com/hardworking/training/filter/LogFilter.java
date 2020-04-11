@@ -24,16 +24,15 @@ public class LogFilter implements Filter {
         String logInfo = logInfo(req);
         filterChain.doFilter(servletRequest,servletResponse);
         logger.info(logInfo.replace("reponseTime",String.valueOf(System.currentTimeMillis()-startTime)));
-
-
-
     }
+
     private boolean isIgnoredWord(String word, List<String> excludedWords) {
         for (String excludedWord : excludedWords) {
             if (word.toLowerCase().contains(excludedWord)) return true;
         }
         return false;
     }
+
     private String logInfo(HttpServletRequest req) {
         String formData = null;
         String httpMethod = req.getMethod();

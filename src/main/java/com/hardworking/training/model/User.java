@@ -26,6 +26,8 @@ public class User {
     private String lastName;
     @Column(name = "email")
     private String email;
+    @Column(name= "active_status")
+    private boolean activeStatus;
 
     @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
@@ -98,5 +100,13 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(boolean activeStatus) {
+        this.activeStatus = activeStatus;
     }
 }

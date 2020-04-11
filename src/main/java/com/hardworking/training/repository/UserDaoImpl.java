@@ -1,18 +1,17 @@
 package com.hardworking.training.repository;
 
-import com.github.fluent.hibernate.H;
+
 import com.hardworking.training.model.User;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -130,4 +129,28 @@ public class UserDaoImpl implements UserDao{
             throw new Exception("can't find user record or session");
         }
     }
+
+//    @Override
+//    public Set<Role> getRoles(String name) {
+//            if (name==null)return null;
+//            String hql =
+//                    "FROM User as u "+
+//                            "join fetch u.users_roles as ur "+
+//                            "join fetch ur.role as r "+
+//                            "Where lower(u.name)=:name";
+//            Session session = HibernateUtil.getSessionFactory().openSession();
+//            try {
+//                Query query = session.createQuery(hql);
+//                query.setParameter("name",name.toLowerCase());
+////            HashSet<Team> result = query.getResultList();
+////            Set<Team> listResult = new ArrayList<>();
+//                List<Role> result = query.getResultList();
+//                Set<Role> setResult = result.stream().collect(Collectors.toSet());
+//                session.close();
+//                return setResult;
+//            }catch (HibernateException e){
+//                logger.error("can not get both",e);
+//                return null;
+//            }
+//        }
 }

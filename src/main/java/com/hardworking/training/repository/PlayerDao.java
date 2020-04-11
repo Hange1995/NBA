@@ -11,4 +11,5 @@ public interface PlayerDao {
     Player update(Player player);
     Player getPlayerByName(String name);
     Player getPlayerById(Long id);
+    Player getPlayerData(String name);
 }

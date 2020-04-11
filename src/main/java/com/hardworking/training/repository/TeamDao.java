@@ -2,9 +2,8 @@ package com.hardworking.training.repository;
 
 
 
-import com.hardworking.training.model.Player;
+
 import com.hardworking.training.model.Team;
-import java.util.List;
 import java.util.Set;
 
 public interface TeamDao {
