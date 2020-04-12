@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.JoinColumn;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 @RestController
 @RequestMapping(value = {"/players","/player","/pla"})
@@ -84,7 +85,7 @@ public class PlayerController {
     //{prefix}/players/data/current GET, get all player and current season data of this player.
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "/data/current",method = RequestMethod.GET)
-    public Set<Player> getAllPlayerAndCurrentSeasonData(){
+    public TreeSet<Player> getAllPlayerAndCurrentSeasonData(){
         return playerService.getAllPlayerAndCurrentSeasonData();
     }
     @JsonView(Views.PlayerDataView.class)

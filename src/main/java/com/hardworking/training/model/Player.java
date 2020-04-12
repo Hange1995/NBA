@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Set;
 
 @Entity
 @Table(name = "players")
-public class Player {
+public class Player implements Comparable<Player>{
     public Player() {}
 
     public Player(long id, String name, String firstName, String lastName,
@@ -144,6 +145,8 @@ public class Player {
     public void setCurrentSeasonPlayerData(PlayerData currentSeasonPlayerData) {
         this.currentSeasonPlayerData = currentSeasonPlayerData;
     }
+
+
     //    public long getPositionId() {
 //        return positionId;
 //    }
@@ -167,6 +170,12 @@ public class Player {
     public void setPlayerData(Set<PlayerData> playerData) {
         this.playerData = playerData;
     }
+
+    @Override
+    public int compareTo(Player player) {
+        double result= player.getCurrentSeasonPlayerData().getScore()-this.getCurrentSeasonPlayerData().getScore();
+        return (int)result;
+    }
     //    public String getTeamName() { return teamName; }
 //
 //    public void setTeamName(String teamName) { this.teamName = teamName; }
@@ -183,4 +192,15 @@ public class Player {
 //    public long getTeamId(){ return teamId; }
 //
 //    public void setTeamId(long teamId){ this.teamId = teamId;}
+
+    public static Comparator<Player> stealComparator=new Comparator<Player>() {
+        @Override
+        public int compare(Player o1, Player o2) {
+            double result= o1.getCurrentSeasonPlayerData().getSteal()-o2.getCurrentSeasonPlayerData().getSteal();
+            return (int)result;
+        }
+    };
+
+
+
 }

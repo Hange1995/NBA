@@ -12,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -156,16 +154,16 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public Set<Player> getAllPlayerAndCurrentSeasonData() {
+    public TreeSet<Player> getAllPlayerAndCurrentSeasonData() {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM Player as p left join fetch p.playerData as pd where p.currentSeasonPlayerData=pd.id order by pd.score desc";
+        String hql = "FROM Player as p left join fetch p.playerData as pd where p.currentSeasonPlayerData=pd.id";
         Transaction transaction = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction=session.beginTransaction();
             Query query=session.createQuery(hql);
             players=query.getResultList();
-            Set<Player> result = players.stream().collect(Collectors.toSet());
+            TreeSet<Player> result=new TreeSet<Player>(players);
             transaction.commit();
             session.close();
             return result;

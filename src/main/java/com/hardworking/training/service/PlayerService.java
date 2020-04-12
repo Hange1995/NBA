@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Service
 public class PlayerService {
@@ -45,7 +46,7 @@ public class PlayerService {
 
     public Player getPlayerAndData(String name){ return playerDao.getPlayerData(name);}
 
-    public Set<Player> getAllPlayerAndCurrentSeasonData(){return playerDao.getAllPlayerAndCurrentSeasonData();}
+    public TreeSet<Player> getAllPlayerAndCurrentSeasonData(){return playerDao.getAllPlayerAndCurrentSeasonData();}
 
     public Set<Player> getAllPlayerAndAllSeasonData(){return playerDao.getAllPlayerAndData();}
 
