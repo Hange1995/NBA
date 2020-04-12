@@ -59,4 +59,9 @@ public class TeamController {
     public Set<Team> getTeamNameAndPlayersAndPosition(@RequestParam(value = "name") String teamName){
         return teamService.getTeamNameAndPlayersAndPosition(teamName);
     }
+    @JsonView(Views.PlayerDataView.class)
+    @RequestMapping(value = "/data",method = RequestMethod.GET)
+    public Team getTeamAndPlayerAndDataByName(@RequestParam(value = "name")String name){
+        return teamService.getTeamAndPlayerAndDataByName(name);
+    }
 }

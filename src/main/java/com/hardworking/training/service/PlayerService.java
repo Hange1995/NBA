@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class PlayerService {
     @Autowired
@@ -40,5 +42,15 @@ public class PlayerService {
     }
 
     public Player getPlayerById(Long id){ return playerDao.getPlayerById(id);}
+
+    public Player getPlayerAndData(String name){ return playerDao.getPlayerData(name);}
+
+    public Set<Player> getAllPlayerAndCurrentSeasonData(){return playerDao.getAllPlayerAndCurrentSeasonData();}
+
+    public Set<Player> getAllPlayerAndAllSeasonData(){return playerDao.getAllPlayerAndData();}
+
+    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score){return playerDao.getAllPlayerWhoHasXpointsScoreCurrentSeason(score);}
+
+
 }
 

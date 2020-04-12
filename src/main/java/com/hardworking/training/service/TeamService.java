@@ -35,4 +35,7 @@ public class TeamService {
     public Set<Team> getTeamNameAndPlayersAndPosition(String teamName){
         return teamDao.getTeamNameAndPlayersAndPosition(teamName);
     }
+    public Team getTeamAndPlayerAndDataByName(String name){
+        return teamDao.getTeamByNameAndPlayersAndData(name);
+    }
 }

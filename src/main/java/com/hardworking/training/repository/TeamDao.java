@@ -14,6 +14,7 @@ public interface TeamDao {
     Team getTeamBy(Long id);
     Team getTeamNameAndPlayers(String teamName);
     Set<Team> getTeamNameAndPlayersAndPosition(String teamName);
+    Team getTeamByNameAndPlayersAndData(String teamName);
 
 
 }

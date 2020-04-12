@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.JoinColumn;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = {"/players","/player","/pla"})
@@ -66,5 +68,32 @@ public class PlayerController {
 //        player.setTeamName(teamName);
         player = playerService.update(player);
         return player;
+    }
+    //{prefix}/players/data GET, get all players and all season data.
+    @JsonView(Views.PlayerDataView.class)
+    @RequestMapping(value = "/data",method = RequestMethod.GET)
+    public Set<Player> getAllPlayerAndAllSeasonData(){
+        return playerService.getAllPlayerAndAllSeasonData();
+    }
+    //{prefix}/players/data?key=value GET, get player by name and all season data of this player.
+    @JsonView(Views.PlayerDataView.class)
+    @RequestMapping(value = "/data/name",method = RequestMethod.GET)
+    public Player getPlayerAndAllSeasonDataByName(@RequestParam("name")String name ){
+        return playerService.getPlayerAndData(name);
+    }
+    //{prefix}/players/data/current GET, get all player and current season data of this player.
+    @JsonView(Views.PlayerDataView.class)
+    @RequestMapping(value = "/data/current",method = RequestMethod.GET)
+    public Set<Player> getAllPlayerAndCurrentSeasonData(){
+        return playerService.getAllPlayerAndCurrentSeasonData();
+    }
+    @JsonView(Views.PlayerDataView.class)
+    @RequestMapping(value = "/data/current/score",method = RequestMethod.GET)
+    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(@RequestParam("score") Double score){
+        Set<Player> players= playerService.getAllPlayerWhoHasXpointsScoreCurrentSeason(score);
+        if (players.size()==0){
+            System.out.println("there is no player have such high score");
+        }
+        return players;
     }
 }

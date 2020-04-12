@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Repository
 // PlayerDao player = new PlayerDaoImpl(); when spring start.
 public class PlayerDaoImpl implements PlayerDao {
@@ -150,5 +153,72 @@ public class PlayerDaoImpl implements PlayerDao {
             logger.error("can't find the player and the data by player's name",e);
             session.close();
         }return null;
+    }
+
+    @Override
+    public Set<Player> getAllPlayerAndCurrentSeasonData() {
+        List<Player> players = new ArrayList<>();
+        String hql = "FROM Player as p left join fetch p.playerData as pd where p.currentSeasonPlayerData=pd.id order by pd.score desc";
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction=session.beginTransaction();
+            Query query=session.createQuery(hql);
+            players=query.getResultList();
+            Set<Player> result = players.stream().collect(Collectors.toSet());
+            transaction.commit();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            if (transaction!=null) transaction.rollback();
+            logger.error("can't get all player and data",e);
+            session.close();
+            return null;
+        }
+    }
+    @Override
+    public Set<Player> getAllPlayerAndData() {
+        List<Player> players = new ArrayList<>();
+        String hql = "FROM Player as p left join fetch p.playerData";
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction=session.beginTransaction();
+            Query query=session.createQuery(hql);
+            players=query.getResultList();
+            Set<Player> result = players.stream().collect(Collectors.toSet());
+            transaction.commit();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            if (transaction!=null) transaction.rollback();
+            logger.error("can't get all player and data",e);
+            session.close();
+            return null;
+        }
+    }
+
+    @Override
+    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score) {
+        List<Player> players = new ArrayList<>();
+        String hql = "FROM Player as p left join fetch p.playerData as pd where p.currentSeasonPlayerData=pd.id" +
+                " and pd.score>:score";
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction=session.beginTransaction();
+            Query query=session.createQuery(hql);
+            query.setParameter("score",score);
+            players=query.getResultList();
+            Set<Player> result = players.stream().collect(Collectors.toSet());
+            transaction.commit();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            if (transaction!=null) transaction.rollback();
+            logger.error("can't get all player and data",e);
+            session.close();
+            return null;
+        }
     }
 }

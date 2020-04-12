@@ -14,20 +14,20 @@ public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonView({Views.TeamView.class})
+    @JsonView({Views.TeamView.class,Views.PlayerDataView.class})
     private long id;
 
 
     @Column(name = "name")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private String name;
 
     @Column(name = "location")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private String location;
 
     @OneToMany(mappedBy = "team",fetch = FetchType.LAZY)
-    @JsonView({Views.TeamView2.class})
+    @JsonView({Views.TeamView2.class,Views.PlayerDataView.class})
     private Set<Player> player;
 
     public Team(long id, String name, String location) {

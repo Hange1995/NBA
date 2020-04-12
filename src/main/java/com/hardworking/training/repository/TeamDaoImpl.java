@@ -151,4 +151,22 @@ public class TeamDaoImpl implements TeamDao {
             return null;
         }
     }
+
+    @Override
+    public Team getTeamByNameAndPlayersAndData(String teamName) {
+        if (teamName==null) return null;
+        String hql = "FROM Team t left join fetch t.player as p " +
+                "left join fetch p.playerData as pd where lower(t.name)=:name and p.currentSeasonPlayerData=pd.id";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query<Team> query = session.createQuery(hql);
+            query.setParameter("name",teamName.toLowerCase());
+            Team result = query.uniqueResult();
+            session.close();
+            return result;
+        }catch (HibernateException e){
+            logger.error("failure to get the team name and players",e);
+            return null;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-insert positions:
+
 insert into positions (position_name, description) values
 ('SF', 'The small forward onsidered to be the most versatile of the main five basketball positions'),
 ('PF', 'The power forward often plays a role similar to that of the center'),

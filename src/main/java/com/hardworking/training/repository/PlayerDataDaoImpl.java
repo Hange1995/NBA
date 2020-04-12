@@ -57,19 +57,21 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
 
     @Override
     public PlayerData update(PlayerData playerData) {
-        Transaction transaction=null;
-        Session session=HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            transaction=session.beginTransaction();
+            transaction = session.beginTransaction();
             session.update(playerData);
             transaction.commit();
             session.close();
             return playerData;
-        }catch (Exception e){
-            if (transaction!=null) transaction.rollback();
-            logger.error("failed to update the data",e);
+        }
+        catch (Exception e){
+            if (transaction != null)transaction.rollback();
+            logger.error("failure to update record",e);
             session.close();
-        }return null;
+            return null;
+        }
     }
 
     @Override

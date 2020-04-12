@@ -27,27 +27,27 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private Long id;
 
     @Column(name = "name")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private String name;
 
     @Column(name = "first_name")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private String firstName;
 
     @Column(name = "last_name")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private String lastName;
 
     @Column(name = "weight")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private double weight;
 
     @Column(name = "height")
-    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class})
+    @JsonView({Views.PositionView.class, Views.TeamView.class,Views.PlayerView.class,Views.PlayerDataView.class})
     private double height;
 //    @JsonView({Views.PlayerView.class})
 //    @Column(name = "team")
@@ -69,7 +69,13 @@ public class Player {
     private Team team;
 
     @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
+    @JsonView({Views.PlayerDataView.class})
     private Set<PlayerData> playerData;
+
+    @OneToOne
+    @JoinColumn(name = "currentseason_id")
+    private PlayerData currentSeasonPlayerData;
+
 
 
 
@@ -131,7 +137,14 @@ public class Player {
 
     public void setPosition(Position position) { this.position = position; }
 
-//    public long getPositionId() {
+    public PlayerData getCurrentSeasonPlayerData() {
+        return currentSeasonPlayerData;
+    }
+
+    public void setCurrentSeasonPlayerData(PlayerData currentSeasonPlayerData) {
+        this.currentSeasonPlayerData = currentSeasonPlayerData;
+    }
+    //    public long getPositionId() {
 //        return positionId;
 //    }
 //
