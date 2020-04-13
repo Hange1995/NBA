@@ -6,9 +6,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PlayerService {
@@ -46,11 +45,19 @@ public class PlayerService {
 
     public Player getPlayerAndData(String name){ return playerDao.getPlayerData(name);}
 
-    public TreeSet<Player> getAllPlayerAndCurrentSeasonData(){return playerDao.getAllPlayerAndCurrentSeasonData();}
+    public Set<Player> getAllPlayerAndCurrentSeasonData(){ return playerDao.getAllPlayerAndCurrentSeasonData(); }
 
     public Set<Player> getAllPlayerAndAllSeasonData(){return playerDao.getAllPlayerAndData();}
 
     public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score){return playerDao.getAllPlayerWhoHasXpointsScoreCurrentSeason(score);}
+
+    public SortedSet<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
+        Set<Player> unsorted=playerDao.getAllPlayerAndCurrentSeasonData();
+        Comparator<Player> byScore=(p1,p2)->(int)(p1.getCurrentSeasonPlayerData().getScore()-p2.getCurrentSeasonPlayerData().getScore());
+        SortedSet<Player> sortedSet=new TreeSet<Player>(byScore);
+        sortedSet.addAll(unsorted);
+        return sortedSet;
+    }
 
 
 }

@@ -3,14 +3,17 @@ package com.hardworking.training.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Player;
+import com.hardworking.training.model.PlayerComparator;
 import com.hardworking.training.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.JoinColumn;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 @RestController
@@ -85,7 +88,7 @@ public class PlayerController {
     //{prefix}/players/data/current GET, get all player and current season data of this player.
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "/data/current",method = RequestMethod.GET)
-    public TreeSet<Player> getAllPlayerAndCurrentSeasonData(){
+    public Set<Player> getAllPlayerAndCurrentSeasonData(){
         return playerService.getAllPlayerAndCurrentSeasonData();
     }
     @JsonView(Views.PlayerDataView.class)
@@ -97,4 +100,11 @@ public class PlayerController {
         }
         return players;
     }
+
+    @JsonView(Views.PlayerDataView.class)
+    @RequestMapping(value = "/data/current/sorted",method = RequestMethod.GET)
+    public SortedSet<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
+        return playerService.getAllPlayerAndCurrentSeasonDataInOrder();
+    }
+    PlayerComparator playerComparator = new PlayerComparator();
 }

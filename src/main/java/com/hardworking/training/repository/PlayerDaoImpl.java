@@ -154,7 +154,7 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public TreeSet<Player> getAllPlayerAndCurrentSeasonData() {
+    public Set<Player> getAllPlayerAndCurrentSeasonData() {
         List<Player> players = new ArrayList<>();
         String hql = "FROM Player as p left join fetch p.playerData as pd where p.currentSeasonPlayerData=pd.id";
         Transaction transaction = null;
@@ -163,7 +163,7 @@ public class PlayerDaoImpl implements PlayerDao {
             transaction=session.beginTransaction();
             Query query=session.createQuery(hql);
             players=query.getResultList();
-            TreeSet<Player> result=new TreeSet<Player>(players);
+            Set<Player> result=players.stream().collect(Collectors.toSet());
             transaction.commit();
             session.close();
             return result;
