@@ -3,7 +3,7 @@ package com.hardworking.training.model;
 import java.util.Comparator;
 
 public class PlayerComparator {
-    class SortByScore implements Comparator<Player>{
+    static class SortByScore implements Comparator<Player>{
         @Override
         public int compare(Player o1, Player o2) {
             return (int)(o2.getCurrentSeasonPlayerData().getScore()-o1.getCurrentSeasonPlayerData().getScore());

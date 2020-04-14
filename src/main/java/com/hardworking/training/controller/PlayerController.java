@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.JoinColumn;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = {"/players","/player","/pla"})
@@ -106,5 +103,5 @@ public class PlayerController {
     public SortedSet<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
         return playerService.getAllPlayerAndCurrentSeasonDataInOrder();
     }
-    PlayerComparator playerComparator = new PlayerComparator();
+   
 }
