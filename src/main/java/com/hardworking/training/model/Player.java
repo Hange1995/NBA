@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 
 import javax.persistence.*;
-import java.util.Comparator;
 import java.util.Set;
 
 @Entity

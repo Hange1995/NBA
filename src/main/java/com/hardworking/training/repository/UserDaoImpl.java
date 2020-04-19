@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Repository
+@Repository("True")
 public class UserDaoImpl implements UserDao{
     private Logger logger = LoggerFactory.getLogger(UserDao.class);
     @Override
@@ -97,7 +97,17 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUserByName(String name) {
-        return null;
+        String hql ="FROM User user where user.name=:Name";
+        logger.debug("User Id"+name);
+        try (Session session=HibernateUtil.getSessionFactory().openSession()){
+            Query<User> query=  session.createQuery(hql);
+            query.setParameter("Name",name);
+//            User user=query.uniqueResult();
+            return query.uniqueResult();
+        }catch (Exception e){
+            logger.info("can't get by name");
+            return null;
+        }
     }
 
     @Override

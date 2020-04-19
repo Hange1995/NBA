@@ -21,7 +21,7 @@ public class SecurityFilter implements Filter {
     JWTService jwtService;
     @Autowired
     UserService userService;
-    private static final Set<String> IGNORED_PATHS = new HashSet<>(Arrays.asList("/auth"));
+    private static final Set<String> IGNORED_PATHS = new HashSet<>(Arrays.asList("/auth","/users/create"));
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

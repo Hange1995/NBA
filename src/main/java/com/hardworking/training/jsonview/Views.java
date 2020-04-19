@@ -14,6 +14,7 @@ public class Views {
     public static class TeamView3 extends TeamView2{
     }
     public static class PlayerDataView{
-
+    }
+    public static class UserView{
     }
 }

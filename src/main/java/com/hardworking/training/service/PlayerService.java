@@ -4,6 +4,7 @@ import com.hardworking.training.model.Player;
 import com.hardworking.training.repository.PlayerDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

@@ -103,5 +103,5 @@ public class PlayerController {
     public SortedSet<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
         return playerService.getAllPlayerAndCurrentSeasonDataInOrder();
     }
-   
+
 }

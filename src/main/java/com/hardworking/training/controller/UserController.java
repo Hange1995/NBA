@@ -1,5 +1,7 @@
 package com.hardworking.training.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.User;
 import com.hardworking.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @JsonView({Views.UserView.class})
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     public User save(@RequestBody User user){
         User user1=userService.saveUser(user);
         if (user1==null) System.out.println("failure to create");
@@ -31,4 +34,13 @@ public class UserController {
 //    public User updatePatch(@PathVariable("id") Long id,@RequestParam() ){
 //
 //    }
-}
+
+    @RequestMapping(value = "/setrole",method = RequestMethod.PUT)
+    public User setRole(@RequestParam(value = "username") String userName,@RequestParam(value = "rolename") String roleName){
+        return userService.setRole(userName,roleName);
+    }
+
+    @RequestMapping(value = "/removerole",method = RequestMethod.DELETE)
+    public User removeRole(@RequestParam(value = "username") String userName,@RequestParam(value = "rolename") String roleName){
+        return userService.removeRole(userName,roleName);
+    }}

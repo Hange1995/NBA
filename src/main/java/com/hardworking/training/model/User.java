@@ -1,6 +1,8 @@
 package com.hardworking.training.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
@@ -15,21 +17,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "name")
+    @JsonView({Views.UserView.class})
     private String name;
     @Column(name = "password")
     private String password;
     @Column(name = "secret_key")
     private String secretKey;
     @Column(name = "first_name")
+    @JsonView({Views.UserView.class})
     private String firstName;
     @Column(name = "last_name")
+    @JsonView({Views.UserView.class})
     private String lastName;
     @Column(name = "email")
+    @JsonView({Views.UserView.class})
     private String email;
     @Column(name= "active_status")
-    private boolean activeStatus;
+    @JsonView({Views.UserView.class})
+    private boolean activeStatus=true;
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name ="role_id")}
