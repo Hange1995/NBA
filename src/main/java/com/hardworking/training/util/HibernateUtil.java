@@ -1,5 +1,5 @@
 package com.hardworking.training.util;
-import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
+import  com.github.fluent.hibernate.cfg.scanner.EntityScanner;
 //import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

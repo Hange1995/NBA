@@ -31,6 +31,7 @@ public class JWTService {
 
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes,signatureAlgorithm.getJcaName());
+
         Claims claims = Jwts.claims();
         claims.setId(String.valueOf(user.getId()));
         claims.setSubject(user.getName());

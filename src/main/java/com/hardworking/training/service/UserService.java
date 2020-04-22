@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -45,16 +46,24 @@ public class UserService {
     }
     public User removeRole(String userName,String roleName){
         User user=userDao.getUserByName(userName);
-        List<Role> roles =new ArrayList<>();
-        roles=user.getRoles();
-        if (roleDao.getRoleByName(roleName)==null){
-            System.out.println("Failed to get the role");
-        }
-        Role role =roleDao.getRoleByName(roleName);
-        roles.remove(role);
-        user.setRoles(roles);
+        List<Role> roles =user.getRoles();
+//        roles.removeIf(role -> role.getName().contentEquals(roleName));
+        List<Role> newRoles =roles.stream().filter(role -> !role.getName().contentEquals(roleName)).collect(Collectors.toList());
+        user.setRoles(newRoles);
         userDao.update(user);
         return user;
     }
+
+//    public User removeRole(String userName,String roleName){
+//        User user = userDao.getUserByName(userName);
+//        List<Role> roleList = user.getRoles();
+//        Role role = roleDao.getRoleByName(roleName);
+//        roleList.remove(role);
+//        user.setRoles(roleList);
+//        userDao.update(user);
+//        return user;
+//    }
+
+
 
 }
