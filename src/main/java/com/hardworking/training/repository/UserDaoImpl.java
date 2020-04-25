@@ -110,6 +110,8 @@ public class UserDaoImpl implements UserDao{
         }
     }
 
+
+
     @Override
     public User getUserById(Long id) {
         String hql ="FROM User user where user.id=:Id";

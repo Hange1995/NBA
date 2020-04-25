@@ -6,13 +6,6 @@ insert into positions (position_name, description) values
 ('SG', 'The shooting guard (SG) is also known as the two or the off guard'),
 ('PG','The point guard,typically the teams best ball handler and passer');
 
-insert into players (name, first_name, last_name, weight, height, position_id,team_id) values
-('LBJ', 'James', 'LeBorn', '112', '206', 1,2),
-('Kobe', 'Kobe', 'Bryant', '96', '198', 4,2),
-('Duncan', 'Duncan', 'Tim', '113', '211', 2,5),
-('Ginobili', 'Ginobili', 'Manu', '93', '198', 5,5)
-;
-
 insert into teams (name, location) values
 ('Heat', 'Miami'),
 ('Lakers', 'LA'),
@@ -21,19 +14,27 @@ insert into teams (name, location) values
 ('Spurs','SanAntonio')
 ;
 
+insert into players (name, first_name, last_name, weight, height, position_id,team_id) values
+('LBJ', 'James', 'LeBorn', '112', '206', 1,2),
+('Kobe', 'Kobe', 'Bryant', '96', '198', 4,2),
+('Duncan', 'Duncan', 'Tim', '113', '211', 2,5),
+('Ginobili', 'Ginobili', 'Manu', '93', '198', 5,5)
+;
+
+
 
 insert into roles (name, allowed_resource, allowed_read, allowed_create, allowed_update, allowed_delete) values
 ('Admin', '/', TRUE , TRUE, TRUE, TRUE),
 ('Manager', '/players,/users,/playerdata,/positions,/teams', TRUE, TRUE, TRUE, FALSE),
 ('user', '/players,/teams,/positions,/users,/playerdata', TRUE, FALSE, FALSE, FALSE)
 ;
-commit;
+
 insert into users (name, password, first_name, last_name, email) values
 ('hangec', '25f9e794323b453885f5181f1b624d0b', 'Hange', 'Chen', 'hangechen@training.ascendingdc.com'),
 ('rhang', '25f9e794323b453885f5181f1b624d0b', 'Ryo', 'Hang', 'rhang@training.ascendingdc.com'),
 ('xyhuang', '25f9e794323b453885f5181f1b624d0b', 'Xinyue', 'Huang', 'xyhuang@training.ascendingdc.com')
 ;
-commit;
+
 insert into users_roles values
 (1, 1),
 (2, 2),
@@ -41,4 +42,3 @@ insert into users_roles values
 (1, 2),
 (1, 3)
 ;
-commit;

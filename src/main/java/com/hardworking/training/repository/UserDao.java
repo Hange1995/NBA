@@ -16,4 +16,5 @@ public interface UserDao {
     User getUserById(Long id);
     User getUserByCredentials(String email, String password) throws Exception;
 //    Set<Role> getRoles(String name);
+
 }

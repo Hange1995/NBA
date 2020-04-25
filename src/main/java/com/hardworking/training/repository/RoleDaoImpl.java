@@ -2,16 +2,19 @@ package com.hardworking.training.repository;
 
 import com.github.fluent.hibernate.H;
 import com.hardworking.training.model.Role;
+import com.hardworking.training.model.User;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoleDaoImpl implements RoleDao{
-
+    private Logger logger= LoggerFactory.getLogger(RoleDao.class);
     @Override
     public Role save(Role role) {
         Transaction transaction=null;
@@ -29,7 +32,20 @@ public class RoleDaoImpl implements RoleDao{
             return null;
         }
     }
-
+    @Override
+    public Role getRoleById(Long id) {
+        String hql ="FROM Role role where role.id=:Id";
+        logger.debug("Role Id"+id);
+        try (Session session=HibernateUtil.getSessionFactory().openSession()){
+            Query<Role> query=  session.createQuery(hql);
+            query.setParameter("Id",id);
+//            User user=query.uniqueResult();
+            return query.uniqueResult();
+        }catch (Exception e){
+            logger.info("can't get by id");
+            return null;
+        }
+    }
     @Override
     public boolean delete(Long id) {
         String hql="DELETE Role as r where r.id=:id";

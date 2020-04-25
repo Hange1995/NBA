@@ -3,14 +3,11 @@ package com.hardworking.training.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Player;
-import com.hardworking.training.model.PlayerComparator;
 import com.hardworking.training.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PropertyComparator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.JoinColumn;
 import java.util.*;
 
 @RestController

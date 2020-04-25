@@ -4,16 +4,16 @@ import com.hardworking.training.model.Player;
 import com.hardworking.training.repository.PlayerDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class PlayerService {
     @Autowired
     private PlayerDao playerDao;
+
+    PlayerComparator playerComparator=new PlayerComparator();
 
     public Player save(Player player) {
         return playerDao.save(player);
@@ -54,8 +54,9 @@ public class PlayerService {
 
     public SortedSet<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
         Set<Player> unsorted=playerDao.getAllPlayerAndCurrentSeasonData();
-        Comparator<Player> byScore=(p1,p2)->(int)(p1.getCurrentSeasonPlayerData().getScore()-p2.getCurrentSeasonPlayerData().getScore());
-        SortedSet<Player> sortedSet=new TreeSet<Player>(byScore);
+//        Comparator<Player> byScore=(p1,p2)->(int)(p1.getCurrentSeasonPlayerData().getScore()-p2.getCurrentSeasonPlayerData().getScore());
+//        SortedSet<Player> sortedSet=new TreeSet<Player>(byScore);
+        SortedSet<Player> sortedSet=new TreeSet<Player>(new SortByScore());
         sortedSet.addAll(unsorted);
         return sortedSet;
     }

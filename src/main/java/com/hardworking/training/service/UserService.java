@@ -54,10 +54,10 @@ public class UserService {
         return user;
     }
 
-//    public User removeRole(String userName,String roleName){
-//        User user = userDao.getUserByName(userName);
+//    public User removeRole(Long userId,Long roleId){
+//        User user = userDao.getUserById(userId);
 //        List<Role> roleList = user.getRoles();
-//        Role role = roleDao.getRoleByName(roleName);
+//        Role role = roleDao.getRoleById(roleId);
 //        roleList.remove(role);
 //        user.setRoles(roleList);
 //        userDao.update(user);

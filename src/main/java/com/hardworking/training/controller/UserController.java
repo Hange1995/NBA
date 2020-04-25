@@ -43,4 +43,10 @@ public class UserController {
     @RequestMapping(value = "/removerole",method = RequestMethod.DELETE)
     public User removeRole(@RequestParam(value = "username") String userName,@RequestParam(value = "rolename") String roleName){
         return userService.removeRole(userName,roleName);
-    }}
+    }
+//    @RequestMapping(value = "/removerole",method = RequestMethod.DELETE)
+//    public User removeRole(@RequestParam(value = "userId") Long userId,@RequestParam(value = "roleId") Long roleId){
+//         return userService.removeRole(userId,roleId);
+//}
+
+}
