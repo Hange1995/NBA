@@ -2,6 +2,7 @@ package com.hardworking.training.service;
 
 import com.hardworking.training.model.Player;
 import com.hardworking.training.repository.PlayerDao;
+import com.hardworking.training.repository.PlayerDataDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,10 @@ public class PlayerService {
     @Autowired
     private PlayerDao playerDao;
 
-    PlayerComparator playerComparator=new PlayerComparator();
+    @Autowired
+    PlayerDataDao playerDataDao;
+//TODO fix
+//    PlayerComparator playerComparator=new PlayerComparator();
 
     public Player save(Player player) {
         return playerDao.save(player);
@@ -50,11 +54,13 @@ public class PlayerService {
 
     public Set<Player> getAllPlayerAndAllSeasonData(){return playerDao.getAllPlayerAndData();}
 
-    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score){return playerDao.getAllPlayerWhoHasXpointsScoreCurrentSeason(score);}
-
+    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score,Long season){return playerDao.getAllPlayerWhoHasXpointsScoreYSeason(score,season);}
+//TODO FIX this
     public SortedSet<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
         Set<Player> unsorted=playerDao.getAllPlayerAndCurrentSeasonData();
-//        Comparator<Player> byScore=(p1,p2)->(int)(p1.getCurrentSeasonPlayerData().getScore()-p2.getCurrentSeasonPlayerData().getScore());
+        //Double score1 = playerDataDao.getXSeasonPlayerDataForPlayer(p1.getId(),2020L).getScore()
+//        Comparator<Player> byScore=(p1,p2)->(int) (playerDataDao.getXSeasonPlayerDataForPlayer(p1.getId(),2020L).getScore() -
+//                playerDataDao.getXSeasonPlayerDataForPlayer(p2.getId(),2020L).getScore());
 //        SortedSet<Player> sortedSet=new TreeSet<Player>(byScore);
         SortedSet<Player> sortedSet=new TreeSet<Player>(new SortByScore());
         sortedSet.addAll(unsorted);

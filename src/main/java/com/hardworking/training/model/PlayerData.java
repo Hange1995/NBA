@@ -54,8 +54,8 @@ public class PlayerData {
     @JoinColumn(name = "player_id")
     private Player player;
 
-    @OneToOne(mappedBy ="currentSeasonPlayerData")
-    private Player currentSeasonPlayer;
+//    @OneToOne(mappedBy ="currentSeasonPlayerData")
+//    private Player currentSeasonPlayer;
 
     public Long getId() {
         return id;
@@ -137,11 +137,11 @@ public class PlayerData {
         this.player = player;
     }
 
-    public Player getCurrentSeasonPlayer() {
-        return currentSeasonPlayer;
-    }
-
-    public void setCurrentSeasonPlayer(Player currentSeasonPlayer) {
-        this.currentSeasonPlayer = currentSeasonPlayer;
-    }
+//    public Player getCurrentSeasonPlayer() {
+//        return currentSeasonPlayer;
+//    }
+//
+//    public void setCurrentSeasonPlayer(Player currentSeasonPlayer) {
+//        this.currentSeasonPlayer = currentSeasonPlayer;
+//    }
 }

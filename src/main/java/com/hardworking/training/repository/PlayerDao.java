@@ -16,6 +16,6 @@ public interface PlayerDao {
     Player getPlayerData(String name);
     Set<Player> getAllPlayerAndCurrentSeasonData();
     Set<Player> getAllPlayerAndData();
-    Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score);
+    Set<Player> getAllPlayerWhoHasXpointsScoreYSeason(Double score, Long season);
 
 }

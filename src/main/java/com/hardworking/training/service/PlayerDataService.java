@@ -25,6 +25,8 @@ public class PlayerDataService {
 
     public Set<PlayerData> get(){return playerDataDao.getPlayerData();}
 
+    public PlayerData getXSeasonPlayerDataForPlayer(Long playerId, Long season){return playerDataDao.getXSeasonPlayerDataForPlayer(playerId,season);}
+
 
 
 

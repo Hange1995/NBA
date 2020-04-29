@@ -72,9 +72,9 @@ public class Player{
     @JsonView({Views.PlayerDataView.class})
     private Set<PlayerData> playerData;
 
-    @OneToOne
-    @JoinColumn(name = "currentseason_id")
-    private PlayerData currentSeasonPlayerData;
+//    @OneToOne
+//    @JoinColumn(name = "currentseason_id")
+//    private PlayerData currentSeasonPlayerData;
 
 
 
@@ -137,13 +137,13 @@ public class Player{
 
     public void setPosition(Position position) { this.position = position; }
 
-    public PlayerData getCurrentSeasonPlayerData() {
-        return currentSeasonPlayerData;
-    }
-
-    public void setCurrentSeasonPlayerData(PlayerData currentSeasonPlayerData) {
-        this.currentSeasonPlayerData = currentSeasonPlayerData;
-    }
+//    public PlayerData getCurrentSeasonPlayerData() {
+//        return currentSeasonPlayerData;
+//    }
+//
+//    public void setCurrentSeasonPlayerData(PlayerData currentSeasonPlayerData) {
+//        this.currentSeasonPlayerData = currentSeasonPlayerData;
+//    }
 
 
     //    public long getPositionId() {

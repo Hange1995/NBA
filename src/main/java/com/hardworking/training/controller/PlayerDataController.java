@@ -37,6 +37,12 @@ public class PlayerDataController {
         return playerDataService.get();
     }
 
+    @JsonView(Views.PlayerDataView.class)
+    @RequestMapping(value = "/season",method = RequestMethod.GET)
+    public PlayerData getXSeasonPlayerDataForPlayer(@RequestParam("id") Long id, @RequestParam("season") Long season){
+        return playerDataService.getXSeasonPlayerDataForPlayer(id,season);
+    }
+
 //    @JsonView(Views.PlayerDataView.class)
 //    @RequestMapping(value = "/score",method = RequestMethod.GET)
 //    public Set<PlayerData> findPlayerDataScoreHigherThan(@RequestParam("score") Double score){

@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 // PlayerDao player = new PlayerDaoImpl(); when spring start.
 public class PlayerDaoImpl implements PlayerDao {
     private Logger logger = LoggerFactory.getLogger(PlayerDaoImpl.class);
+    private final Long currentSeason = 2020L;
 
     @Override
     public Player save(Player player) {
@@ -30,10 +31,9 @@ public class PlayerDaoImpl implements PlayerDao {
             transaction.commit();
             session.close();
             return player;
-        }
-        catch (Throwable throwable){
-            if (transaction != null)transaction.rollback();
-            logger.error("failure to insert record",throwable);
+        } catch (Throwable throwable) {
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to insert record", throwable);
             session.close();
             return null;
         }
@@ -49,8 +49,8 @@ public class PlayerDaoImpl implements PlayerDao {
             players = query.list();
             session.close();
             return players;
-        }catch (HibernateException e){
-            logger.error("failure to retrieve data record",e);
+        } catch (HibernateException e) {
+            logger.error("failure to retrieve data record", e);
             return players;
         }
     }
@@ -60,20 +60,21 @@ public class PlayerDaoImpl implements PlayerDao {
         String hql = "DELETE Player as player where player.name = :name";
         int deletedCount = 0;
         Transaction transaction = null;
-        Session session= HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("name",name);
+            query.setParameter("name", name);
             deletedCount = query.executeUpdate();
             transaction.commit();
             session.close();
-            return deletedCount >=1 ? true: false;
-        }catch (HibernateException e){
-            if (transaction != null ) transaction.rollback();
+            return deletedCount >= 1 ? true : false;
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
             session.close();
-            logger.error("unable to delete record",e);
-        }return false;
+            logger.error("unable to delete record", e);
+        }
+        return false;
     }
 
     @Override
@@ -86,10 +87,9 @@ public class PlayerDaoImpl implements PlayerDao {
             transaction.commit();
             session.close();
             return player;
-        }
-        catch (Exception e){
-            if (transaction != null)transaction.rollback();
-            logger.error("failure to update record",e);
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to update record", e);
             session.close();
             return null;
         }
@@ -104,14 +104,14 @@ public class PlayerDaoImpl implements PlayerDao {
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("name",name);
+            query.setParameter("name", name);
             player = query.uniqueResult();
             transaction.commit();
             session.close();
             return player;
         } catch (Exception e) {
-            if (transaction != null)transaction.rollback();
-            logger.error("failure to get player by name",e);
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to get player by name", e);
             session.close();
             return null;
         }
@@ -135,45 +135,48 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public Player getPlayerData(String name) {
-        String hql ="FROM Player as p left join fetch p.playerData where p.name=:name";
-        Transaction transaction=null;
-        Session session= HibernateUtil.getSessionFactory().openSession();
-        try{
-            transaction=session.beginTransaction();
+        String hql = "FROM Player as p left join fetch p.playerData where p.name=:name";
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
-            query.setParameter("name",name);
-            Player result= query.uniqueResult();
+            query.setParameter("name", name);
+            Player result = query.uniqueResult();
             transaction.commit();
             session.close();
             return result;
-        }catch (HibernateException e){
-            if (transaction!=null) transaction.rollback();
-            logger.error("can't find the player and the data by player's name",e);
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("can't find the player and the data by player's name", e);
             session.close();
-        }return null;
+        }
+        return null;
     }
 
     @Override
     public Set<Player> getAllPlayerAndCurrentSeasonData() {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM Player as p left join fetch p.playerData as pd where p.currentSeasonPlayerData=pd.id";
+        String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season";
         Transaction transaction = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            transaction=session.beginTransaction();
-            Query query=session.createQuery(hql);
-            players=query.getResultList();
-            Set<Player> result=players.stream().collect(Collectors.toSet());
+            transaction = session.beginTransaction();
+            Query query = session.createQuery(hql);
+            query.setParameter("season", currentSeason);
+            players = query.getResultList();
+            Set<Player> result = players.stream().collect(Collectors.toSet());
             transaction.commit();
             session.close();
             return result;
-        }catch (HibernateException e){
-            if (transaction!=null) transaction.rollback();
-            logger.error("can't get all player and data",e);
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("can't get all player and data", e);
             session.close();
             return null;
         }
     }
+
     @Override
     public Set<Player> getAllPlayerAndData() {
         List<Player> players = new ArrayList<>();
@@ -181,40 +184,41 @@ public class PlayerDaoImpl implements PlayerDao {
         Transaction transaction = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            transaction=session.beginTransaction();
-            Query query=session.createQuery(hql);
-            players=query.getResultList();
+            transaction = session.beginTransaction();
+            Query query = session.createQuery(hql);
+            players = query.getResultList();
             Set<Player> result = players.stream().collect(Collectors.toSet());
             transaction.commit();
             session.close();
             return result;
-        }catch (HibernateException e){
-            if (transaction!=null) transaction.rollback();
-            logger.error("can't get all player and data",e);
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("can't get all player and data", e);
             session.close();
             return null;
         }
     }
 
     @Override
-    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score) {
+    public Set<Player> getAllPlayerWhoHasXpointsScoreYSeason(Double score, Long season) {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM Player as p left join fetch p.playerData as pd where p.currentSeasonPlayerData=pd.id" +
+        String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season" +
                 " and pd.score>:score";
         Transaction transaction = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            transaction=session.beginTransaction();
-            Query query=session.createQuery(hql);
-            query.setParameter("score",score);
-            players=query.getResultList();
+            transaction = session.beginTransaction();
+            Query query = session.createQuery(hql);
+            query.setParameter("score", score);
+            query.setParameter("season", season);
+            players = query.getResultList();
             Set<Player> result = players.stream().collect(Collectors.toSet());
             transaction.commit();
             session.close();
             return result;
-        }catch (HibernateException e){
-            if (transaction!=null) transaction.rollback();
-            logger.error("can't get all player and data",e);
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("can't get all player and data", e);
             session.close();
             return null;
         }

@@ -60,13 +60,15 @@ public class PlayerController {
     }
 
     //{prefix}/players/{id}?key=value PATCH, update the player's name by it's id.
+    @JsonView(Views.PlayerView.class)
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
-    public Player update(@PathVariable("id") Long Id, @RequestParam("teamName") String teamName) {
+    public Player update(@PathVariable("id") Long Id, @RequestParam("weight") Double weight) {
         Player player = playerService.getPlayerById(Id);
-//        player.setTeamName(teamName);
+        player.setWeight(weight);
         player = playerService.update(player);
         return player;
     }
+
     //{prefix}/players/data GET, get all players and all season data.
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "/data",method = RequestMethod.GET)
@@ -85,10 +87,13 @@ public class PlayerController {
     public Set<Player> getAllPlayerAndCurrentSeasonData(){
         return playerService.getAllPlayerAndCurrentSeasonData();
     }
+
+     //{prefix}/players/data/season/score?score=xxx&?season=xxx
+    //to get the player's data in some season who has score higher than x.
     @JsonView(Views.PlayerDataView.class)
-    @RequestMapping(value = "/data/current/score",method = RequestMethod.GET)
-    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(@RequestParam("score") Double score){
-        Set<Player> players= playerService.getAllPlayerWhoHasXpointsScoreCurrentSeason(score);
+    @RequestMapping(value = "/data/season/score",method = RequestMethod.GET)
+    public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(@RequestParam("score") Double score,@RequestParam("season") Long season){
+        Set<Player> players= playerService.getAllPlayerWhoHasXpointsScoreCurrentSeason(score,season);
         if (players.size()==0){
             System.out.println("there is no player have such high score");
         }

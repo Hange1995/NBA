@@ -10,4 +10,5 @@ public interface PlayerDataDao {
     boolean delete(Long id);
     PlayerData update(PlayerData playerData);
     Set<PlayerData> getPlayerData();
+    PlayerData getXSeasonPlayerDataForPlayer(Long playerId,Long season);
 }

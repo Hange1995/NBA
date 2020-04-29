@@ -1,5 +1,6 @@
 package com.hardworking.training.repository;
 
+import com.hardworking.training.model.Player;
 import com.hardworking.training.model.PlayerData;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -87,6 +88,27 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
             transaction.commit();
             session.close();
             return setResult;
+        }catch (HibernateException e){
+            if (transaction!=null) transaction.rollback();
+            logger.error("can't get player data",e);
+            session.close();
+        }return null;
+    }
+
+    @Override
+    public PlayerData getXSeasonPlayerDataForPlayer(Long playerId, Long season) {
+        String hql ="FROM PlayerData as pd where (pd.player.id=:id) and (pd.season=:season)";
+        Transaction transaction=null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            transaction=session.beginTransaction();
+            Query<PlayerData> query = session.createQuery(hql);
+            query.setParameter("id",playerId);
+            query.setParameter("season",season);
+            PlayerData result= query.uniqueResult();
+            transaction.commit();
+            session.close();
+            return result;
         }catch (HibernateException e){
             if (transaction!=null) transaction.rollback();
             logger.error("can't get player data",e);
