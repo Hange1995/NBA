@@ -52,7 +52,8 @@ public class SecurityFilter implements Filter {
 
             if (claims.getId()!=null){
                 User u =userService.getUserById(Long.parseLong(claims.getId()));
-                if (u!=null && u.isActiveStatus() )statusCode=HttpServletResponse.SC_ACCEPTED;
+                if (!u.isActiveStatus()) return statusCode;
+//                if (u!=null && u.isActiveStatus() )statusCode=HttpServletResponse.SC_ACCEPTED;
             }
             String allowedResources = "/";
             switch(verb) {

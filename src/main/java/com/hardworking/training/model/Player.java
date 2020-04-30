@@ -20,9 +20,6 @@ public class Player{
         this.lastName = lastName;
         this.weight = weight;
         this.height = height;
-//        this.teamName = teamName;
-//        this.positionId = positionId;
-//        this.teamId = teamId;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

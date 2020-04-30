@@ -38,4 +38,10 @@ public class AuthController {
     }
 
 
+//TODO FINISH THIS
+//    public ResponseEntity signUp(@RequestBody User user){
+//
+//    }
+
+
 }

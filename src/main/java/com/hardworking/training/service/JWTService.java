@@ -28,7 +28,6 @@ public class JWTService {
     public Map<String,String> generateToken(User user){
         //JWT signature algorithm using to sign the token
         SignatureAlgorithm  signatureAlgorithm = SignatureAlgorithm.HS256;
-
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes,signatureAlgorithm.getJcaName());
 

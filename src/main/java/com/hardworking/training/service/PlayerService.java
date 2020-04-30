@@ -55,7 +55,8 @@ public class PlayerService {
     public Set<Player> getAllPlayerAndAllSeasonData(){return playerDao.getAllPlayerAndData();}
 
     public Set<Player> getAllPlayerWhoHasXpointsScoreCurrentSeason(Double score,Long season){return playerDao.getAllPlayerWhoHasXpointsScoreYSeason(score,season);}
-//TODO FIX this
+
+    //This way is gonna use comparator to sort the result.
     public SortedSet<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
         Set<Player> unsorted=playerDao.getAllPlayerAndCurrentSeasonData();
         //Double score1 = playerDataDao.getXSeasonPlayerDataForPlayer(p1.getId(),2020L).getScore()
@@ -66,6 +67,11 @@ public class PlayerService {
         sortedSet.addAll(unsorted);
         return sortedSet;
     }
+
+    //This was is gonna use hql to sort this result.
+//    public List<Player> getAllPlayerAndCurrentSeasonDataInOrder(){
+//        return playerDao.getAllPlayerAndCurrentSeasonDataInOrder();
+//    }
 
 
 }

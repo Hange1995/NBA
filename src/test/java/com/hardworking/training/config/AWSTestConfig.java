@@ -1,6 +1,9 @@
 package com.hardworking.training.config;
 
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,4 +19,7 @@ public class AWSTestConfig {
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public AmazonS3 getAmazonS3(){return mock(AmazonS3.class);}
+
+    @Bean
+    public AmazonSQS getAmazonSQS(){ return mock(AmazonSQS.class); }
 }

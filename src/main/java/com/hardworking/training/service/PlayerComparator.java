@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.stream.Collectors;
+
 public class PlayerComparator {
 
 }
@@ -17,8 +19,17 @@ public class PlayerComparator {
         PlayerDataDao playerDataDao=new PlayerDataDaoImpl();
         @Override
         public int compare(Player o1, Player o2) {
-            return (int) (playerDataDao.getXSeasonPlayerDataForPlayer(o1.getId(),2020L).getScore() -
-                    playerDataDao.getXSeasonPlayerDataForPlayer(o2.getId(),2020L).getScore());
+            return (int) (            o1.getPlayerData()
+                                        .stream()
+                                        .filter(playerData -> playerData.getSeason()==2020L)
+                                        .collect(Collectors.toList())
+                                        .get(0).getScore()
+                                         -
+                                    o2.getPlayerData()
+                                            .stream()
+                                            .filter(playerData -> playerData.getSeason()==2020L)
+                                            .collect(Collectors.toList())
+                                            .get(0).getScore());
         }
     }
 

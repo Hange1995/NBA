@@ -223,4 +223,26 @@ public class PlayerDaoImpl implements PlayerDao {
             return null;
         }
     }
+
+    @Override
+    public List<Player> getAllPlayerAndCurrentSeasonDataInOrder() {
+        List<Player> players = new ArrayList<>();
+        String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season order by pd.score desc";
+        Transaction transaction = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery(hql);
+            query.setParameter("season", currentSeason);
+            players = query.getResultList();
+            transaction.commit();
+            session.close();
+            return players;
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("can't get all player and data", e);
+            session.close();
+            return null;
+        }
+    }
 }

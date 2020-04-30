@@ -25,7 +25,8 @@ public class FileController {
     public void uploadFile(@RequestParam("file") MultipartFile file){
         logger.info("Upload file: "+file.getOriginalFilename());
         try {
-            fileService.uploadFile("bucket-for-hange",file);
+            String url = fileService.uploadFile("bucket-for-hange",file);
+            System.out.println(url);
         } catch (IOException e) {
             e.printStackTrace();
         }
