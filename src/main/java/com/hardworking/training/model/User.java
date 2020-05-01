@@ -36,13 +36,17 @@ public class User {
     @JsonView({Views.UserView.class})
     private boolean activeStatus=true;
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Image> images;
+
     @ManyToMany(cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name ="role_id")}
 
     )
-    @JsonIgnore
+
+    @JsonView({Views.AdminView.class})
     private List<Role> roles;
 
     public long getId() {
@@ -61,6 +65,7 @@ public class User {
         this.name = name;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

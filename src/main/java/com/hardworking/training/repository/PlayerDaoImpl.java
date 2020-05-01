@@ -1,15 +1,18 @@
 package com.hardworking.training.repository;
 
 import com.github.fluent.hibernate.H;
+import com.hardworking.training.init.HBSessionConfig;
 import com.hardworking.training.model.Player;
 import com.hardworking.training.model.Position;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -20,11 +23,13 @@ import java.util.stream.Collectors;
 public class PlayerDaoImpl implements PlayerDao {
     private Logger logger = LoggerFactory.getLogger(PlayerDaoImpl.class);
     private final Long currentSeason = 2020L;
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Override
     public Player save(Player player) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.save(player);
@@ -43,7 +48,7 @@ public class PlayerDaoImpl implements PlayerDao {
     public List<Player> getPlayers() {
         List<Player> players = new ArrayList<>();
         String hql = "FROM Player";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Player> query = session.createQuery(hql);
             players = query.list();
@@ -60,7 +65,7 @@ public class PlayerDaoImpl implements PlayerDao {
         String hql = "DELETE Player as player where player.name = :name";
         int deletedCount = 0;
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
@@ -80,7 +85,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public Player update(Player player) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.update(player);
@@ -100,7 +105,7 @@ public class PlayerDaoImpl implements PlayerDao {
         Player player = new Player();
         Transaction transaction = null;
         String hql = "FROM Player p left join fetch p.team left join fetch p.position where p.name=:name";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
@@ -120,7 +125,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public Player getPlayerById(Long id) {
         String hql = "FROM Player pla where pla.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Player> query = session.createQuery(hql);
             query.setParameter("Id", id);
@@ -137,7 +142,7 @@ public class PlayerDaoImpl implements PlayerDao {
     public Player getPlayerData(String name) {
         String hql = "FROM Player as p left join fetch p.playerData where p.name=:name";
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
@@ -159,7 +164,7 @@ public class PlayerDaoImpl implements PlayerDao {
         List<Player> players = new ArrayList<>();
         String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season";
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query query = session.createQuery(hql);
@@ -182,7 +187,7 @@ public class PlayerDaoImpl implements PlayerDao {
         List<Player> players = new ArrayList<>();
         String hql = "FROM Player as p left join fetch p.playerData";
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query query = session.createQuery(hql);
@@ -205,7 +210,7 @@ public class PlayerDaoImpl implements PlayerDao {
         String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season" +
                 " and pd.score>:score";
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query query = session.createQuery(hql);
@@ -229,7 +234,7 @@ public class PlayerDaoImpl implements PlayerDao {
         List<Player> players = new ArrayList<>();
         String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season order by pd.score desc";
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query query = session.createQuery(hql);

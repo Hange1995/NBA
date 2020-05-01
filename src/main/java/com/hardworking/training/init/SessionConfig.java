@@ -1,16 +1,24 @@
-package com.hardworking.training.util;
-import  com.github.fluent.hibernate.cfg.scanner.EntityScanner;
+package com.hardworking.training.init;
+
+import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
+import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import java.util.Properties;
-public class HibernateUtil {
+
+@Configuration
+public class SessionConfig {
     private static SessionFactory sessionFactory;
     private static Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+
+    @Bean
     public static SessionFactory getSessionFactory() {
         //first time invoke
         if (sessionFactory == null) {
@@ -23,7 +31,7 @@ public class HibernateUtil {
                 String dbUrl = System.getProperty("database.url");
                 String dbUser = System.getProperty("database.user");
                 String dbPassword = System.getProperty("database.password");
-                Configuration configuration = new Configuration();
+                org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, dbDriver);
                 settings.put(Environment.DIALECT, dbDialect);
@@ -45,10 +53,4 @@ public class HibernateUtil {
         }
         return sessionFactory;
     }
-//    public static void main(String[] args){
-//        SessionFactory sf = sessionFactory;
-//        logger.info("success generate sf "+sf.hashCode());
-////        Session s = sf.openSession();
-////        Session s1 = sf.openSession();
-//    }
 }

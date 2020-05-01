@@ -15,29 +15,48 @@ import java.util.UUID;
 
 @Service
 public class FileService {
-    private String clientRegion = "us-east-1";
-    private String bucketName="bucket-for-hange";
+    //TODO VM option
+    private String region = System.getProperty("aws.region");
+    private String bucketName=System.getProperty("aws.bucket.name");
     @Autowired
     private AmazonS3 s3Client;
 
+//    public String uploadFile(MultipartFile file) throws IOException {
+//        return uploadFile(bucketName,file);
+//    }
     public String uploadFile(MultipartFile file) throws IOException {
-        return uploadFile(bucketName,file);
-    }
-
-    public String uploadFile(String bucketName, MultipartFile file) throws IOException {
-        //This code expects that you have AWS credentials set up per:
-        // https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
-        // Upload a text string as a new object.
         String uuid= UUID.randomUUID().toString();
-        String newFileName= Files.getFileExtension(file.getOriginalFilename())
-                +uuid+Files.getFileExtension(file.getOriginalFilename());
+        String originalFileName=file.getOriginalFilename();
+        String newFileName= Files.getFileExtension(originalFileName)
+                +uuid+"."+Files.getFileExtension(originalFileName);
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(file.getContentType());
         objectMetadata.setContentLength(file.getSize());
         PutObjectRequest request = new PutObjectRequest(bucketName,
                 file.getOriginalFilename()+uuid, file.getInputStream(),objectMetadata);
         s3Client.putObject(request);
-        return newFileName;
+        String url=s3Client.getUrl(bucketName,newFileName).toString();
+        return url;
+    }
+
+
+    public String uploadFile(String bucketName, MultipartFile file) throws IOException {
+        //This code expects that you have AWS credentials set up per:
+        // https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
+        // Upload a text string as a new object.
+        // generate a uuid to avoid put the same name file.
+        String uuid= UUID.randomUUID().toString();
+        String originalFileName=file.getOriginalFilename();
+        String newFileName= Files.getFileExtension(originalFileName)
+                +uuid+"."+Files.getFileExtension(originalFileName);
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(file.getContentType());
+        objectMetadata.setContentLength(file.getSize());
+        PutObjectRequest request = new PutObjectRequest(bucketName,
+                file.getOriginalFilename()+uuid, file.getInputStream(),objectMetadata);
+        s3Client.putObject(request);
+        String url=s3Client.getUrl(bucketName,newFileName).toString();
+        return url;
     }
 
     public String getUrl(String s3Key){

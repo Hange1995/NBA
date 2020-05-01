@@ -4,10 +4,12 @@ package com.hardworking.training.repository;
 import com.hardworking.training.model.User;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +18,12 @@ import java.util.List;
 @Repository("True")
 public class UserDaoImpl implements UserDao{
     private Logger logger = LoggerFactory.getLogger(UserDao.class);
+    @Autowired
+    SessionFactory sessionFactory;
     @Override
     public User save(User user) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.save(user);
@@ -38,7 +42,7 @@ public class UserDaoImpl implements UserDao{
     public List<User> getUsers() {
         String hql="FROM User";
         Transaction transaction=null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         List<User> users = new ArrayList<>();
         try {
             transaction=session.beginTransaction();
@@ -60,7 +64,7 @@ public class UserDaoImpl implements UserDao{
         String hql ="Delete User as u where u.name =:name";
         int deleteCount=0;
         Transaction transaction=null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
             Query<User> query = session.createQuery(hql);
@@ -80,7 +84,7 @@ public class UserDaoImpl implements UserDao{
     @Override
     public User update(User user) {
         Transaction transaction =null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
             session.update(user);
@@ -99,7 +103,7 @@ public class UserDaoImpl implements UserDao{
     public User getUserByName(String name) {
         String hql ="FROM User user where (lower(u.email) = :name or lower(u.name) =:name)";
         logger.debug("User Id"+name);
-        try (Session session=HibernateUtil.getSessionFactory().openSession()){
+        try (Session session=sessionFactory.openSession()){
             Query<User> query=  session.createQuery(hql);
             query.setParameter("name",name.toLowerCase().trim());
 //            User user=query.uniqueResult();
@@ -116,7 +120,7 @@ public class UserDaoImpl implements UserDao{
     public User getUserById(Long id) {
         String hql ="FROM User user where user.id=:Id";
         logger.debug("User Id"+id);
-        try (Session session=HibernateUtil.getSessionFactory().openSession()){
+        try (Session session=sessionFactory.openSession()){
             Query<User> query=  session.createQuery(hql);
             query.setParameter("Id",id);
 //            User user=query.uniqueResult();
@@ -130,7 +134,7 @@ public class UserDaoImpl implements UserDao{
     public User getUserByCredentials(String email, String password) throws Exception {
         String hql = "FROM User as u where (lower(u.email) = :email or lower(u.name) =:email) and u.password = :password";
         logger.debug(String.format("User email: %s, password: %s", email, password));
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery(hql);
             query.setParameter("email", email.toLowerCase().trim());
             query.setParameter("password", password);
@@ -150,7 +154,7 @@ public class UserDaoImpl implements UserDao{
 //                            "join fetch u.users_roles as ur "+
 //                            "join fetch ur.role as r "+
 //                            "Where lower(u.name)=:name";
-//            Session session = HibernateUtil.getSessionFactory().openSession();
+//            Session session = sessionFactory.openSession();
 //            try {
 //                Query query = session.createQuery(hql);
 //                query.setParameter("name",name.toLowerCase());

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "playerdata")
 public class PlayerData {
+    //TODO change name to SeasonData
     public PlayerData() {
     }
 

@@ -19,12 +19,12 @@ public class AdminController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/set",method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/role",method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
     public User setRole(@RequestParam(value = "userName") String userName, @RequestParam(value = "roleName") String roleName){
         return userService.setRole(userName,roleName);
     }
 
-    @RequestMapping(value = "/delete",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/role",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
     public User removeRole(@RequestParam(value = "userName") String userName,@RequestParam(value = "roleName") String roleName){
         return userService.removeRole(userName,roleName);
     }

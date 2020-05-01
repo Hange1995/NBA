@@ -5,10 +5,12 @@ import com.hardworking.training.model.PlayerData;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 @Repository
 public class PlayerDataDaoImpl implements PlayerDataDao{
     private Logger logger= LoggerFactory.getLogger(PlayerData.class);
+    @Autowired
+    SessionFactory sessionFactory;
     @Override
     public PlayerData create(PlayerData playerData) {
         Transaction transaction=null;
-        Session session= HibernateUtil.getSessionFactory().openSession();
+        Session session= sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
             session.save(playerData);
@@ -39,7 +43,7 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
         String hql= "DELETE PlayerData as p where p.id=:id";
         int deletedCount = 0;
         Transaction transaction=null;
-        Session session= HibernateUtil.getSessionFactory().openSession();
+        Session session= sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
             Query<PlayerData> query=session.createQuery(hql);
@@ -59,7 +63,7 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
     @Override
     public PlayerData update(PlayerData playerData) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.update(playerData);
@@ -79,7 +83,7 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
     public Set<PlayerData> getPlayerData() {
         String hql ="FROM PlayerData";
         Transaction transaction=null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try{
             transaction=session.beginTransaction();
             Query query =session.createQuery(hql);
@@ -99,7 +103,7 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
     public PlayerData getXSeasonPlayerDataForPlayer(Long playerId, Long season) {
         String hql ="FROM PlayerData as pd where (pd.player.id=:id) and (pd.season=:season)";
         Transaction transaction=null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try{
             transaction=session.beginTransaction();
             Query<PlayerData> query = session.createQuery(hql);

@@ -49,19 +49,20 @@ public class JWTServiceTest {
 //                                                .filter(c->c.equals('.'))
 //                                                .collect(Collectors.toList());
 //        Assert.assertTrue(containPoint.size()==2);
-
+        //TODO regex matcher/match
         Assert.assertEquals(token.get("token").split("[.]").length,3);
         }
 
 
         @Test
-        public void de(){
+        public void deTest(){
         User user=new User();
         user.setId(2L);
         user.setName("Hangechen");
-            Map<String,String> token=jwtService.generateToken(user);
-            Claims c =jwtService.decyptToken(token.get("token"));
-            String name= c.getSubject();
+        Map<String,String> token=jwtService.generateToken(user);
+        Claims c =jwtService.decyptToken(token.get("token"));
+        String name= c.getSubject();
+        Assert.assertEquals("Hangechen",name);
 
         }
 }

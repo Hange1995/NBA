@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @Profile("dev")
 public class AWSConfig {
+    //TODO constructor based DI
     @Bean
     public AmazonS3 getAmazonS3(){
         return AmazonS3ClientBuilder.standard()

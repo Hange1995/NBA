@@ -6,19 +6,23 @@ import com.hardworking.training.model.User;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoleDaoImpl implements RoleDao{
     private Logger logger= LoggerFactory.getLogger(RoleDao.class);
+    @Autowired
+    SessionFactory sessionFactory;
     @Override
     public Role save(Role role) {
         Transaction transaction=null;
-        Session session= HibernateUtil.getSessionFactory().openSession();
+        Session session= sessionFactory.openSession();
         try {
             transaction= session.beginTransaction();
             session.save(role);
@@ -36,7 +40,7 @@ public class RoleDaoImpl implements RoleDao{
     public Role getRoleById(Long id) {
         String hql ="FROM Role role where role.id=:Id";
         logger.debug("Role Id"+id);
-        try (Session session=HibernateUtil.getSessionFactory().openSession()){
+        try (Session session=sessionFactory.openSession()){
             Query<Role> query=  session.createQuery(hql);
             query.setParameter("Id",id);
 //            User user=query.uniqueResult();
@@ -51,7 +55,7 @@ public class RoleDaoImpl implements RoleDao{
         String hql="DELETE Role as r where r.id=:id";
         int deleteCount=0;
         Transaction transaction=null;
-        Session session =HibernateUtil.getSessionFactory().openSession();
+        Session session =sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
             Query<Role> query= session.createQuery(hql);
@@ -72,7 +76,7 @@ public class RoleDaoImpl implements RoleDao{
     public Role getRoleByName(String name) {
         String hql="FROM Role as r where r.name=:name";
         Transaction transaction= null;
-        Session session= HibernateUtil.getSessionFactory().openSession();
+        Session session= sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
             Query<Role> query=session.createQuery(hql);

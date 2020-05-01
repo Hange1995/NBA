@@ -5,10 +5,12 @@ import com.hardworking.training.model.Team;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
@@ -19,11 +21,13 @@ import java.util.stream.Collectors;
 @Repository
 public class TeamDaoImpl implements TeamDao {
     private Logger logger = LoggerFactory.getLogger(TeamDao.class);
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Override
     public Team save(Team team) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.save(team);
@@ -42,7 +46,7 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public Team update(Team team) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.update(team);
@@ -63,7 +67,7 @@ public class TeamDaoImpl implements TeamDao {
         String hql = "DELETE Team as team where team.name = :name";
         int deletedCount = 0;
         Transaction transaction = null;
-        Session session= HibernateUtil.getSessionFactory().openSession();
+        Session session= sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query<Player> query = session.createQuery(hql);
@@ -82,7 +86,7 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public Team getTeamEagerBy(Long id) {
         String hql = "FROM Team t LEFT JOIN FETCH t.player where t.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Team> query = session.createQuery(hql);
             query.setParameter("Id", id);
@@ -98,7 +102,7 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public Team getTeamBy(Long id) {
         String hql = "FROM Team t where t.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Team> query = session.createQuery(hql);
             query.setParameter("Id", id);
@@ -115,7 +119,7 @@ public class TeamDaoImpl implements TeamDao {
     public Team getTeamNameAndPlayers(String teamName) {
         if (teamName==null) return null;
         String hql = "FROM Team as team left join fetch team.player where team.name=:name";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Team> query = session.createQuery(hql);
             query.setParameter("name",teamName);
@@ -136,7 +140,7 @@ public class TeamDaoImpl implements TeamDao {
                         "left join fetch team.player as pla "+
                         "left join fetch pla.position as pos "+
                         "Where lower(team.name)=:name";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query query = session.createQuery(hql);
             query.setParameter("name",teamName.toLowerCase());
@@ -157,7 +161,7 @@ public class TeamDaoImpl implements TeamDao {
         if (teamName==null) return null;
         String hql = "FROM Team t left join fetch t.player as p " +
                 "left join fetch p.playerData as pd where lower(t.name)=:name and p.currentSeasonPlayerData=pd.id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Team> query = session.createQuery(hql);
             query.setParameter("name",teamName.toLowerCase());

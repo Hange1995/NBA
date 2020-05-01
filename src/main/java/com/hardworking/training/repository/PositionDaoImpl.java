@@ -5,10 +5,12 @@ import com.hardworking.training.model.Position;
 import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
@@ -20,11 +22,13 @@ import java.util.stream.Collectors;
 @Repository
 public class PositionDaoImpl implements PositionDao {
     private Logger logger = LoggerFactory.getLogger(PositionDao.class);
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Override
     public Position save(Position position) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.save(position);
@@ -44,7 +48,7 @@ public class PositionDaoImpl implements PositionDao {
         String hql = "DELETE Position as pos where lower(pos.positionName) = :name";
         int deletedCount = 0;
         Transaction transaction =null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query<Position> query= session.createQuery(hql);
@@ -66,7 +70,7 @@ public class PositionDaoImpl implements PositionDao {
     @Override
     public Position getPositionEagerBy(Long id) {
         String hql = "FROM Position p LEFT JOIN FETCH p.player WHERE p.id=:Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Position> query = session.createQuery(hql);
             query.setParameter("Id",id);
@@ -82,7 +86,7 @@ public class PositionDaoImpl implements PositionDao {
     @Override
     public Position getPositionBy(Long id){
         String hql = "FROM Position pos where pos.id = :Id";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query<Position> query = session.createQuery(hql);
             query.setParameter("Id", id);
@@ -99,7 +103,7 @@ public class PositionDaoImpl implements PositionDao {
     public Set<Position> getPositionAndPlayers(String positionName) {
         if (positionName==null) return null;
         String hql = "FROM Position as position left join fetch position.player where lower(position.positionName)=:name";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             Query query = session.createQuery(hql);
             query.setParameter("name",positionName.toLowerCase());
@@ -116,7 +120,7 @@ public class PositionDaoImpl implements PositionDao {
     @Override
     public Position update(Position position) {
         Transaction transaction = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             session.update(position);
@@ -135,7 +139,7 @@ public class PositionDaoImpl implements PositionDao {
         Position position = new Position();
         Transaction transaction = null;
         String hql = "FROM Position pos LEFT JOIN FETCH pos.player where pos.positionName = :name";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
             Query<Position> query = session.createQuery(hql);
@@ -157,7 +161,7 @@ public class PositionDaoImpl implements PositionDao {
         List<Position> positionList = new ArrayList<>();
         Transaction transaction = null;
         String hql ="From Position";
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
             Query<Position> query = session.createQuery(hql);

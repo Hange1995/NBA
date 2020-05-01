@@ -16,8 +16,6 @@ public class PlayerService {
 
     @Autowired
     PlayerDataDao playerDataDao;
-//TODO fix
-//    PlayerComparator playerComparator=new PlayerComparator();
 
     public Player save(Player player) {
         return playerDao.save(player);
@@ -35,7 +33,6 @@ public class PlayerService {
         return playerDao.update(player);
     }
 
-    //TODO: Unit Test
     public Player update(Long id, Player newPlayer) {
         Player oldPlayer=playerDao.getPlayerById(id);
         BeanUtils.copyProperties(newPlayer, oldPlayer, "id","team", "position");
