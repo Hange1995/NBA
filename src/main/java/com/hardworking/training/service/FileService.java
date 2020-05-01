@@ -19,6 +19,11 @@ public class FileService {
     private String bucketName="bucket-for-hange";
     @Autowired
     private AmazonS3 s3Client;
+
+    public String uploadFile(MultipartFile file) throws IOException {
+        return uploadFile(bucketName,file);
+    }
+
     public String uploadFile(String bucketName, MultipartFile file) throws IOException {
         //This code expects that you have AWS credentials set up per:
         // https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
@@ -32,7 +37,7 @@ public class FileService {
         PutObjectRequest request = new PutObjectRequest(bucketName,
                 file.getOriginalFilename()+uuid, file.getInputStream(),objectMetadata);
         s3Client.putObject(request);
-        return s3Client.getUrl(bucketName,newFileName).toString();
+        return newFileName;
     }
 
     public String getUrl(String s3Key){

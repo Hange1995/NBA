@@ -97,11 +97,11 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUserByName(String name) {
-        String hql ="FROM User user where user.name=:Name";
+        String hql ="FROM User user where (lower(u.email) = :name or lower(u.name) =:name)";
         logger.debug("User Id"+name);
         try (Session session=HibernateUtil.getSessionFactory().openSession()){
             Query<User> query=  session.createQuery(hql);
-            query.setParameter("Name",name);
+            query.setParameter("name",name.toLowerCase().trim());
 //            User user=query.uniqueResult();
             return query.uniqueResult();
         }catch (Exception e){

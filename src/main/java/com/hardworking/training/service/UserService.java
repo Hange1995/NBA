@@ -26,6 +26,7 @@ public class UserService {
     }
 
     public User getUserById(Long id){return userDao.getUserById(id);}
+    public User getUserByName(String name){return userDao.getUserByName(name);}
 
     public User saveUser(User user){return userDao.save(user);}
 
