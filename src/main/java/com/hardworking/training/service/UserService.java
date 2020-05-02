@@ -24,6 +24,7 @@ public class UserService {
     public User getUserByCredentials(String email, String password) throws Exception{
         return userDao.getUserByCredentials(email,password);
     }
+    public List<User> getAllUsers(){return userDao.getUsers();}
 
     public User getUserById(Long id){return userDao.getUserById(id);}
     public User getUserByName(String name){return userDao.getUserByName(name);}

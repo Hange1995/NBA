@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "images")
 public class Image {
-    public Image() {
-    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 //    @JsonView({Views.UserView.class})
     private Long id;
-
+    //TODO change to MM/dd/YYYY format
     @Column(name = "upload_time")
     private String uploadTime;
 
@@ -63,5 +62,13 @@ public class Image {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

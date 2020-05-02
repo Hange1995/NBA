@@ -5,10 +5,12 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.hardworking.training.init.AppBootstrap;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,9 @@ public class FileServiceTest {
     @Autowired
     FileService fileService;
     @Autowired
+    @Qualifier("dev")
+    FileService fileService1;
+    @Autowired
     AmazonS3 s3Client;
     @Test
     public void uploadTest() throws IOException {
@@ -44,7 +49,7 @@ public class FileServiceTest {
 //        File testFile=mock(File.class);
         MultipartFile testFile= mock(MultipartFile.class);
         when(testFile.getOriginalFilename()).thenReturn("sample.txt");
-        when(s3Client.getUrl(anyString(),anyString() )).thenReturn(new URL("http","xxx",123,"abc"));
+        when(s3Client.getUrl(anyString(),anyString())).thenReturn(new URL("http","xxx",123,"abc"));
         InputStream inputStream= new ByteArrayInputStream("xxx".getBytes());
         when(testFile.getInputStream()).thenReturn(inputStream);
         fileService.uploadFile(testFile);

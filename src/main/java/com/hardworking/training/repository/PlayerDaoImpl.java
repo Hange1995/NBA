@@ -1,10 +1,8 @@
 package com.hardworking.training.repository;
 
-import com.github.fluent.hibernate.H;
-import com.hardworking.training.init.HBSessionConfig;
+
+
 import com.hardworking.training.model.Player;
-import com.hardworking.training.model.Position;
-import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

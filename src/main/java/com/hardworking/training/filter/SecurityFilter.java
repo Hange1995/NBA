@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -49,9 +50,10 @@ public class SecurityFilter implements Filter {
             if (token==null||token.isEmpty()) return statusCode;
 
             Claims claims = jwtService.decyptToken(token);
-
             if (claims.getId()!=null){
                 User u =userService.getUserById(Long.parseLong(claims.getId()));
+                HttpSession session = (request).getSession();
+                session.setAttribute("user",u);
                 if (!u.isActiveStatus()) return statusCode;
 //                if (u!=null && u.isActiveStatus() )statusCode=HttpServletResponse.SC_ACCEPTED;
             }

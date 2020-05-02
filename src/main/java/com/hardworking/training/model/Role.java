@@ -1,6 +1,9 @@
 package com.hardworking.training.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,18 +14,25 @@ public class Role {
     //@SequenceGenerator(name = "role_id_generator", sequenceName = "role_id_seq", allocationSize = 1)
     //@GeneratedValue(strategy = SEQUENCE, generator = "role_id_generator")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.AdminView.class})
     private long id;
     @Column(name = "name")
+    @JsonView({Views.AdminView.class})
     private String name;
     @Column(name = "allowed_resource")
+    @JsonView({Views.AdminView.class})
     private String allowedResource;
     @Column(name = "allowed_read")
+    @JsonView({Views.AdminView.class})
     private boolean allowedRead;
     @Column(name = "allowed_create")
+    @JsonView({Views.AdminView.class})
     private boolean allowedCreate;
     @Column(name = "allowed_update")
+    @JsonView({Views.AdminView.class})
     private boolean allowedUpdate;
     @Column(name = "allowed_delete")
+    @JsonView({Views.AdminView.class})
     private boolean allowedDelete;
 
     @ManyToMany(mappedBy = "roles")

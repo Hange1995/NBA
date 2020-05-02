@@ -32,7 +32,6 @@ public class AuthController {
     @RequestMapping(value = "",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity login(@RequestBody User user){
         try {
-//            String digestPassword= DigestUtils.md5Hex(.trim());
             User u = userService.getUserByCredentials(user.getEmail(),user.getPassword());
             if (u==null) return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).build();
             return ResponseEntity.ok().body(jwtService.generateToken(u));
