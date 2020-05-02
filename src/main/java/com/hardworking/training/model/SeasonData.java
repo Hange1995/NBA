@@ -7,12 +7,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "playerdata")
-public class PlayerData {
+public class SeasonData {
     //TODO change name to SeasonData
-    public PlayerData() {
+    public SeasonData() {
     }
 
-    public PlayerData(Long id, Long player_id, Long season, Double salary, Double steal, Double block, Double assistant, Double score, Long appearances) {
+    public SeasonData(Long id, Long player_id, Long season, Double salary, Double steal, Double block, Double assistant, Double score, Long appearances) {
         this.id = id;
 //        this.playerId = player_id;
         this.season = season;

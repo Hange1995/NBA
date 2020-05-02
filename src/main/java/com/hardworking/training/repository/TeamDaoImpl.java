@@ -160,11 +160,12 @@ public class TeamDaoImpl implements TeamDao {
     public Team getTeamByNameAndPlayersAndData(String teamName) {
         if (teamName==null) return null;
         String hql = "FROM Team t left join fetch t.player as p " +
-                "left join fetch p.playerData as pd where lower(t.name)=:name and p.currentSeasonPlayerData=pd.id";
+                "left join fetch p.seasonData as sd where lower(t.name)=:name and sd.season=:season";
         Session session = sessionFactory.openSession();
         try {
             Query<Team> query = session.createQuery(hql);
             query.setParameter("name",teamName.toLowerCase());
+            query.setParameter("season", 2020L);
             Team result = query.uniqueResult();
             session.close();
             return result;

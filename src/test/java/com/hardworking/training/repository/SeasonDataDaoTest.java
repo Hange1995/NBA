@@ -2,7 +2,7 @@ package com.hardworking.training.repository;
 
 import com.hardworking.training.init.AppBootstrap;
 import com.hardworking.training.model.Player;
-import com.hardworking.training.model.PlayerData;
+import com.hardworking.training.model.SeasonData;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,12 +16,13 @@ import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AppBootstrap.class)
-public class PlayerDataDaoTest {
-    @Autowired PlayerDataDao playerDataDao;
+public class SeasonDataDaoTest {
+    @Autowired
+    SeasonDataDao seasonDataDao;
     @Autowired PlayerDao playerDao;
 
     Player player= new Player();
-    PlayerData playerData= new PlayerData();
+    SeasonData seasonData = new SeasonData();
     @Before
     public void init(){
         player.setName("HG");
@@ -30,21 +31,21 @@ public class PlayerDataDaoTest {
         player.setWeight(75);
         player.setHeight(180);
         playerDao.save(player);
-        playerData.setScore(100.0);
-        playerData.setSeason(2019L);
-        playerData.setSalary(10_0000.0);
-        playerDataDao.create(playerData);
+        seasonData.setScore(100.0);
+        seasonData.setSeason(2019L);
+        seasonData.setSalary(10_0000.0);
+        seasonDataDao.create(seasonData);
     }
 
     @After
     public void tearDown(){
-        playerDataDao.delete(playerData.getId());
+        seasonDataDao.delete(seasonData.getId());
         playerDao.delete(player.getName());
     }
 
     @Test
     public void getPlayerDataTest(){
-        Set<PlayerData> result = playerDataDao.getPlayerData();
+        Set<SeasonData> result = seasonDataDao.getPlayerData();
         Assert.assertEquals(1,result.size());
     }
 }

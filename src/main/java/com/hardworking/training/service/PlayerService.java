@@ -2,7 +2,7 @@ package com.hardworking.training.service;
 
 import com.hardworking.training.model.Player;
 import com.hardworking.training.repository.PlayerDao;
-import com.hardworking.training.repository.PlayerDataDao;
+import com.hardworking.training.repository.SeasonDataDao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class PlayerService {
     private PlayerDao playerDao;
 
     @Autowired
-    PlayerDataDao playerDataDao;
+    SeasonDataDao seasonDataDao;
 
     public Player save(Player player) {
         return playerDao.save(player);

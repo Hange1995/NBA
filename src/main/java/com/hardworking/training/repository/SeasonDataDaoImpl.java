@@ -1,8 +1,6 @@
 package com.hardworking.training.repository;
 
-import com.hardworking.training.model.Player;
-import com.hardworking.training.model.PlayerData;
-import com.hardworking.training.util.HibernateUtil;
+import com.hardworking.training.model.SeasonData;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,20 +15,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 @Repository
-public class PlayerDataDaoImpl implements PlayerDataDao{
-    private Logger logger= LoggerFactory.getLogger(PlayerData.class);
+public class SeasonDataDaoImpl implements SeasonDataDao {
+    private Logger logger= LoggerFactory.getLogger(SeasonData.class);
     @Autowired
     SessionFactory sessionFactory;
     @Override
-    public PlayerData create(PlayerData playerData) {
+    public SeasonData create(SeasonData seasonData) {
         Transaction transaction=null;
         Session session= sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
-            session.save(playerData);
+            session.save(seasonData);
             transaction.commit();
             session.close();
-            return playerData;
+            return seasonData;
         }catch (Exception e){
             if (transaction!=null) transaction.rollback();
             logger.error("Create failed",e);
@@ -46,7 +44,7 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
         Session session= sessionFactory.openSession();
         try {
             transaction=session.beginTransaction();
-            Query<PlayerData> query=session.createQuery(hql);
+            Query<SeasonData> query=session.createQuery(hql);
             query.setParameter("id",id);
 //            query.setParameter("season",season);
             deletedCount=query.executeUpdate();
@@ -61,15 +59,15 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
     }
 
     @Override
-    public PlayerData update(PlayerData playerData) {
+    public SeasonData update(SeasonData seasonData) {
         Transaction transaction = null;
         Session session = sessionFactory.openSession();
         try {
             transaction = session.beginTransaction();
-            session.update(playerData);
+            session.update(seasonData);
             transaction.commit();
             session.close();
-            return playerData;
+            return seasonData;
         }
         catch (Exception e){
             if (transaction != null)transaction.rollback();
@@ -80,15 +78,15 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
     }
 
     @Override
-    public Set<PlayerData> getPlayerData() {
+    public Set<SeasonData> getPlayerData() {
         String hql ="FROM PlayerData";
         Transaction transaction=null;
         Session session = sessionFactory.openSession();
         try{
             transaction=session.beginTransaction();
             Query query =session.createQuery(hql);
-            List<PlayerData> result = query.list();
-            Set<PlayerData> setResult= result.stream().collect(Collectors.toSet());
+            List<SeasonData> result = query.list();
+            Set<SeasonData> setResult= result.stream().collect(Collectors.toSet());
             transaction.commit();
             session.close();
             return setResult;
@@ -100,16 +98,16 @@ public class PlayerDataDaoImpl implements PlayerDataDao{
     }
 
     @Override
-    public PlayerData getXSeasonPlayerDataForPlayer(Long playerId, Long season) {
+    public SeasonData getXSeasonPlayerDataForPlayer(Long playerId, Long season) {
         String hql ="FROM PlayerData as pd where (pd.player.id=:id) and (pd.season=:season)";
         Transaction transaction=null;
         Session session = sessionFactory.openSession();
         try{
             transaction=session.beginTransaction();
-            Query<PlayerData> query = session.createQuery(hql);
+            Query<SeasonData> query = session.createQuery(hql);
             query.setParameter("id",playerId);
             query.setParameter("season",season);
-            PlayerData result= query.uniqueResult();
+            SeasonData result= query.uniqueResult();
             transaction.commit();
             session.close();
             return result;

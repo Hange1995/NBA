@@ -67,7 +67,7 @@ public class Player{
 
     @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
     @JsonView({Views.PlayerDataView.class})
-    private Set<PlayerData> playerData;
+    private Set<SeasonData> seasonData;
 
 //    @OneToOne
 //    @JoinColumn(name = "currentseason_id")
@@ -159,12 +159,12 @@ public class Player{
 //        this.teamId = teamId;
 //    }
 
-    public Set<PlayerData> getPlayerData() {
-        return playerData;
+    public Set<SeasonData> getSeasonData() {
+        return seasonData;
     }
 
-    public void setPlayerData(Set<PlayerData> playerData) {
-        this.playerData = playerData;
+    public void setSeasonData(Set<SeasonData> seasonData) {
+        this.seasonData = seasonData;
     }
 
 //    @Override

@@ -2,8 +2,8 @@ package com.hardworking.training.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
-import com.hardworking.training.model.PlayerData;
-import com.hardworking.training.service.PlayerDataService;
+import com.hardworking.training.model.SeasonData;
+import com.hardworking.training.service.SeasonDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,36 +11,36 @@ import java.util.Set;
 
 @RestController
 @RequestMapping(value = {"/playerdata", "/data"})
-public class PlayerDataController {
+public class SeasonDataController {
     @Autowired
-    private PlayerDataService playerDataService;
+    private SeasonDataService seasonDataService;
 
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public PlayerData create(@RequestBody PlayerData playerData){
-        return playerDataService.create(playerData);
+    public SeasonData create(@RequestBody SeasonData seasonData){
+        return seasonDataService.create(seasonData);
     }
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "",method = RequestMethod.DELETE)
     public boolean delete(@RequestParam("id") Long id){
-        return playerDataService.delete(id);
+        return seasonDataService.delete(id);
     }
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "",method = RequestMethod.PUT)
-    public PlayerData update(@RequestBody PlayerData playerData){
-        PlayerData update= playerDataService.update(playerData);
+    public SeasonData update(@RequestBody SeasonData seasonData){
+        SeasonData update= seasonDataService.update(seasonData);
         return update;
     }
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public Set<PlayerData> getAllPlayerData(){
-        return playerDataService.get();
+    public Set<SeasonData> getAllPlayerData(){
+        return seasonDataService.get();
     }
 
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "/season",method = RequestMethod.GET)
-    public PlayerData getXSeasonPlayerDataForPlayer(@RequestParam("id") Long id, @RequestParam("season") Long season){
-        return playerDataService.getXSeasonPlayerDataForPlayer(id,season);
+    public SeasonData getXSeasonPlayerDataForPlayer(@RequestParam("id") Long id, @RequestParam("season") Long season){
+        return seasonDataService.getXSeasonPlayerDataForPlayer(id,season);
     }
 
 //    @JsonView(Views.PlayerDataView.class)

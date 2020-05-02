@@ -138,7 +138,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public Player getPlayerData(String name) {
-        String hql = "FROM Player as p left join fetch p.playerData where p.name=:name";
+        String hql = "FROM Player as p left join fetch p.seasonData where p.name=:name";
         Transaction transaction = null;
         Session session = sessionFactory.openSession();
         try {
@@ -160,7 +160,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public Set<Player> getAllPlayerAndCurrentSeasonData() {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season";
+        String hql = "FROM Player as p left join fetch p.seasonData as sd where sd.season=:season";
         Transaction transaction = null;
         Session session = sessionFactory.openSession();
         try {
@@ -183,7 +183,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public Set<Player> getAllPlayerAndData() {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM Player as p left join fetch p.playerData";
+        String hql = "FROM Player as p left join fetch p.seasonData";
         Transaction transaction = null;
         Session session = sessionFactory.openSession();
         try {
@@ -205,8 +205,8 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public Set<Player> getAllPlayerWhoHasXpointsScoreYSeason(Double score, Long season) {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season" +
-                " and pd.score>:score";
+        String hql = "FROM Player as p left join fetch p.seasonData as sd where sd.season=:season" +
+                " and sd.score>:score";
         Transaction transaction = null;
         Session session = sessionFactory.openSession();
         try {
@@ -230,7 +230,7 @@ public class PlayerDaoImpl implements PlayerDao {
     @Override
     public List<Player> getAllPlayerAndCurrentSeasonDataInOrder() {
         List<Player> players = new ArrayList<>();
-        String hql = "FROM Player as p left join fetch p.playerData as pd where pd.season=:season order by pd.score desc";
+        String hql = "FROM Player as p left join fetch p.seasonData as sd where sd.season=:season order by sd.score desc";
         Transaction transaction = null;
         Session session = sessionFactory.openSession();
         try {

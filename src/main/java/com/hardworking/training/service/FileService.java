@@ -15,7 +15,6 @@ import java.util.UUID;
 
 @Service
 public class FileService {
-    //TODO VM option
     private String region = System.getProperty("aws.region");
     private String bucketName=System.getProperty("aws.bucket.name");
     @Autowired

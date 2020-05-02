@@ -1,4 +1,4 @@
-CREATE TABLE playerdata (
+CREATE TABLE seasondata (
     /*id              INTEGER NOT NULL default nextval('playerdata_id_seq'),*/
     id              BIGSERIAL NOT NULL,
     player_id       BIGINT,
@@ -12,8 +12,8 @@ CREATE TABLE playerdata (
 
 
 );
-ALTER TABLE playerdata ADD CONSTRAINT playerdata_pk PRIMARY KEY ( id );
+ALTER TABLE seasondata ADD CONSTRAINT seasondata_pk PRIMARY KEY ( id );
 
-ALTER TABLE playerdata
-    ADD CONSTRAINT playerdata_player_fk FOREIGN KEY ( player_id )
+ALTER TABLE seasondata
+    ADD CONSTRAINT seasondata_player_fk FOREIGN KEY ( player_id )
         REFERENCES players ( id );
