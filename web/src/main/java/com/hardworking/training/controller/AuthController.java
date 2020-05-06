@@ -1,6 +1,8 @@
 package com.hardworking.training.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Role;
 import com.hardworking.training.model.User;
 import com.hardworking.training.service.JWTService;
@@ -41,7 +43,7 @@ public class AuthController {
         }return ResponseEntity.notFound().build();
     }
 
-
+    @JsonView(Views.UserView.class)
     @RequestMapping(value = "/signUp",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity signUp(@RequestBody User user){
         try{
