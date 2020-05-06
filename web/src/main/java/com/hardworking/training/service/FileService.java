@@ -24,26 +24,11 @@ public class FileService {
         this.s3Client = s3Client;
     }
 
-    //    public String uploadFile(MultipartFile file) throws IOException {
-//        return uploadFile(bucketName,file);
-//    }
-    public String uploadFile(MultipartFile file) throws IOException {
-        String uuid= UUID.randomUUID().toString();
-        String originalFileName=file.getOriginalFilename();
-        String newFileName= Files.getFileExtension(originalFileName)
-                +uuid+"."+Files.getFileExtension(originalFileName);
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(file.getContentType());
-        objectMetadata.setContentLength(file.getSize());
-        PutObjectRequest request = new PutObjectRequest(bucketName,
-                file.getOriginalFilename()+uuid, file.getInputStream(),objectMetadata);
-        s3Client.putObject(request);
-        String url=s3Client.getUrl(bucketName,newFileName).toString();
-        return url;
+        public String uploadFile(MultipartFile file) throws IOException {
+        return uploadFile(bucketName,file);
     }
 
-
-    public String uploadFile(String bucketName, MultipartFile file) throws IOException {
+    private String uploadFile(String bucketName, MultipartFile file) throws IOException {
         //This code expects that you have AWS credentials set up per:
         // https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
         // Upload a text string as a new object.
