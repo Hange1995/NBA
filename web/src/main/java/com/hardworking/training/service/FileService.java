@@ -17,10 +17,14 @@ import java.util.UUID;
 public class FileService {
     private String region = System.getProperty("aws.region");
     private String bucketName=System.getProperty("aws.bucket.name");
-    @Autowired
+//    @Autowired
     private AmazonS3 s3Client;
 
-//    public String uploadFile(MultipartFile file) throws IOException {
+    public FileService(@Autowired AmazonS3 s3Client) {
+        this.s3Client = s3Client;
+    }
+
+    //    public String uploadFile(MultipartFile file) throws IOException {
 //        return uploadFile(bucketName,file);
 //    }
     public String uploadFile(MultipartFile file) throws IOException {
@@ -60,5 +64,14 @@ public class FileService {
 
     public String getUrl(String s3Key){
         return s3Client.getUrl(bucketName,s3Key).toString();
+    }
+
+
+    public String getBucketName() {
+        return bucketName;
+    }
+
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
     }
 }

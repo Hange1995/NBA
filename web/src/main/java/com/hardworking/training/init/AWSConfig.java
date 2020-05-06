@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.hardworking.training.service.FileService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -14,6 +16,8 @@ import org.springframework.context.annotation.Profile;
 @Profile("dev")
 public class AWSConfig {
     //TODO constructor based DI
+    @Value("${aws.bucket.name}")
+    private String bucketName;
     @Bean
     public AmazonS3 getAmazonS3(){
         return AmazonS3ClientBuilder.standard()
@@ -26,5 +30,13 @@ public class AWSConfig {
         return AmazonSQSClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain())
                 .build();
     }
+
+//    @Bean
+//    public FileService getFileService(){
+//        AmazonS3 amazonS3=AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+//        FileService fileService=new FileService(amazonS3);
+//        fileService.setBucketName(bucketName);
+//        return fileService;
+//    }
 
 }

@@ -101,7 +101,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUserByName(String name) {
-        String hql ="FROM User user where (lower(u.email) = :name or lower(u.name) =:name)";
+        String hql ="FROM User u where (lower(u.email) = :name or lower(u.name) =:name)";
         logger.debug("User Id"+name);
         try (Session session=sessionFactory.openSession()){
             Query<User> query=  session.createQuery(hql);
@@ -146,27 +146,4 @@ public class UserDaoImpl implements UserDao{
         }
     }
 
-//    @Override
-//    public Set<Role> getRoles(String name) {
-//            if (name==null)return null;
-//            String hql =
-//                    "FROM User as u "+
-//                            "join fetch u.users_roles as ur "+
-//                            "join fetch ur.role as r "+
-//                            "Where lower(u.name)=:name";
-//            Session session = sessionFactory.openSession();
-//            try {
-//                Query query = session.createQuery(hql);
-//                query.setParameter("name",name.toLowerCase());
-////            HashSet<Team> result = query.getResultList();
-////            Set<Team> listResult = new ArrayList<>();
-//                List<Role> result = query.getResultList();
-//                Set<Role> setResult = result.stream().collect(Collectors.toSet());
-//                session.close();
-//                return setResult;
-//            }catch (HibernateException e){
-//                logger.error("can not get both",e);
-//                return null;
-//            }
-//        }
 }

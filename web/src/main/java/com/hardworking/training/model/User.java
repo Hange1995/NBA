@@ -1,6 +1,7 @@
 package com.hardworking.training.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -19,7 +20,9 @@ public class User {
     @Column(name = "name")
     @JsonView({Views.UserView.class})
     private String name;
+//    @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "password")
+//    @JsonIgnore
     private String password;
     @Column(name = "secret_key")
     private String secretKey;
@@ -65,7 +68,7 @@ public class User {
         this.name = name;
     }
 
-//    @JsonIgnore
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

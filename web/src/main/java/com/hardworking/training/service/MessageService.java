@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageService {
-//    @Value("${aws.sqs}")
-    private String queueName="nba-hange";
+    @Value("${aws.sqs}")
+    private String queueName;
     @Autowired
     private AmazonSQS amazonSQS;
     public void sendMessage(String messageBody,int delay){
@@ -24,7 +24,6 @@ public class MessageService {
     public String getQueueUrl(String queueName){
         GetQueueUrlResult getQueueUrlResult=amazonSQS.getQueueUrl(queueName);
         return getQueueUrlResult.getQueueUrl();
-
     }
 
 }

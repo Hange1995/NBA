@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class JWTService {
     private Logger logger = LoggerFactory.getLogger(getClass());
+    //todo secret key
     private final String SECRET_KEY = "hangechen-ascending";
     private final String ISSUER = "com.hardworking";
     private final long  EXPIRATION_TIME=86400*3000;

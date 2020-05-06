@@ -53,7 +53,7 @@ public class AuthController {
             user.setRoles(roleList);
             User u= userService.saveUser(user);
             if (u==null) return ResponseEntity.ok().body("Can't not create user");
-            return ResponseEntity.ok().body("You are all set welcome to nba.com");
+            return ResponseEntity.ok().body(u);
         }catch (Exception e){
             e.printStackTrace();
         }return ResponseEntity.ok().body("Can't not create user");
