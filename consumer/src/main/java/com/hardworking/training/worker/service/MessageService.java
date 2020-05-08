@@ -21,6 +21,17 @@ public class MessageService {
         return amazonSQS.receiveMessage(getQueueUrl(queueName)).getMessages();
     }
 
+
+    public boolean deleteMessage(List<Message> messages){
+        int init = messages.size();
+        int result=0;
+        for (Message m : messages) {
+            amazonSQS.deleteMessage(getQueueUrl(queueName), m.getReceiptHandle());
+            result++;
+        }
+        return init==result;
+    }
+
     public String getQueueUrl(String queueName) {
         GetQueueUrlResult getQueueUrlResult = amazonSQS.getQueueUrl(queueName);
         return getQueueUrlResult.getQueueUrl();

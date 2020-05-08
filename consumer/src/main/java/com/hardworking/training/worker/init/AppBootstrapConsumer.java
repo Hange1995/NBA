@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = "com.hardworking.training.worker")
-public class AppBootstrap {
+public class AppBootstrapConsumer {
     public static void main(String[] args) {
-        SpringApplication.run(AppBootstrap.class,args);
+        SpringApplication.run(AppBootstrapConsumer.class,args);
     }
 }
