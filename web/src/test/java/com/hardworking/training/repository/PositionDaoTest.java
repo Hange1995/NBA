@@ -58,13 +58,7 @@ public class PositionDaoTest {
         Assert.assertTrue(position.getPlayer().size()>1);
     }
 
-    @Test
-    public void getPositionBy(){
-        Position position = positionDao.getPositionBy(po1.getId());
-        Assert.assertNotNull(position);
-        Assert.assertEquals(position.getPositionName(),po1.getPositionName());
-        Assert.assertTrue(position.getPlayer().size()>1);
-    }
+
     @Test
     public void getPositionAndPlayers(){
         String posName="PG";

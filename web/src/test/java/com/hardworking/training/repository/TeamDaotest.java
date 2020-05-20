@@ -57,13 +57,7 @@ public class TeamDaotest {
         Assert.assertEquals(team.getName(),t1.getName());
         Assert.assertTrue(team.getPlayer().size()>1);
     }
-    @Test
-    public void getTeamBy(){
-        Team team = teamDao.getTeamBy(t1.getId());
-        Assert.assertNotNull(team);
-        Assert.assertEquals(team.getName(),t1.getName());
-        Assert.assertTrue(team.getPlayer().size()>1);
-    }
+
     @Test
     public void getTeamAndPlayers(){
         String teamname="Heat";

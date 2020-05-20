@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Player;
 import com.hardworking.training.service.PlayerService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,6 +73,7 @@ public class PlayerController {
     }
 
     //{prefix}/players/data GET, get all players and all season data.
+    @Cacheable(value = "players")
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public Set<Player> getAllPlayerAndAllSeasonData() {

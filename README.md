@@ -39,7 +39,7 @@ docker run --name ${PostgresContainerName} -e POSTGRES_USER=${username} -e POSTG
 ```
 4. Create Unit database on PGAdmin for unit testing
 ```
-
+create database basketballDB_Demo_unit;
 ```
 5. Environment properties configuration
 ```
@@ -58,14 +58,19 @@ mvn compile -Dspring.profiles.active=${env}
 6. Schema Flyway migration for creating tables in database
 ```
 mvn compile flyway:migrate -P unit -Ddb_username=${username} -Ddb_url=localhost:${containerport}/${databasename} -Ddb_password=${password} 
-
 ```
+
 ## Compile
 
-## Test****
+## Test
+
+
 ## Run Migration
+
 ## Package
+
 ## API guildline
+
 ## ScreenShoot DEMO
 
 

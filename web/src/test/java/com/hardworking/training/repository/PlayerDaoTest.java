@@ -42,7 +42,7 @@ public class PlayerDaoTest {
     @Test
     public void getPlayersTest(){
         List<Player> players = playerDao.getPlayers();
-        int expectedNumofPlayer = 5;
+        int expectedNumofPlayer = 6;
         Assert.assertEquals(expectedNumofPlayer,players.size());
     }
     @Test

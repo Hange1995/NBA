@@ -38,7 +38,7 @@ public class SeasonDataDaoImpl implements SeasonDataDao {
 
     @Override
     public boolean delete(Long id) {
-        String hql= "DELETE PlayerData as p where p.id=:id";
+        String hql= "DELETE SeasonData as p where p.id=:id";
         int deletedCount = 0;
         Transaction transaction=null;
         Session session= sessionFactory.openSession();
@@ -79,7 +79,7 @@ public class SeasonDataDaoImpl implements SeasonDataDao {
 
     @Override
     public Set<SeasonData> getPlayerData() {
-        String hql ="FROM PlayerData";
+        String hql ="FROM SeasonData";
         Transaction transaction=null;
         Session session = sessionFactory.openSession();
         try{
@@ -99,7 +99,7 @@ public class SeasonDataDaoImpl implements SeasonDataDao {
 
     @Override
     public SeasonData getXSeasonPlayerDataForPlayer(Long playerId, Long season) {
-        String hql ="FROM PlayerData as pd where (pd.player.id=:id) and (pd.season=:season)";
+        String hql ="FROM SeasonData as pd where (pd.player.id=:id) and (pd.season=:season)";
         Transaction transaction=null;
         Session session = sessionFactory.openSession();
         try{

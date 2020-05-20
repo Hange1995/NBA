@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "playerdata")
-public class SeasonData {
+public class SeasonData implements Serializable {
     //TODO change name to SeasonData
     public SeasonData() {
     }

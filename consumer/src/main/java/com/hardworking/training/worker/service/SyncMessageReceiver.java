@@ -15,33 +15,23 @@ import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 public class SyncMessageReceiver {
-    public static void main(String[] args) throws JMSException, InterruptedException {
+    public static void main(String[] args) throws JMSException {
         SQSConnectionFactory connectionFactory = new SQSConnectionFactory(
                 new ProviderConfiguration(),
-                AmazonSQSClientBuilder.standard()
-                        .withRegion("us-east-1")
-                        .withCredentials(new DefaultAWSCredentialsProviderChain()));
+                AmazonSQSClientBuilder.standard().build());
         // Create the connection
         SQSConnection connection = connectionFactory.createConnection();
         // Create the session
         Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
         MessageConsumer consumer = session.createConsumer( session.createQueue("nba-hange") );
-    // Instantiate and set the message listener for the consumer.
-        consumer.setMessageListener(new MyListener());
 
-    // Start receiving incoming messages.
         connection.start();
 
-    // Wait for 1 second. The listener onMessage() method will be invoked when a message is received.
-        Thread.sleep(1000);
+        receiveMessages(session, consumer);
 
-//        connection.start();
-//
-//        receiveMessages(session, consumer);
-//
-//        // Close the connection. This closes the session automatically
-//        connection.close();
-//        System.out.println( "Connection closed" );
+        // Close the connection. This closes the session automatically
+        connection.close();
+        System.out.println( "Connection closed" );
     }
     private static void receiveMessages( Session session, MessageConsumer consumer ) {
         try {

@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "players")
-public class Player{
+public class Player implements Serializable {
     public Player() {}
 
     public Player(long id, String name, String firstName, String lastName,
