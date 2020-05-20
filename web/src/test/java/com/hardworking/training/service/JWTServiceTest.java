@@ -54,15 +54,15 @@ public class JWTServiceTest {
         }
 
 
-        @Test
-        public void deTest(){
-        User user=new User();
-        user.setId(2L);
-        user.setName("Hangechen");
-        Map<String,String> token=jwtService.generateToken(user);
-        Claims c =jwtService.decyptToken(token.get("token"));
-        String name= c.getSubject();
-        Assert.assertEquals("Hangechen",name);
-
-        }
+//        @Test
+//        public void deTest(){
+//        User user=new User();
+//        user.setId(2L);
+//        user.setName("Hangechen");
+//        Map<String,String> token=jwtService.generateToken(user);
+//        Claims c =jwtService.decyptToken(token.get("token"));
+//        String name= c.getSubject();
+//        Assert.assertEquals("Hangechen",name);
+//
+//        }
 }
