@@ -77,13 +77,56 @@ mvn compile test -Dspring.profiles.active=${unit} -Daws.region=${region} -Ddb_ur
 mvn clean compile package -DskipTests=true
 ```
 ## API guideline and Reference DEMO
-1. You need to sign up for authority to get access.
+- You need to sign up for authority to get access.<br />
+Make a get request in this address to create a new account.<br />
+     
 ```
-
+GET - http://localhost:8080/auth/signUp
 ```
+Put the request body.
+```
+{
+    "name": "UserForTest",
+    "email": "UserForTest@gmail.com",
+    "password": "123456789"
+}
+``` 
+Then you can get the response like:
+```
+{
+    "name": "UserForTest",
+    "firstName": null,
+    "lastName": null,
+    "email": "UserForTest@gmail.com",
+    "activeStatus": true
+}
+```
+DEMO screen shoot:
+![Image of signUp](https://github.com/Hange1995/NBA/blob/master/READMESnapShoot/userSignUp.png?raw=true)
+- You need to login.<br />
+Make a post request in this address.
+```
+POST - http://localhost:8080/auth
+```
+Put the request body.（ You can chose login with username or email)
+```
+{
+    "email": "UserForTest@gmail.com",
+    "password": "123456789"
+}
+``` 
+Then you can get the response like:
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyMCIsInN1YiI6IlVzZXJGb3JUZXN0IiwiaWF0IjoxNTkwMTY0NTUyLCJpc3MiOiJjb20uaGFyZHdvcmtpbmciLCJleHAiOjE1OTA0MjM3NTIsImFsbG93ZWRSZXNvdXJjZSI6Ii9wbGF5ZXJzLC90ZWFtcywvcG9zaXRpb25zLC91c2VycywvcGxheWVyZGF0YSIsImFsbG93ZWRSZWFkUmVzb3VyY2VzIjoiL3BsYXllcnMsL3RlYW1zLC9wb3NpdGlvbnMsL3VzZXJzLC9wbGF5ZXJkYXRhIiwiYWxsb3dlZENyZWF0ZVJlc291cmNlcyI6IiIsImFsbG93ZWRVcGRhdGVSZXNvdXJjZXMiOiIiLCJhbGxvd2VkRGVsZXRlUmVzb3VyY2VzIjoiIn0.NrFruTvulI8dqg48uqBps79UL9PDbHRvWwOq1AF-bpc"    
+}
+```
+This token is need for the future access other api. So you don't need to login to the every API.<br />
+DEMO screen shoot:
+![Image of login](https://github.com/Hange1995/NBA/blob/master/READMESnapShoot/userLogin.png?raw=true)
 
 
-There were comment before every API. Take this get a player by it's name as example.
+- There were comment before every API. Take this get a player by it's name as example.
 ```
     // http://localhost:8080={prefix}
     //{prefix}/players/name?key=value GET get the player by specific name
@@ -93,8 +136,9 @@ There were comment before every API. Take this get a player by it's name as exam
             return playerService.getPlayerByName(name);
         }
 ```
-The URL of this API is prefix + controller value + value which is http://localhost:8080/players/name.
-Than you need provide the player's name and it will return you all the info about this player.
+DEMO screen shoot:
+![Image of get](https://github.com/Hange1995/NBA/blob/master/READMESnapShoot/getPlayerByName.png?raw=true)
+
 
 
 
