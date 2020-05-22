@@ -3,6 +3,7 @@ package com.hardworking.training.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 
 import javax.persistence.*;
 import java.io.Serializable;
