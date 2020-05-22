@@ -1,7 +1,6 @@
 # NBA Database by Hange Chen
 ## Description 
 This is a sample project for [NBA database](https://github.com/Hange1995/NBA).
-You can get the 
 ## Assumption
 1. It's will be a web that provide you all the info about NBA.
 2. The User need to sign up before access any data.
