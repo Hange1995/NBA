@@ -24,9 +24,7 @@ import static org.mockito.Mockito.*;
 public class FileServiceTest {
     @Autowired
     FileService fileService;
-    @Autowired
-    @Qualifier("dev")
-    FileService fileService1;
+
     @Autowired
     AmazonS3 s3Client;
     @Test
