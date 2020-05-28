@@ -2,6 +2,7 @@ package com.hardworking.training.repository;
 
 import com.hardworking.training.init.AppBootstrap;
 import com.hardworking.training.model.User;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,11 @@ public class UserDaoTest {
          user.setName("Test");
          user.setEmail("Test@gmail.com");
          user.setPassword("123");
+    }
+
+    @After
+    public void teardown(){
+        userDao.delete("Test");
     }
 
 
