@@ -1,7 +1,7 @@
 package com.hardworking.training.init;
 
 import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
-import com.hardworking.training.util.HibernateUtil;
+//import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
@@ -16,7 +16,7 @@ import java.util.Properties;
 @Configuration
 public class SessionConfig {
     private static SessionFactory sessionFactory;
-    private static Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(SessionConfig.class);
 
     @Bean
     public static SessionFactory getSessionFactory() {
