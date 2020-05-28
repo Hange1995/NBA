@@ -73,7 +73,7 @@ public class PlayerController {
     }
 
     //{prefix}/players/data GET, get all players and all season data.
-    @Cacheable(value = "players")
+//    @Cacheable(value = "players")
     @JsonView(Views.PlayerDataView.class)
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public Set<Player> getAllPlayerAndAllSeasonData() {
