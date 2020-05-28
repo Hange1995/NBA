@@ -3,8 +3,6 @@ export CATALINA_OPTS="$CATALINA_OPTS -Ddatabase.dialect=org.hibernate.dialect.Po
 export CATALINA_OPTS="$CATALINA_OPTS -Ddatabase.url=jdbc:postgresql://172.17.0.2:5432/nba"
 export CATALINA_OPTS="$CATALINA_OPTS -Ddatabase.user=admin"
 export CATALINA_OPTS="$CATALINA_OPTS -Ddatabase.password=password"
-export CATALINA_OPTS="$CATALINA_OPTS -Daws.accessKeyId=AKIA3LBQF3Z3SLF5HQGZ"
-export CATALINA_OPTS="$CATALINA_OPTS -Daws.secretKey=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"
 export CATALINA_OPTS="$CATALINA_OPTS -Dspring.profiles.active=dev"
 export CATALINA_OPTS="$CATALINA_OPTS -Daws.region=us-east-1"
 export CATALINA_OPTS="$CATALINA_OPTS -Daws.bucket.name=bucket-for-hange"
