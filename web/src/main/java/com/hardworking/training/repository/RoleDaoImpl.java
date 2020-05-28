@@ -1,9 +1,7 @@
 package com.hardworking.training.repository;
 
-import com.github.fluent.hibernate.H;
+
 import com.hardworking.training.model.Role;
-import com.hardworking.training.model.User;
-//import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

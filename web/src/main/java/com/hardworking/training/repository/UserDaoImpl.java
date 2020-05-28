@@ -2,7 +2,6 @@ package com.hardworking.training.repository;
 
 
 import com.hardworking.training.model.User;
-//import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

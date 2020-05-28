@@ -1,19 +1,16 @@
 package com.hardworking.training.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 import com.hardworking.training.model.Position;
 import com.hardworking.training.service.PositionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.util.List;
 import java.util.Set;
 
 

@@ -1,11 +1,10 @@
 package com.hardworking.training.repository;
 
-import com.hardworking.training.model.Player;
-import com.hardworking.training.model.Role;
+
 import com.hardworking.training.model.User;
 
 import java.util.List;
-import java.util.Set;
+
 
 public interface UserDao {
     User save(User user);

@@ -2,7 +2,6 @@ package com.hardworking.training.repository;
 
 import com.hardworking.training.model.Player;
 import com.hardworking.training.model.Team;
-//import com.hardworking.training.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

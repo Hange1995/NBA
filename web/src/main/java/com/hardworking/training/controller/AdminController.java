@@ -2,19 +2,14 @@ package com.hardworking.training.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
-import com.hardworking.training.model.Role;
 import com.hardworking.training.model.User;
-import com.hardworking.training.service.RoleService;
 import com.hardworking.training.service.UserService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.swing.text.View;
 import java.util.List;
 
 @RestController

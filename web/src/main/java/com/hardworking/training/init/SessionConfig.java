@@ -1,7 +1,7 @@
 package com.hardworking.training.init;
 
 import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
-//import com.hardworking.training.util.HibernateUtil;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;

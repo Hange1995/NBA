@@ -1,12 +1,10 @@
 package com.hardworking.training.model;
 
 
-import com.amazonaws.services.dynamodbv2.xspec.S;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.hardworking.training.jsonview.Views;
+
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "images")

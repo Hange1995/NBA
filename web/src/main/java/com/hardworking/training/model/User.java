@@ -1,7 +1,5 @@
 package com.hardworking.training.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hardworking.training.jsonview.Views;
 import org.apache.commons.codec.digest.DigestUtils;
