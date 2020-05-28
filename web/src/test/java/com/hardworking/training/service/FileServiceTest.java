@@ -4,6 +4,8 @@ import com.amazonaws.services.s3.AmazonS3;
 
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.hardworking.training.init.AppBootstrap;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,16 @@ public class FileServiceTest {
 
     @Autowired
     AmazonS3 s3Client;
+
+
+    @Before
+    public void init(){
+
+    }
+    @After
+    public void after(){
+        reset(s3Client);
+    }
     @Test
     public void uploadTest() throws IOException {
         //Mockito
@@ -49,6 +61,10 @@ public class FileServiceTest {
 //                                            any(InputStream.class),any(ObjectMetadata.class));
         verify(s3Client,times(1)).putObject(any(PutObjectRequest.class));
     }
+
+
+
+
     @Test
     public void getUrlTest() throws MalformedURLException {
         when(s3Client.getUrl(anyString(),anyString() )).thenReturn(new URL("http","xxx",123,"abc"));
