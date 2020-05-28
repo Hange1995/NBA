@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "playerdata")
+@Table(name = "seasondata")
 public class SeasonData implements Serializable {
     //TODO change name to SeasonData
     public SeasonData() {

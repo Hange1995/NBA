@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication(scanBasePackages = {"com.hardworking.training"})
 @ServletComponentScan(basePackages = {"com.hardworking.training.filter"})
-//@EnableCaching
+@EnableCaching
 public class AppBootstrap extends SpringBootServletInitializer{
     public static void main(String[] args) {
         SpringApplication.run(AppBootstrap.class,args);
