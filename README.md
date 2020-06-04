@@ -138,7 +138,47 @@ DEMO screen shoot:
 DEMO screen shoot:
 ![Image of get](https://github.com/Hange1995/NBA/blob/master/READMESnapShoot/getPlayerByName.png?raw=true)
 
+# CI/CD
 
+You should have completed the following stages before you work with DevOps engineer.
+
+  1. Upload source code to GitHub repository
+  2. Fulfill unit test stage in docker container
+  3. Package **.war** file in docker container
+  4. Build Docker image with **.war** file and Dockerfile
+  5. Launch containerized application successfully
+
+## GitHub
+
+Make sure the source code in the github is the latest(runnable) version.   
+
+***IMPORTANT: DO NOT INCLUDE ANY CREDENTIAL IN THE CODE.***
+
+## Unit Test
+>Use `Docker` to pull `Maven` image and run an interactive container.
+>
+    docker pull maven:3.6.0-jdk-8
+    docker run -it maven:3.6.0-jdk-8 /bin/bash
+
+>Use `Git` to retrieve source code from `GitHub`.
+>
+    git clone <repository_url>
+    
+>Get into the project's folder, then use `Flyway` to migrate data.
+>
+    mvn clean compile flyway:migrate -Ddatabase.url=jdbc:postgresql://${database_url}:5432/${database_name} 
+    -Ddatabase.user=${user_name} -Ddatabase.password=${password}
+    
+Notice: Cause we are currently run in the container. Thus, the database connection is no longer localhost:5432.
+You should inspect `postgreSQL` server container to find the IP address. Find the internal IP address of the container by using:
+    
+    docker inspect ${container_id} | grep "IPAddress"
+    
+>Run unit tests in the container.
+>
+    mvn test -Ddatabase.url=jdbc:postgresql://${database_url}:5432/${database_name} -Ddatabase.user=${user_name} 
+    -Ddatabase.password=${password} -Daws.accessKeyId=${access_key} -Daws.secretKey=${secret_key} 
+    -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.driver=org.postgresql.Driver
 
 
 
